@@ -27,7 +27,7 @@ if __name__ == '__main__':
 
     for filename in files:
         with open(os.path.join(args.vanillaDirectory, filename), 'rb') as f:
-            encodedFiles[filename] = base64.b64encode(f.read())
+            encodedFiles[filename] = base64.b85encode(f.read())
 
     for line in fileinput.input([args.bootstraperScript], inplace=True):
         sys.stdout.write(re.sub(r'^lttoolbox_language_module_files = {.*?}$', 'lttoolbox_language_module_files = %s' % repr(encodedFiles), line))
