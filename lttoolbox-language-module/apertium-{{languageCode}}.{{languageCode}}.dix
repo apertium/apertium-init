@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dictionary>
+  <!-- Define an alphabet here. See http://wiki.apertium.org/wiki/Monodix_basics for more information. -->
+  <alphabet></alphabet>
+  <sdefs>
+    <!-- Define symbol definitions within <sdef> here. See http://wiki.apertium.org/wiki/Monodix_basics for more information. -->
+  </sdefs>
+  <pardefs>
+    <!-- Define paradigms within <pardef> here. See http://wiki.apertium.org/wiki/Monodix_basics for more information. -->
+  </pardefs>
+  <section id="main" type="standard">
+    <!-- Define entries within <e> here. See http://wiki.apertium.org/wiki/Monodix_basics for more information. -->
+  </section>
+ </dictionary>

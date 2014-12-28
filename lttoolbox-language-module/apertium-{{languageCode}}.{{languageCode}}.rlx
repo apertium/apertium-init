@@ -1,0 +1,88 @@
+# Define window boundaries here
+DELIMITERS = "<$.>" ;
+
+# Tags
+
+# Define tags here
+LIST NOUN = n ;
+
+LIST V-FIN = pres past fut imp ;
+#SET V-FIN = Pres | Past | Fut ; 
+LIST V-FIN-PAST = Past ; 
+
+SET Pers = (p1) | (p2) | (p3) ;
+
+SET NounMascFem = (n m) OR (n f) OR (n mfn) ;
+SET NounMascNeu = (n m) OR (n nt) OR (n mfn) ;
+SET NounFemNeu = (n f) OR (n nt) OR (n mfn) ;
+
+
+SET OBL    = CASE - Nom ;
+
+LIST DemPron = (prn dem) ;
+LIST PosPron = (prn pos) ;
+LIST IndPron = (prn ind) ;
+
+# Boundary sets 
+
+SET WORD = N | V | A | Pr | Pron | Det | Adv | CC | CS | Interj | Num | ("\?") ;
+
+LIST Nomen = top al ant cog n np prn adj det; # Words that have gender, number and case
+
+SET PRE-N =  A | Det | Num | (n gen) | (prn gen) | CC ; # Det???
+
+SET Modifier = A | Det | Num ; # Words that agree in case, number, gender with the following word.
+    # (differs from PRE-N in that it always agrees with the headword)
+    # | DemPron | PosPron | IndPron removed
+
+LIST COMMA = (",") (cm) ;
+
+LIST CMSEMIC = "," ";" ;
+SET MARK =  COMMA | ("\\") | ("\;") ; #"
+
+SET WORDMARK = WORD | MARK ;
+
+SET NPNH = WORDMARK - PRE-N ;
+SET NPNHA = WORDMARK - PRE-N - Adv ;
+SET NOT-ADV = WORDMARK - Adv ;
+
+SET NP-MEMBER = PRE-N | N | Pron ;
+
+SET NP-HEAD = N | Pron | Prop ;
+
+SET S-BOUNDARY = CS | Interr | (";") ;
+
+LIST VERB-DAT = "казати"i "відповідати"i "купувати"i "посміхатися"i "ходити"i ; # TODO: complete the list; "ходити" - CHECK
+
+# =========================================================================== #
+
+SECTION
+
+REMOVE CS IF (0 ("что")) (NOT -1 COMMA) (NOT -1 BOS) ;
+    ## Вот что говорят об этом исторические архивы. 
+
+SELECT CS IF (0 ("что")) (-1 COMMA) ;
+    ## Практика показывает, что для её решения уже недостаточно существующих физических теорий.
+
+REMOVE Det + $$CASE IF (NOT 1* $$CASE BARRIER N) ;
+    ## вона дивиться у вікно і бачить Іванка та Марічку, що бавляться.
+    ## она смотрит в окно и видит Ваню и Машу, что играют.
+
+SELECT Gen IF (0* ("бути"i) + (neg) BARRIER BOS | EOS | CMSEMIC)
+              (NOT 0* V-FIN BARRIER BOS | EOS | CMSEMIC) ;
+    ## Вона заглядає під стіл і під крісла, але Іванка ніде немає.
+    ## Она заглядывает под стол и под стулья, но Вани нигде нет.
+
+# Preposition based case disambiguation:
+REMOVE:Case Pr + $$CASE IF (1C Nomen - $$CASE)
+
+REMOVE:Locative Nomen + Loc IF (0 Dat OR Loc) (NOT -1 Pr + Loc) (NOT -1C Modifier + Loc);
+
+
+AFTER-SECTIONS
+
+REMOVE:h001 Voc IF (0 Nom OR Acc OR Voc);
+
+
+SELECT:h006 3p IF (0C BUTI LINK 0 Pres) ; 
+   ## На думку фахівців, знайдені боєприпаси є фугасною авіаційною бомбою німецького виробництва.
