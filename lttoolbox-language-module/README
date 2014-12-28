@@ -6,5 +6,5 @@ To install,
 
 To test,
 	$ echo '{{testSentence}}' | apertium -d . {{languageCode}}-morph
-	
+
 Detailed installation instructions are available on the Apertium Wiki, http://wiki.apertium.org/wiki/Minimal_installation_from_SVN.
