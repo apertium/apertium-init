@@ -13,12 +13,7 @@ TARGETS_COMMON = $(LANG1).automorf.bin $(LANG1).autogen.bin $(LANG1).autopgen.bi
         $(LANG1).rlx.bin
 
 # Use this goal for creating .deps, otherwise make -j2 will give problems:
-.deps/.d:
-	if [ ! -d .deps ]; then mkdir .deps; fi
-	touch $@
-
-# Prevent the .d file from being removed automatically:
-.PRECIOUS: .deps/.d
+@ap_include@
 
 ###############################################################################
 ## {{languageName}} transducer
