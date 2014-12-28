@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dictionary>
-  <!-- Define an alphabet here. See http://wiki.apertium.org/wiki/Monodix_basics for more information. -->
+  <!-- Define an alphabet below. See http://wiki.apertium.org/wiki/Monodix_basics for more information. -->
   <alphabet></alphabet>
   <sdefs>
     <!-- Define symbol definitions within <sdef> here. See http://wiki.apertium.org/wiki/Monodix_basics for more information. -->
@@ -11,4 +11,4 @@
   <section id="main" type="standard">
     <!-- Define entries within <e> here. See http://wiki.apertium.org/wiki/Monodix_basics for more information. -->
   </section>
- </dictionary>
+</dictionary>
