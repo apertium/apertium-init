@@ -1,22 +1,16 @@
 AC_PREREQ(2.52)
 
-AC_INIT([apertium-{{languageCode}}], [0.1.0], [])
+AC_INIT([apertium-{{languageCode}}], [0.1.0], [{{email}}])
 AM_INIT_AUTOMAKE([apertium-{{languageCode}}], [0.1.0], no-define)
 AC_PROG_LN_S
 AC_PROG_AWK
 
-m4_define([required_apertium_version], [3.2.0])
-PKG_CHECK_MODULES(APERTIUM, apertium >= required_apertium_version, [], [PKG_CHECK_MODULES(APERTIUM, apertium-3.2 >= required_apertium_version)])
+m4_define([required_apertium_version], [3.3.0])
+m4_define([required_lttolbox_version], [3.3.0])
 
-AC_PATH_PROG(LTPRINT, lt-print, no)
-if test x$ac_cv_path_LTPRINT = x
-then
-  AC_MSG_ERROR([You don't have lt-print installed.])
-fi
-if test x$ac_cv_path_LTPRINT = xno
-then
-  AC_MSG_ERROR([You don't have lt-print installed.])
-fi
+PKG_CHECK_MODULES(APERTIUM, apertium >= required_apertium_version)
+PKG_CHECK_MODULES(LTTOOLBOX, lttoolbox >= required_lttolbox_version)
+
 
 AC_PATH_PROG(CGCOMP, cg-comp, no)
 if test x$ac_cv_path_CGCOMP = x
@@ -28,14 +22,7 @@ then
   AC_MSG_ERROR([You don't have cg-comp installed.])
 fi
 
-AC_PATH_PROG(PKG_CONFIG, pkg-config, no)
-if test x$ac_cv_path_PKG_CONFIG = x
-then
-  AC_MSG_ERROR([You don't have pkg-config installed.])
-fi
-if test x$ac_cv_path_PKG_CONFIG = xno
-then
-  AC_MSG_ERROR([You don't have pkg-config installed.])
-fi
+
+AP_MKINCLUDE
 
 AC_OUTPUT([Makefile apertium-{{languageCode}}.pc])
