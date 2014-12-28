@@ -3,6 +3,7 @@
 import argparse, base64, sys, re, fileinput, os
 
 files = [
+    '{{languageCode}}.prob',
     'apertium-{{languageCode}}.{{languageCode}}.acx',
     'apertium-{{languageCode}}.{{languageCode}}.dix',
     'apertium-{{languageCode}}.{{languageCode}}.rlx',
