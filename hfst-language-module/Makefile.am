@@ -16,7 +16,7 @@ TARGETS_COMMON = $(LANG1).automorf.hfst $(LANG1).autogen.hfst \
 @ap_include@
 
 ###############################################################################
-## {{languageCode}}ay transducer
+## {{languageName}} transducer
 ###############################################################################
 
 .deps/$(LANG1).twol.hfst: $(BASENAME).$(LANG1).twol .deps/.d
@@ -156,3 +156,4 @@ install-data-local:
 CLEANFILES = $(TARGETS_COMMON)
 clean-local:
 	-rm -rf .deps modes
+
