@@ -34,7 +34,7 @@ if __name__ == '__main__':
     else:
         try:
             email = str(subprocess.check_output('git config user.email', stderr=subprocess.STDOUT, shell=True), 'utf-8').strip()
-        except Exception as e:
+        except subprocess.CalledProcessError as e:
             email = 'apertium-stuff@lists.sourceforge.net'
             sys.stderr.write('Unable to get email, defaulting to %s: %s' % (email, e))
 
@@ -60,4 +60,9 @@ if __name__ == '__main__':
 
         autogenFile = os.path.join(args.destination, 'autogen.sh')
         os.chmod(autogenFile, os.stat(autogenFile).st_mode | stat.S_IEXEC)
+
+        try:
+            subprocess.check_output('svn add %s' % args.destination, stderr=subprocess.STDOUT, shell=True)
+        except subprocess.CalledProcessError as e:
+            sys.stderr.write('Unable to add %s to SVN: %s' % (args.destination, str(e.output, 'utf-8')))
 
