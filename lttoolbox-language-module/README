@@ -50,11 +50,11 @@ Testing
 If you are in the source directory after running make, the following
 commands should work:
 
-$  echo "TODO: Test sentence here" | apertium -d . {{languageCode}}-morph
-^My/My<det><pos><sp>/Prpers<prn><obj><p1><mf><sg>$ ^skeertuig/skeertuig<n><sg>$ ^is/wees<vbser><pres>$ ^vol/vol<adj><pred>$ ^palings/paling<n><pl>$
+$  echo "TODO: test sentence" | apertium -d . {{languageCode}}-morph
+TODO: test analysis result
 
-$ echo "TODO: Test sentence here" | apertium -d . {{languageCode}}-tagger
-^My/My<det><pos><sp>$ ^skeertuig/skeertuig<n><sg>$ ^is/wees<vbser><pres>$ ^vol/vol<adj><pred>$ ^palings/paling<n><pl>$
+$ echo "TODO: test sentence" | apertium -d . {{languageCode}}-tagger
+TODO: test tagger result
 
 Files and data
 ===============================================================================
@@ -80,4 +80,3 @@ If you need help using this language pair or data, you can contact:
 * IRC: #apertium on irc.freenode.net
 
 See also the file AUTHORS included in this distribution.
-
