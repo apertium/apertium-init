@@ -7,10 +7,10 @@ VERSION=0.1.0
 LANG1={{languageCode}}
 BASENAME=apertium-$(LANG1)
 
-TARGETS_COMMON = $(LANG1).automorf.bin $(LANG1).autogen.bin $(LANG1).autopgen.bin \
+TARGETS_COMMON = $(LANG1).automorf.bin \
+	$(LANG1).autogen.bin $(LANG1).autogen.bin \
 	$(LANG1).automorf.att.gz $(LANG1).autogen.att.gz \
-        $(LANG1).prob \
-        $(LANG1).rlx.bin
+	$(LANG1).rlx.bin
 
 # Use this goal for creating .deps, otherwise make -j2 will give problems:
 @ap_include@
@@ -44,10 +44,10 @@ $(LANG1).rlx.bin: $(BASENAME).$(LANG1).rlx $(CGCOMP)
 ## Distribution
 ###############################################################################
 EXTRA_DIST=$(BASENAME).$(LANG1).dix \
-	   $(BASENAME).$(LANG1).acx \
-	   $(BASENAME).$(LANG1).rlx \
-	   $(LANG1).prob \
-	   modes.xml
+		$(BASENAME).$(LANG1).acx \
+		$(BASENAME).$(LANG1).rlx \
+		$(LANG1).prob \
+		modes.xml
 
 ###############################################################################
 ## Installation stuff
@@ -80,3 +80,4 @@ install-data-local:
 CLEANFILES = $(TARGETS_COMMON)
 clean-local:
 	-rm -rf .deps modes
+
