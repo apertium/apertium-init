@@ -1,14 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dictionary>
-  <!-- Define an alphabet below. See http://wiki.apertium.org/wiki/Monodix_basics for more information. -->
-  <alphabet></alphabet>
+
+  <!-- Define the alphabet below. See http://wiki.apertium.org/wiki/Monodix_basics for more information. -->
+  <alphabet>aAáÁăảạÆbBcCčdDÐeEéèễệfFgGhHiIíjJkKlLmMnNoOóöớpPqQrRsSšştTŢuUúüưvVwWxXyYzZ</alphabet>
+
   <sdefs>
     <!-- Define symbol definitions within <sdef> here. See http://wiki.apertium.org/wiki/Monodix_basics for more information. -->
+    <sdef n="n"     c="Noun"/>
+    <sdef n="attr"  c="Attributive"/>
+    <sdef n="sg"    c="Singular"/>
+    <sdef n="pl"    c="Plural"/>
   </sdefs>
+
   <pardefs>
     <!-- Define paradigms within <pardef> here. See http://wiki.apertium.org/wiki/Monodix_basics for more information. -->
+    <pardef n="house__n">
+      <e><p><l></l><r><s n="n"/><s n="attr"/></r></p></e>
+      <e><p><l></l><r><s n="n"/><s n="sg"/></r></p></e>
+      <e><p><l>s</l><r><s n="n"/><s n="pl"/></r></p></e>
+    </pardef>
   </pardefs>
+
   <section id="main" type="standard">
     <!-- Define entries within <e> here. See http://wiki.apertium.org/wiki/Monodix_basics for more information. -->
+    <e lm="house"><i>house</i><par n="house__n"/></e>
   </section>
+
 </dictionary>
+
