@@ -14,7 +14,9 @@ files = [
     'COPYING',
     'Makefile.am',
     'modes.xml',
-    'README'
+    'README',
+    'NEWS',
+    'ChangeLog'
 ]
 
 if __name__ == '__main__':
