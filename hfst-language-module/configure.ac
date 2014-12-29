@@ -57,3 +57,4 @@ fi
 AP_MKINCLUDE
 
 AC_OUTPUT([Makefile apertium-{{languageCode}}.pc])
+

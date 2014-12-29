@@ -32,3 +32,4 @@ if __name__ == '__main__':
 
     for line in fileinput.input([args.bootstraperScript], inplace=True):
         sys.stdout.write(re.sub(r'^hfst_language_module_files = {.*?}$', 'hfst_language_module_files = %s' % repr(encodedFiles), line))
+

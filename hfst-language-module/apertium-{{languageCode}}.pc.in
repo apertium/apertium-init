@@ -7,3 +7,4 @@ srcdir=@datarootdir@/apertium/apertium-{{languageCode}}
 Name: apertium-{{languageCode}}
 Description: Finite-state morphological transducer and constraint grammar for {{languageName}} 
 Version: @VERSION@
+
