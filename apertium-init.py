@@ -15,7 +15,6 @@ def makeReplacements(input, replacements):
         input = input.replace('{{%s}}' % replacementName, replacementValue)
     return input
 
-
 def getLangName(code):
     code = iso639Codes[code] if len(code) > 2 and code in iso639Codes else code
     return englishLangNames[code] if code in englishLangNames else code
