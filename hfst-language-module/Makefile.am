@@ -10,7 +10,7 @@ BASENAME=apertium-$(LANG1)
 TARGETS_COMMON = $(LANG1).automorf.hfst $(LANG1).autogen.hfst \
 	$(LANG1).automorf.bin $(LANG1).autogen.bin \
 	$(LANG1).automorf.att.gz $(LANG1).autogen.att.gz \
-        $(LANG1).rlx.bin
+		$(LANG1).rlx.bin
 
 # This include defines goals for install-modes, .deps/.d and .mode files:
 @ap_include@
@@ -114,10 +114,11 @@ $(LANG1).zhfst: .deps/acceptor.default.hfst .deps/errmodel.default.hfst
 ###############################################################################
 ## Distribution
 ###############################################################################
+
 EXTRA_DIST=$(BASENAME).$(LANG1).lexc \
-	   $(BASENAME).$(LANG1).twol \
-	   $(BASENAME).$(LANG1).rlx  \
-	   modes.xml
+		$(BASENAME).$(LANG1).twol \
+		$(BASENAME).$(LANG1).rlx  \
+		modes.xml
 
 ###############################################################################
 ## Installation stuff
@@ -152,8 +153,17 @@ install-data-local:
 ## Cleanup
 ###############################################################################
 
-
 CLEANFILES = $(TARGETS_COMMON)
 clean-local:
 	-rm -rf .deps modes
+
+###############################################################################
+## Test
+###############################################################################
+
+test: all
+	echo "TODO test sentence" | apertium -d . {{languageCode}}-morph | tee .test-mt
+	@echo "TODO test analysis results" > .test-ref
+	@diff .test-ref .test-mt
+	@rm .test-ref .test-mt
 

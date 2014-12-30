@@ -18,7 +18,7 @@ You will need the following software installed:
 * lttoolbox (>= 3.3.0)
 * apertium (>= 3.3.0)
 * vislcg3 (>= 0.9.9.10297)
-* hfst (>= TODO)
+* hfst (>= 3.8.2)
 
 If this does not make any sense, we recommend you look at: www.apertium.org
 
@@ -61,8 +61,8 @@ Files and data
 ===============================================================================
 
 * apertium-{{languageCode}}.{{languageCode}}.dix            - Monolingual dictionary
-* apertium-{{languageCode}}.{{languageCode}}.lexc          - TODO
-* apertium-{{languageCode}}.{{languageCode}}.twol          - TODO
+* apertium-{{languageCode}}.{{languageCode}}.lexc          - Morphotactic dictionary
+* apertium-{{languageCode}}.{{languageCode}}.twol          - Morphophonological rules
 * apertium-{{languageCode}}.{{languageCode}}.rlx            - Constraint Grammar disambiguation rules
 * modes.xml                       - Translation modes
 

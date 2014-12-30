@@ -1,11 +1,12 @@
 Alphabet
- a b c d e f g h i j k l m n o p q r s t u v w x y z â ê î ô û ç ş 
- A B C D E F G H I J K L M N O P Q R S T U V W X Y Z Â Ê Î Ô Û Ç Ş ;
+ A B Ç D E Ä F G H I J Ž K L M N Ň O Ö P R S Ş T U Ü W Y Ý Z
+ a b ç d e ä f g h i j ž k l m n ň o ö p r s ş t u ü w y ý z
+ %{A%}:a %>:0  ;
 
 Sets
 
-Vow = a e i o u 
-      â ê î ô û ;
+Vowel = A E Ä I O Ö U Ü Y Ý 
+        a e ä i o ö u ü y ý ;
 
 Rules 
 
@@ -13,6 +14,7 @@ Rules
 i:0 <=> Vow %{VSUF%}:0 _ [ m | n ] ;
 
 ! Resources:
+! http://wiki.apertium.org/wiki/Starting_a_new_language_with_HFST#Enter_twol
 ! https://kitwiki.csc.fi/twiki/bin/view/KitWiki/HfstHome
 ! http://hfst.sourceforge.net/
 ! http://wiki.apertium.org/wiki/Twol
