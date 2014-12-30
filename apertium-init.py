@@ -61,8 +61,12 @@ if __name__ == '__main__':
         autogenFile = os.path.join(args.destination, 'autogen.sh')
         os.chmod(autogenFile, os.stat(autogenFile).st_mode | stat.S_IEXEC)
 
+        print('Succesfully created /apertium-%s.' % args.name)
+
         try:
             subprocess.check_output('svn add %s' % args.destination, stderr=subprocess.STDOUT, shell=True)
+            print('Added apertium-%s to SVN.' % args.name)
         except subprocess.CalledProcessError as e:
             sys.stderr.write('Unable to add %s to SVN: %s' % (args.destination, str(e.output, 'utf-8')))
+
 
