@@ -1,0 +1,20 @@
+Alphabet
+ a b c d e f g h i j k l m n o p q r s t u v w x y z â ê î ô û ç ş 
+ A B C D E F G H I J K L M N O P Q R S T U V W X Y Z Â Ê Î Ô Û Ç Ş
+
+Sets
+
+Vow = a e i o u 
+      â ê î ô û ;
+
+Rules 
+
+"Remove suffix vowel with vowel-ending stem"
+i:0 <=> Vow %{VSUF%}:0 _ [ m | n ] ;
+
+! Resources:
+! https://kitwiki.csc.fi/twiki/bin/view/KitWiki/HfstHome
+! http://hfst.sourceforge.net/
+! http://wiki.apertium.org/wiki/Twol
+! http://wiki.apertium.org/wiki/Hfst
+
