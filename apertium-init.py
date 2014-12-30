@@ -36,12 +36,15 @@ if __name__ == '__main__':
             email = str(subprocess.check_output('git config user.email', stderr=subprocess.STDOUT, shell=True), 'utf-8').strip()
         except subprocess.CalledProcessError as e:
             email = 'apertium-stuff@lists.sourceforge.net'
-            sys.stderr.write('Unable to get email, defaulting to %s: %s' % (email, e))
+            sys.stderr.write('Unable to get email, defaulting to %s: %s\n' % (email, e.strip()))
 
         replacements = {'languageCode': args.name, 'languageName': getLangName(args.name), 'email': email}
         args.destination = os.path.join(args.destination, 'apertium-%s' % args.name)
 
-        if not os.path.exists(args.destination):
+        if os.path.exists(args.destination):
+            sys.stderr.write('Directory %s already exists, quitting.\n' % args.destination)
+            sys.exit(-1)
+        else:
             os.makedirs(args.destination)
 
         if args.analyser in ['lt', 'lttoolbox']:
@@ -67,6 +70,5 @@ if __name__ == '__main__':
             subprocess.check_output('svn add %s' % args.destination, stderr=subprocess.STDOUT, shell=True)
             print('Added apertium-%s to SVN.' % args.name)
         except subprocess.CalledProcessError as e:
-            sys.stderr.write('Unable to add %s to SVN: %s' % (args.destination, str(e.output, 'utf-8')))
-
+            sys.stderr.write('Unable to add %s to SVN: %s\n' % (args.destination, str(e.output, 'utf-8').strip()))
 
