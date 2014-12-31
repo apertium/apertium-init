@@ -36,17 +36,44 @@ if __name__ == '__main__':
     parser.add_argument('-a2', '--analyser2', help='analyser to use for second language of pair', choices=['lt', 'lttoolbox', 'hfst'], default='lt')
     parser.add_argument('-d', '--destination', help='destination directory for new language module/pair', default=os.getcwd())
     args = parser.parse_args()
-    
-    if '-' in args.name:
-        raise NotImplementedError
-    else:
-        try:
-            email = str(subprocess.check_output('git config user.email', stderr=subprocess.STDOUT, shell=True), 'utf-8').strip()
-        except subprocess.CalledProcessError as e:
-            email = 'apertium-stuff@lists.sourceforge.net'
-            sys.stderr.write('Unable to get email, defaulting to %s: %s\n' % (email, e.strip()))
 
-        replacements = {'languageCode': args.name, 'languageName': getLangName(args.name), 'email': email}
+    try:
+        email = str(subprocess.check_output('git config user.email', stderr=subprocess.STDOUT, shell=True), 'utf-8').strip()
+    except subprocess.CalledProcessError as e:
+        email = 'apertium-stuff@lists.sourceforge.net'
+        sys.stderr.write('Unable to get email, defaulting to %s: %s\n' % (email, e.strip()))
+
+    if '-' in args.name and args.name.count('-') == 1:
+        languageCode1, languageCode2 = args.name.split('-')
+        replacements = {
+            'languageCode1': languageCode1,
+            'languageCode2': languageCode2,
+            'languageName1': getLangName(languageCode1),
+            'languageName2': getLangName(languageCode2),
+            'email': email
+        }
+        args.destination = os.path.join(args.destination, 'apertium-%s' % args.name)
+
+        if os.path.exists(args.destination):
+            sys.stderr.write('Directory %s already exists, quitting.\n' % args.destination)
+            sys.exit(-1)
+        else:
+            os.makedirs(args.destination)
+
+        if args.analyser == 'hfst' or (args.analyser1 == 'hfst' and args.analyser2 == 'hfst'):
+            files = dict(dict(hfst_bilingual_module_files, **any_module_files), **any_bilingual_module_files)
+        elif args.analyser1 == 'hfst' and args.analyser2 in ['lt', 'lttoolbox']:
+            files = dict(dict(hfst_lttoolbox_bilingual_module_files, **any_module_files), **any_bilingual_module_files)
+        elif args.analyser1 in ['lt', 'lttoolbox'] and args.analyser2 == 'hfst':
+            files = dict(dict(lttoolbox_hfst_bilingual_module_files, **any_module_files), **any_bilingual_module_files)
+        else:
+            files = dict(dict(lttoolbox_bilingual_module_files, **any_module_files), **any_bilingual_module_files)
+    elif '-' not in args.name:
+        replacements = {
+            'languageCode': args.name, 
+            'languageName': getLangName(args.name),
+            'email': email
+        }
         args.destination = os.path.join(args.destination, 'apertium-%s' % args.name)
 
         if os.path.exists(args.destination):
@@ -61,22 +88,25 @@ if __name__ == '__main__':
             files = dict(hfst_language_module_files, **any_module_files)
         else:
             raise Exception("Unrecognized analyser: " % args.analyser)
+    else:
+        sys.stderr.write('Invalid language module name: %s' % args.name)
+        sys.exit(-1)
 
-        for filename, encodedFile in files.items():
-            with open(os.path.join(args.destination, makeReplacements(filename, replacements)), 'wb') as f:
-                try:
-                    f.write(makeReplacements(str(base64.b85decode(encodedFile), encoding='utf-8'), replacements).encode('utf-8'))
-                except UnicodeDecodeError: # binary file
-                    f.write(base64.b85decode(encodedFile))
+    for filename, encodedFile in files.items():
+        with open(os.path.join(args.destination, makeReplacements(filename, replacements)), 'wb') as f:
+            try:
+                f.write(makeReplacements(str(base64.b85decode(encodedFile), encoding='utf-8'), replacements).encode('utf-8'))
+            except UnicodeDecodeError: # binary file
+                f.write(base64.b85decode(encodedFile))
 
-        autogenFile = os.path.join(args.destination, 'autogen.sh')
-        os.chmod(autogenFile, os.stat(autogenFile).st_mode | stat.S_IEXEC)
+    autogenFile = os.path.join(args.destination, 'autogen.sh')
+    os.chmod(autogenFile, os.stat(autogenFile).st_mode | stat.S_IEXEC)
 
-        print('Succesfully created /apertium-%s.' % args.name)
+    print('Succesfully created /apertium-%s.' % args.name)
 
-        try:
-            subprocess.check_output('svn add %s' % args.destination, stderr=subprocess.STDOUT, shell=True)
-            print('Added apertium-%s to SVN.' % args.name)
-        except subprocess.CalledProcessError as e:
-            sys.stderr.write('Unable to add %s to SVN: %s\n' % (args.destination, str(e.output, 'utf-8').strip()))
+    try:
+        subprocess.check_output('svn add %s' % args.destination, stderr=subprocess.STDOUT, shell=True)
+        print('Added apertium-%s to SVN.' % args.name)
+    except subprocess.CalledProcessError as e:
+        sys.stderr.write('Unable to add %s to SVN: %s\n' % (args.destination, str(e.output, 'utf-8').strip()))
 
