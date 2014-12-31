@@ -8,7 +8,7 @@ LANG1={{languageCode}}
 BASENAME=apertium-$(LANG1)
 
 TARGETS_COMMON = $(LANG1).automorf.bin \
-	$(LANG1).autogen.bin $(LANG1).autogen.bin \
+	$(LANG1).autogen.bin $(LANG1).autopgen.bin $(LANG1).autogen.bin \
 	$(LANG1).automorf.att.gz $(LANG1).autogen.att.gz \
 	$(LANG1).rlx.bin
 
@@ -32,6 +32,9 @@ $(LANG1).autogen.att.gz: $(LANG1).autogen.bin
 
 $(LANG1).automorf.att.gz: $(LANG1).automorf.bin
 	lt-print $< | gzip -9 -c > $@
+
+$(LANG1).autopgen.bin: $(BASENAME).post-$(LANG1).dix
+	lt-comp lr $< $@
 
 ###############################################################################
 ## Disambiguation rules

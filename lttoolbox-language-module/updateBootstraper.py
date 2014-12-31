@@ -7,6 +7,7 @@ files = [
     'apertium-{{languageCode}}.{{languageCode}}.acx',
     'apertium-{{languageCode}}.{{languageCode}}.dix',
     'apertium-{{languageCode}}.{{languageCode}}.rlx',
+    'apertium-{{languageCode}}.post-{{languageCode}}.dix',
     'apertium-{{languageCode}}.pc.in',
     'configure.ac',
     'Makefile.am',
