@@ -8,15 +8,10 @@ files = [
     'apertium-{{languageCode}}.{{languageCode}}.dix',
     'apertium-{{languageCode}}.{{languageCode}}.rlx',
     'apertium-{{languageCode}}.pc.in',
-    'AUTHORS',
-    'autogen.sh',
     'configure.ac',
-    'COPYING',
     'Makefile.am',
     'modes.xml',
-    'README',
-    'NEWS',
-    'ChangeLog'
+    'README'
 ]
 
 if __name__ == '__main__':
