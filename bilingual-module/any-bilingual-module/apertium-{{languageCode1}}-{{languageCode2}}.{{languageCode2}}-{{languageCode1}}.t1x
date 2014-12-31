@@ -10,9 +10,6 @@
   </section-def-cats>
 
   <section-def-attrs>
-    <def-attr n="a_nom">
-      <attr-item tags="n"/>
-    </def-attr>
     <def-attr n="a_cas">
       <attr-item tags="nom"/>
     </def-attr>
@@ -20,7 +17,6 @@
 
   <section-def-vars>
     <def-var n="number"/>
-    <def-var n="current_verb"/>
   </section-def-vars>
 
   <section-def-macros>
@@ -52,4 +48,13 @@
     </rule>
   </section-rules>
 </transfer>
+
+<!--
+Resources:
+    http://wiki.apertium.org/wiki/Chunking:_A_full_example
+    http://wiki.apertium.org/wiki/Chunking
+    http://wiki.apertium.org/wiki/Apertium_New_Language_Pair_HOWTO#Transfer_rules
+    http://wiki.apertium.org/wiki/A_long_introduction_to_transfer_rules
+    http://wiki.apertium.org/wiki/Transfer#Adding_structural_transfer_.28grammar.29_rules
+-->
 
