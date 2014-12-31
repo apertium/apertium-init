@@ -121,6 +121,7 @@ $(LANG1).zhfst: .deps/acceptor.default.hfst .deps/errmodel.default.hfst
 EXTRA_DIST=$(BASENAME).$(LANG1).lexc \
 		$(BASENAME).$(LANG1).twol \
 		$(BASENAME).$(LANG1).rlx  \
+		$(LANG1).prob \
 		modes.xml
 
 ###############################################################################

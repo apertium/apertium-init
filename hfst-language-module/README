@@ -60,12 +60,13 @@ TODO: test tagger result
 Files and data
 ===============================================================================
 
-* apertium-{{languageCode}}.{{languageCode}}.dix            - Monolingual dictionary
+* apertium-{{languageCode}}.{{languageCode}}.dix           - Monolingual dictionary
 * apertium-{{languageCode}}.{{languageCode}}.lexc          - Morphotactic dictionary
 * apertium-{{languageCode}}.{{languageCode}}.twol          - Morphophonological rules
-* apertium-{{languageCode}}.{{languageCode}}.rlx            - Constraint Grammar disambiguation rules
-* apertium-{{languageCode}}.post-{{languageCode}}.dix        - Post-generator
-* modes.xml                       - Translation modes
+* apertium-{{languageCode}}.{{languageCode}}.rlx           - Constraint Grammar disambiguation rules
+* apertium-{{languageCode}}.post-{{languageCode}}.dix      - Post-generator
+* {{languageCode}}.prob                       - Tagger model
+* modes.xml                      - Translation modes
 
 For more information
 ===============================================================================
