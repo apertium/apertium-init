@@ -1,0 +1,493 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<modes>
+
+  <!-- {{languageCode1}} → {{languageCode2}} -->
+
+  <mode name="{{languageCode1}}-{{languageCode2}}" install="yes">
+    <pipeline>
+      <program name="lt-proc -w">
+        <file name="{{languageCode1}}-{{languageCode2}}.automorf.bin"/>
+      </program>
+      <program name="cg-proc -w">
+        <file name="{{languageCode1}}-{{languageCode2}}.rlx.bin"/>
+      </program>
+      <program name="apertium-tagger -g $2">
+        <file name="{{languageCode1}}-{{languageCode2}}.prob"/>
+      </program>
+      <program name="apertium-pretransfer"/>
+      <program name="lt-proc -b">
+        <file name="{{languageCode1}}-{{languageCode2}}.autobil.bin"/>
+      </program>
+      <program name="lrx-proc">
+        <file name="{{languageCode1}}-{{languageCode2}}.autolex.bin"/>
+      </program>
+      <program name="apertium-transfer -b">
+        <file name="apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode1}}-{{languageCode2}}.t1x"/>
+        <file name="{{languageCode1}}-{{languageCode2}}.t1x.bin"/>
+      </program>
+      <program name="apertium-interchunk">
+        <file name="apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode1}}-{{languageCode2}}.t2x"/>
+        <file name="{{languageCode1}}-{{languageCode2}}.t2x.bin"/>
+      </program>
+      <program name="apertium-postchunk">
+        <file name="apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode1}}-{{languageCode2}}.t3x"/>
+        <file name="{{languageCode1}}-{{languageCode2}}.t3x.bin"/>
+      </program>
+      <program name="lt-proc $1">
+        <file name="{{languageCode1}}-{{languageCode2}}.autogen.bin"/>
+      </program>
+      <program name="lt-proc -p">
+        <file name="{{languageCode1}}-{{languageCode2}}.autopgen.bin"/>
+      </program>
+    </pipeline>
+  </mode>
+
+  <mode name="{{languageCode1}}-{{languageCode2}}-dgen" install="no">
+    <pipeline>
+      <program name="lt-proc -w">
+        <file name="{{languageCode1}}-{{languageCode2}}.automorf.bin"/>
+      </program>
+      <program name="cg-proc -w">
+        <file name="{{languageCode1}}-{{languageCode2}}.rlx.bin"/>
+      </program>
+      <program name="apertium-tagger -g $2">
+        <file name="{{languageCode1}}-{{languageCode2}}.prob"/>
+      </program>
+      <program name="apertium-pretransfer"/>
+      <program name="lt-proc -b">
+        <file name="{{languageCode1}}-{{languageCode2}}.autobil.bin"/>
+      </program>
+      <program name="apertium-transfer -b">
+        <file name="apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode1}}-{{languageCode2}}.t1x"/>
+        <file name="{{languageCode1}}-{{languageCode2}}.t1x.bin"/>
+      </program>
+      <program name="apertium-interchunk">
+        <file name="apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode1}}-{{languageCode2}}.t2x"/>
+        <file name="{{languageCode1}}-{{languageCode2}}.t2x.bin"/>
+      </program>
+      <program name="apertium-postchunk">
+        <file name="apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode1}}-{{languageCode2}}.t3x"/>
+        <file name="{{languageCode1}}-{{languageCode2}}.t3x.bin"/>
+      </program>
+      <program name="lt-proc -d">
+        <file name="{{languageCode1}}-{{languageCode2}}.autogen.bin"/>
+      </program>
+    </pipeline>
+  </mode>
+
+  <mode name="{{languageCode1}}-{{languageCode2}}-morph" install="no">
+    <pipeline>
+      <program name="lt-proc -w">
+        <file name="{{languageCode1}}-{{languageCode2}}.automorf.bin"/>
+      </program>
+    </pipeline>
+  </mode>
+
+  <mode name="{{languageCode1}}-{{languageCode2}}-disam" install="no">
+    <pipeline>
+      <program name="lt-proc -w">
+        <file name="{{languageCode1}}-{{languageCode2}}.automorf.bin"/>
+      </program>
+      <program name="cg-conv -a"/>
+      <program name="vislcg3 --trace --grammar">
+        <file name="{{languageCode1}}-{{languageCode2}}.rlx.bin"/>
+      </program>
+    </pipeline>
+  </mode>
+
+  <mode name="{{languageCode1}}-{{languageCode2}}-tagger" install="no">
+    <pipeline>
+      <program name="lt-proc -w">
+        <file name="{{languageCode1}}-{{languageCode2}}.automorf.bin"/>
+      </program>
+      <program name="cg-proc -w">
+        <file name="{{languageCode1}}-{{languageCode2}}.rlx.bin"/>
+      </program>
+      <program name="apertium-tagger -g $2">
+        <file name="{{languageCode1}}-{{languageCode2}}.prob"/>
+      </program>
+    </pipeline>
+  </mode>
+
+  <mode name="{{languageCode1}}-{{languageCode2}}-pretransfer" install="no">
+    <pipeline>
+      <program name="lt-proc -w">
+        <file name="{{languageCode1}}-{{languageCode2}}.automorf.bin"/>
+      </program>
+      <program name="cg-proc -w">
+        <file name="{{languageCode1}}-{{languageCode2}}.rlx.bin"/>
+      </program>
+      <program name="apertium-tagger -g $2">
+        <file name="{{languageCode1}}-{{languageCode2}}.prob"/>
+      </program>
+      <program name="apertium-pretransfer"/>
+    </pipeline>
+  </mode>
+
+  <mode name="{{languageCode1}}-{{languageCode2}}-biltrans" install="no">
+    <pipeline>
+      <program name="lt-proc -w">
+        <file name="{{languageCode1}}-{{languageCode2}}.automorf.bin"/>
+      </program>
+      <program name="cg-proc -w">
+        <file name="{{languageCode1}}-{{languageCode2}}.rlx.bin"/>
+      </program>
+      <program name="apertium-tagger -g $2">
+        <file name="{{languageCode1}}-{{languageCode2}}.prob"/>
+      </program>
+      <program name="apertium-pretransfer"/>
+      <program name="lt-proc -b">
+        <file name="{{languageCode1}}-{{languageCode2}}.autobil.bin"/>
+      </program>
+    </pipeline>
+  </mode>
+
+  <mode name="{{languageCode1}}-{{languageCode2}}-lex" install="no">
+    <pipeline>
+      <program name="lt-proc -w">
+        <file name="{{languageCode1}}-{{languageCode2}}.automorf.bin"/>
+      </program>
+      <program name="cg-proc -w">
+        <file name="{{languageCode1}}-{{languageCode2}}.rlx.bin"/>
+      </program>
+      <program name="apertium-tagger -g $2">
+        <file name="{{languageCode1}}-{{languageCode2}}.prob"/>
+      </program>
+      <program name="apertium-pretransfer"/>
+      <program name="lt-proc -b">
+        <file name="{{languageCode1}}-{{languageCode2}}.autobil.bin"/>
+      </program>
+      <program name="lrx-proc -t">
+        <file name="{{languageCode1}}-{{languageCode2}}.autolex.bin"/>
+      </program>
+    </pipeline>
+  </mode>
+
+  <mode name="{{languageCode1}}-{{languageCode2}}-transfer" install="no">
+    <pipeline>
+      <program name="lt-proc -w">
+        <file name="{{languageCode1}}-{{languageCode2}}.automorf.bin"/>
+      </program>
+      <program name="cg-proc -w">
+        <file name="{{languageCode1}}-{{languageCode2}}.rlx.bin"/>
+      </program>
+      <program name="apertium-tagger -g $2">
+        <file name="{{languageCode1}}-{{languageCode2}}.prob"/>
+      </program>
+      <program name="apertium-pretransfer"/>
+      <program name="lt-proc -b">
+        <file name="{{languageCode1}}-{{languageCode2}}.autobil.bin"/>
+      </program>
+      <program name="lrx-proc">
+        <file name="{{languageCode1}}-{{languageCode2}}.autolex.bin"/>
+      </program>
+      <program name="apertium-transfer -b -t">
+        <file name="apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode1}}-{{languageCode2}}.t1x"/>
+        <file name="{{languageCode1}}-{{languageCode2}}.t1x.bin"/>
+      </program>
+    </pipeline>
+  </mode>
+
+  <mode name="{{languageCode1}}-{{languageCode2}}-interchunk" install="no">
+    <pipeline>
+      <program name="lt-proc -w">
+        <file name="{{languageCode1}}-{{languageCode2}}.automorf.bin"/>
+      </program>
+      <program name="cg-proc -w">
+        <file name="{{languageCode1}}-{{languageCode2}}.rlx.bin"/>
+      </program>
+      <program name="apertium-tagger -g $2">
+        <file name="{{languageCode1}}-{{languageCode2}}.prob"/>
+      </program>
+      <program name="apertium-pretransfer"/>
+      <program name="lt-proc -b">
+        <file name="{{languageCode1}}-{{languageCode2}}.autobil.bin"/>
+      </program>
+      <program name="lrx-proc">
+        <file name="{{languageCode1}}-{{languageCode2}}.autolex.bin"/>
+      </program>
+      <program name="apertium-transfer -b">
+        <file name="apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode1}}-{{languageCode2}}.t1x"/>
+        <file name="{{languageCode1}}-{{languageCode2}}.t1x.bin"/>
+      </program>
+      <program name="apertium-interchunk -t">
+        <file name="apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode1}}-{{languageCode2}}.t2x"/>
+        <file name="{{languageCode1}}-{{languageCode2}}.t2x.bin"/>
+      </program>
+    </pipeline>
+  </mode>
+
+  <mode name="{{languageCode1}}-{{languageCode2}}-postchunk" install="no">
+    <pipeline>
+      <program name="lt-proc -w">
+        <file name="{{languageCode1}}-{{languageCode2}}.automorf.bin"/>
+      </program>
+      <program name="cg-proc -w">
+        <file name="{{languageCode1}}-{{languageCode2}}.rlx.bin"/>
+      </program>
+      <program name="apertium-tagger -g $2">
+        <file name="{{languageCode1}}-{{languageCode2}}.prob"/>
+      </program>
+      <program name="apertium-pretransfer"/>
+      <program name="lt-proc -b">
+        <file name="{{languageCode1}}-{{languageCode2}}.autobil.bin"/>
+      </program>
+      <program name="lrx-proc">
+        <file name="{{languageCode1}}-{{languageCode2}}.autolex.bin"/>
+      </program>
+      <program name="apertium-transfer -b">
+        <file name="apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode1}}-{{languageCode2}}.t1x"/>
+        <file name="{{languageCode1}}-{{languageCode2}}.t1x.bin"/>
+      </program>
+      <program name="apertium-interchunk">
+        <file name="apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode1}}-{{languageCode2}}.t2x"/>
+        <file name="{{languageCode1}}-{{languageCode2}}.t2x.bin"/>
+      </program>
+      <program name="apertium-postchunk">
+        <file name="apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode1}}-{{languageCode2}}.t3x"/>
+        <file name="{{languageCode1}}-{{languageCode2}}.t3x.bin"/>
+      </program>
+    </pipeline>
+  </mode>
+
+  <!-- {{languageCode2}} → {{languageCode1}} -->
+
+  <mode name="{{languageCode2}}-{{languageCode1}}" install="yes">
+    <pipeline>
+      <program name="lt-proc -w">
+        <file name="{{languageCode2}}-{{languageCode1}}.automorf.bin"/>
+      </program>
+      <program name="cg-proc -w">
+        <file name="{{languageCode2}}-{{languageCode1}}.rlx.bin"/>
+      </program>
+      <program name="apertium-tagger -g $2">
+        <file name="{{languageCode2}}-{{languageCode1}}.prob"/>
+      </program>
+      <program name="apertium-pretransfer"/>
+      <program name="lt-proc -b">
+        <file name="{{languageCode2}}-{{languageCode1}}.autobil.bin"/>
+      </program>
+      <program name="lrx-proc">
+        <file name="{{languageCode2}}-{{languageCode1}}.autolex.bin"/>
+      </program>
+      <program name="apertium-transfer -b">
+        <file name="apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode2}}-{{languageCode1}}.t1x"/>
+        <file name="{{languageCode2}}-{{languageCode1}}.t1x.bin"/>
+      </program>
+      <program name="apertium-interchunk">
+        <file name="apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode2}}-{{languageCode1}}.t2x"/>
+        <file name="{{languageCode2}}-{{languageCode1}}.t2x.bin"/>
+      </program>
+      <program name="apertium-postchunk">
+        <file name="apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode2}}-{{languageCode1}}.t3x"/>
+        <file name="{{languageCode2}}-{{languageCode1}}.t3x.bin"/>
+      </program>
+      <program name="lt-proc $1">
+        <file name="{{languageCode2}}-{{languageCode1}}.autogen.bin"/>
+      </program>
+      <program name="lt-proc -p">
+        <file name="{{languageCode2}}-{{languageCode1}}.autopgen.bin"/>
+      </program>
+    </pipeline>
+  </mode>
+
+  <mode name="{{languageCode2}}-{{languageCode1}}-dgen" install="no">
+    <pipeline>
+      <program name="lt-proc -w">
+        <file name="{{languageCode2}}-{{languageCode1}}.automorf.bin"/>
+      </program>
+      <program name="cg-proc -w">
+        <file name="{{languageCode2}}-{{languageCode1}}.rlx.bin"/>
+      </program>
+      <program name="apertium-tagger -g $2">
+        <file name="{{languageCode2}}-{{languageCode1}}.prob"/>
+      </program>
+      <program name="apertium-pretransfer"/>
+      <program name="lt-proc -b">
+        <file name="{{languageCode2}}-{{languageCode1}}.autobil.bin"/>
+      </program>
+      <program name="apertium-transfer -b">
+        <file name="apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode2}}-{{languageCode1}}.t1x"/>
+        <file name="{{languageCode2}}-{{languageCode1}}.t1x.bin"/>
+      </program>
+      <program name="apertium-interchunk">
+        <file name="apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode2}}-{{languageCode1}}.t2x"/>
+        <file name="{{languageCode2}}-{{languageCode1}}.t2x.bin"/>
+      </program>
+      <program name="apertium-postchunk">
+        <file name="apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode2}}-{{languageCode1}}.t3x"/>
+        <file name="{{languageCode2}}-{{languageCode1}}.t3x.bin"/>
+      </program>
+      <program name="lt-proc -d">
+        <file name="{{languageCode2}}-{{languageCode1}}.autogen.bin"/>
+      </program>
+    </pipeline>
+  </mode>
+
+  <mode name="{{languageCode2}}-{{languageCode1}}-morph" install="no">
+    <pipeline>
+      <program name="lt-proc -w">
+        <file name="{{languageCode2}}-{{languageCode1}}.automorf.bin"/>
+      </program>
+    </pipeline>
+  </mode>
+
+  <mode name="{{languageCode2}}-{{languageCode1}}-disam" install="no">
+    <pipeline>
+      <program name="lt-proc -w">
+        <file name="{{languageCode2}}-{{languageCode1}}.automorf.bin"/>
+      </program>
+      <program name="cg-conv -a"/>
+      <program name="vislcg3 --trace --grammar">
+        <file name="{{languageCode2}}-{{languageCode1}}.rlx.bin"/>
+      </program>
+    </pipeline>
+  </mode>
+
+  <mode name="{{languageCode2}}-{{languageCode1}}-tagger" install="no">
+    <pipeline>
+      <program name="lt-proc -w">
+        <file name="{{languageCode2}}-{{languageCode1}}.automorf.bin"/>
+      </program>
+      <program name="cg-proc -w">
+        <file name="{{languageCode2}}-{{languageCode1}}.rlx.bin"/>
+      </program>
+      <program name="apertium-tagger -g $2">
+        <file name="{{languageCode2}}-{{languageCode1}}.prob"/>
+      </program>
+    </pipeline>
+  </mode>
+
+  <mode name="{{languageCode2}}-{{languageCode1}}-pretransfer" install="no">
+    <pipeline>
+      <program name="lt-proc -w">
+        <file name="{{languageCode2}}-{{languageCode1}}.automorf.bin"/>
+      </program>
+      <program name="cg-proc -w">
+        <file name="{{languageCode2}}-{{languageCode1}}.rlx.bin"/>
+      </program>
+      <program name="apertium-tagger -g $2">
+        <file name="{{languageCode2}}-{{languageCode1}}.prob"/>
+      </program>
+      <program name="apertium-pretransfer"/>
+    </pipeline>
+  </mode>
+
+  <mode name="{{languageCode2}}-{{languageCode1}}-biltrans" install="no">
+    <pipeline>
+      <program name="lt-proc -w">
+        <file name="{{languageCode2}}-{{languageCode1}}.automorf.bin"/>
+      </program>
+      <program name="cg-proc -w">
+        <file name="{{languageCode2}}-{{languageCode1}}.rlx.bin"/>
+      </program>
+      <program name="apertium-tagger -g $2">
+        <file name="{{languageCode2}}-{{languageCode1}}.prob"/>
+      </program>
+      <program name="apertium-pretransfer"/>
+      <program name="lt-proc -b">
+        <file name="{{languageCode2}}-{{languageCode1}}.autobil.bin"/>
+      </program>
+    </pipeline>
+  </mode>
+
+  <mode name="{{languageCode2}}-{{languageCode1}}-lex" install="no">
+    <pipeline>
+      <program name="lt-proc -w">
+        <file name="{{languageCode2}}-{{languageCode1}}.automorf.bin"/>
+      </program>
+      <program name="cg-proc -w">
+        <file name="{{languageCode2}}-{{languageCode1}}.rlx.bin"/>
+      </program>
+      <program name="apertium-tagger -g $2">
+        <file name="{{languageCode2}}-{{languageCode1}}.prob"/>
+      </program>
+      <program name="apertium-pretransfer"/>
+      <program name="lt-proc -b">
+        <file name="{{languageCode2}}-{{languageCode1}}.autobil.bin"/>
+      </program>
+      <program name="lrx-proc">
+        <file name="{{languageCode2}}-{{languageCode1}}.autolex.bin"/>
+      </program>
+    </pipeline>
+  </mode>
+
+  <mode name="{{languageCode2}}-{{languageCode1}}-transfer" install="no">
+    <pipeline>
+      <program name="lt-proc -w">
+        <file name="{{languageCode2}}-{{languageCode1}}.automorf.bin"/>
+      </program>
+      <program name="cg-proc -w">
+        <file name="{{languageCode2}}-{{languageCode1}}.rlx.bin"/>
+      </program>
+      <program name="apertium-tagger -g $2">
+        <file name="{{languageCode2}}-{{languageCode1}}.prob"/>
+      </program>
+      <program name="apertium-pretransfer"/>
+      <program name="lt-proc -b">
+        <file name="{{languageCode2}}-{{languageCode1}}.autobil.bin"/>
+      </program>
+      <program name="apertium-transfer -b -t">
+        <file name="apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode2}}-{{languageCode1}}.t1x"/>
+        <file name="{{languageCode2}}-{{languageCode1}}.t1x.bin"/>
+      </program>
+    </pipeline>
+  </mode>
+
+  <mode name="{{languageCode2}}-{{languageCode1}}-interchunk" install="no">
+    <pipeline>
+      <program name="lt-proc -w">
+        <file name="{{languageCode2}}-{{languageCode1}}.automorf.bin"/>
+      </program>
+      <program name="cg-proc -w">
+        <file name="{{languageCode2}}-{{languageCode1}}.rlx.bin"/>
+      </program>
+      <program name="apertium-tagger -g $2">
+        <file name="{{languageCode2}}-{{languageCode1}}.prob"/>
+      </program>
+      <program name="apertium-pretransfer"/>
+      <program name="lt-proc -b">
+        <file name="{{languageCode2}}-{{languageCode1}}.autobil.bin"/>
+      </program>
+      <program name="apertium-transfer -b">
+        <file name="apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode2}}-{{languageCode1}}.t1x"/>
+        <file name="{{languageCode2}}-{{languageCode1}}.t1x.bin"/>
+      </program>
+      <program name="apertium-interchunk -t">
+        <file name="apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode2}}-{{languageCode1}}.t2x"/>
+        <file name="{{languageCode2}}-{{languageCode1}}.t2x.bin"/>
+      </program>
+    </pipeline>
+  </mode>
+
+  <mode name="{{languageCode2}}-{{languageCode1}}-postchunk" install="no">
+    <pipeline>
+      <program name="lt-proc -w">
+        <file name="{{languageCode2}}-{{languageCode1}}.automorf.bin"/>
+      </program>
+      <program name="cg-proc -w">
+        <file name="{{languageCode2}}-{{languageCode1}}.rlx.bin"/>
+      </program>
+      <program name="apertium-tagger -g $2">
+        <file name="{{languageCode2}}-{{languageCode1}}.prob"/>
+      </program>
+      <program name="apertium-pretransfer"/>
+      <program name="lt-proc -b">
+        <file name="{{languageCode2}}-{{languageCode1}}.autobil.bin"/>
+      </program>
+      <program name="apertium-transfer -b">
+        <file name="apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode2}}-{{languageCode1}}.t1x"/>
+        <file name="{{languageCode2}}-{{languageCode1}}.t1x.bin"/>
+      </program>
+      <program name="apertium-interchunk">
+        <file name="apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode2}}-{{languageCode1}}.t2x"/>
+        <file name="{{languageCode2}}-{{languageCode1}}.t2x.bin"/>
+      </program>
+      <program name="apertium-postchunk">
+        <file name="apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode2}}-{{languageCode1}}.t3x"/>
+        <file name="{{languageCode2}}-{{languageCode1}}.t3x.bin"/>
+      </program>
+    </pipeline>
+  </mode>
+</modes>
+

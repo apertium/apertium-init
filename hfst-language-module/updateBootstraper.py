@@ -3,25 +3,25 @@
 import argparse, base64, sys, re, fileinput, os
 
 files = [
+    '{{languageCode}}.prob',
     'apertium-{{languageCode}}.{{languageCode}}.lexc',
     'apertium-{{languageCode}}.{{languageCode}}.twol',
     'apertium-{{languageCode}}.{{languageCode}}.rlx',
+    'apertium-{{languageCode}}.post-{{languageCode}}.dix',
     'apertium-{{languageCode}}.pc.in',
-    'AUTHORS',
-    'autogen.sh',
     'configure.ac',
-    'COPYING',
     'Makefile.am',
     'modes.xml',
-    'README',
-    'NEWS',
-    'ChangeLog'
+    'README'
 ]
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description='Update the bootstraper script for an Apertium lttoolbox-based language module')
-    parser.add_argument('-d', '--vanillaDirectory', help='Location of directory with vanilla files', default=os.getcwd())
-    parser.add_argument('-f', '--bootstraperScript', help='Location of bootstraper script', default='../apertium-init.py')
+    scriptPath = os.path.dirname(os.path.realpath(__file__))
+    initScriptPath = os.path.join(scriptPath, os.pardir, 'apertium-init.py')
+
+    parser = argparse.ArgumentParser(description='Update the bootstraper script for an Apertium HFST-based language module')
+    parser.add_argument('-d', '--vanillaDirectory', help='location of directory with vanilla files', default=scriptPath)
+    parser.add_argument('-f', '--bootstraperScript', help='location of bootstraper script', default=initScriptPath)
     args = parser.parse_args()
 
     encodedFiles = {}

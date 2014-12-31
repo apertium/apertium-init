@@ -3,23 +3,18 @@
 import argparse, base64, sys, re, fileinput, os
 
 files = [
-    '{{languageCode}}.prob',
-    'apertium-{{languageCode}}.{{languageCode}}.acx',
-    'apertium-{{languageCode}}.{{languageCode}}.dix',
-    'apertium-{{languageCode}}.{{languageCode}}.rlx',
-    'apertium-{{languageCode}}.post-{{languageCode}}.dix',
-    'apertium-{{languageCode}}.pc.in',
-    'configure.ac',
-    'Makefile.am',
-    'modes.xml',
-    'README'
+    'AUTHORS',
+    'autogen.sh',
+    'COPYING',
+    'NEWS',
+    'ChangeLog'
 ]
 
 if __name__ == '__main__':
     scriptPath = os.path.dirname(os.path.realpath(__file__))
     initScriptPath = os.path.join(scriptPath, os.pardir, 'apertium-init.py')
 
-    parser = argparse.ArgumentParser(description='Update the bootstraper script for an Apertium lttoolbox-based language module')
+    parser = argparse.ArgumentParser(description='Update the bootstraper script for any Apertium module')
     parser.add_argument('-d', '--vanillaDirectory', help='location of directory with vanilla files', default=scriptPath)
     parser.add_argument('-f', '--bootstraperScript', help='location of bootstraper script', default=initScriptPath)
     args = parser.parse_args()
@@ -31,5 +26,5 @@ if __name__ == '__main__':
             encodedFiles[filename] = base64.b85encode(f.read())
 
     for line in fileinput.input([args.bootstraperScript], inplace=True):
-        sys.stdout.write(re.sub(r'^lttoolbox_language_module_files = {.*?}$', 'lttoolbox_language_module_files = %s' % repr(encodedFiles), line))
+        sys.stdout.write(re.sub(r'^any_module_files = {.*?}$', 'any_module_files = %s' % repr(encodedFiles), line))
 

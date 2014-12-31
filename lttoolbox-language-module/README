@@ -60,8 +60,9 @@ Files and data
 ===============================================================================
 
 * apertium-{{languageCode}}.{{languageCode}}.dix            - Monolingual dictionary
-* code1.prob                      - Tagger model
+* {{languageCode}}.prob                        - Tagger model
 * apertium-{{languageCode}}.{{languageCode}}.rlx            - Constraint Grammar disambiguation rules
+* apertium-{{languageCode}}.post-{{languageCode}}.dix       - Post-generator
 * modes.xml                       - Translation modes
 
 For more information

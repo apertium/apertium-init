@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dictionary>
+  <alphabet/>
+
+  <sdefs>
+    <sdef n="n" c="Noun"/>
+  </sdefs>
+
+  <pardefs>
+    <pardef n="vocals">
+      <e>
+        <i>a</i>
+      </e>
+      <e>
+        <i>e</i>
+      </e>
+      <e>
+        <i>i</i>
+      </e>
+      <e>
+        <i>o</i>
+      </e>
+      <e>
+        <i>u</i>
+      </e>
+    </pardef>
+  </pardefs>
+
+  <section id="main" type="standard">
+    <!-- Define entries within <e> here. See http://wiki.apertium.org/wiki/Post-generator for more information.-->
+    <e>
+      <p>
+        <l><a/>a<b/></l>
+        <r>an<b/></r>
+      </p>
+      <par n="vocals"/>
+    </e>
+  </section>
+</dictionary>
+
