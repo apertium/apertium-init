@@ -28,3 +28,4 @@ if __name__ == '__main__':
 
     for line in fileinput.input([args.bootstraperScript], inplace=True):
         sys.stdout.write(re.sub(r'^lttoolbox_language_module_files = {.*?}$', 'lttoolbox_language_module_files = %s' % repr(encodedFiles), line))
+
