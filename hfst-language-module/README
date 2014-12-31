@@ -64,6 +64,7 @@ Files and data
 * apertium-{{languageCode}}.{{languageCode}}.lexc          - Morphotactic dictionary
 * apertium-{{languageCode}}.{{languageCode}}.twol          - Morphophonological rules
 * apertium-{{languageCode}}.{{languageCode}}.rlx            - Constraint Grammar disambiguation rules
+* apertium-{{languageCode}}.post-{{languageCode}}.dix        - Post-generator
 * modes.xml                       - Translation modes
 
 For more information
