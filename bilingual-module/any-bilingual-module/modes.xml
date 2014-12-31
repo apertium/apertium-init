@@ -37,7 +37,7 @@
         <file name="{{languageCode1}}-{{languageCode2}}.autogen.bin"/>
       </program>
       <program name="lt-proc -p">
-        <file name="{{languageCode1}}-{{languageCode2}}.autogen.bin"/>
+        <file name="{{languageCode1}}-{{languageCode2}}.autopgen.bin"/>
       </program>
     </pipeline>
   </mode>
@@ -286,7 +286,7 @@
         <file name="{{languageCode2}}-{{languageCode1}}.autogen.bin"/>
       </program>
       <program name="lt-proc -p">
-        <file name="{{languageCode2}}-{{languageCode1}}.autogen.bin"/>
+        <file name="{{languageCode2}}-{{languageCode1}}.autopgen.bin"/>
       </program>
     </pipeline>
   </mode>
