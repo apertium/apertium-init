@@ -17,19 +17,23 @@ files = {
     ],
     'hfst-bilingual-module': [
         'Makefile.am',
-        'configure.ac'
+        'configure.ac',
+        'README'
     ],
     'lttoolbox-bilingual-module': [
         'Makefile.am',
-        'configure.ac'
+        'configure.ac',
+        'README'
     ],
     'hfst-lttoolbox-bilingual-module': [
         'Makefile.am',
-        'configure.ac'
+        'configure.ac',
+        'README'
     ],
     'lttoolbox-hfst-bilingual-module': [
         'Makefile.am',
-        'configure.ac'
+        'configure.ac',
+        'README'
     ]
 }
 
