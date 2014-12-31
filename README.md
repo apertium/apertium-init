@@ -24,7 +24,7 @@ To bootstrap a monolingual language module `apertium-foo` using the [HFST](http:
 
 To bootstrap and compile it at the same time,
 
-    python3 apertium-init.py foo && ( cd apertium-foo/ && ./autogen.sh && make )
+    python3 apertium-init.py foo --analyser=hfst && ( cd apertium-foo/ && ./autogen.sh && make )
 
 ### Bilingual Lttoolbox module
 
@@ -40,15 +40,15 @@ To bootstrap and compile it at the same time,
 
 To bootstrap a bilingual language module `apertium-foo-bar` where the monolingual packages `apertium-foo` and `apertium-bar` use the [HFST](http://wiki.apertium.org/wiki/Lttoolbox) formalism and/or the [lttoolbox](http://wiki.apertium.org/wiki/Lttoolbox) formalism,
 
-    python3 apertium-init.py foo-bar --analysers=hfst # Both foo and bar will use HFST
-    python3 apertium-init.py foo-bar --analyser1=hfst # Only foo (first language) will use HFST
-    python3 apertium-init.py foo-bar --analyser2=hfst # Only bar (second language) will use HFST
+    python3 apertium-init.py foo-bar --analysers=hfst # Both foo and bar use HFST
+    python3 apertium-init.py foo-bar --analyser1=hfst # Only foo (first language) uses HFST
+    python3 apertium-init.py foo-bar --analyser2=hfst # Only bar (second language) uses HFST
 
 To bootstrap and compile it at the same time,
 
-    python3 apertium-init.py foo-bar --analysers=hfst && ( cd apertium-foo-bar/ && ./autogen.sh && make test) # Both foo and bar will use HFST
-    python3 apertium-init.py foo-bar --analyser1=hfst && ( cd apertium-foo-bar/ && ./autogen.sh && make test) # Only foo (first language) will use HFST
-    python3 apertium-init.py foo-bar --analyser2=hfst && ( cd apertium-foo-bar/ && ./autogen.sh && make test) # Only bar (second language) will use HFST
+    python3 apertium-init.py foo-bar --analysers=hfst && ( cd apertium-foo-bar/ && ./autogen.sh && make test) # Both foo and bar use HFST
+    python3 apertium-init.py foo-bar --analyser1=hfst && ( cd apertium-foo-bar/ && ./autogen.sh && make test) # Only foo (first language) uses HFST
+    python3 apertium-init.py foo-bar --analyser2=hfst && ( cd apertium-foo-bar/ && ./autogen.sh && make test) # Only bar (second language) uses HFST
 
 ## Development
 
