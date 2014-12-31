@@ -222,11 +222,11 @@ clean-local:
 ###############################################################################
 
 test: all
-	echo "TODO test sentence 1" | apertium -d . {{languageCode1}}-{{languageCode2}} | tee .test-mt
-	@echo "TODO test translated sentence 1" > .test-ref
+	echo "house" | apertium -d . {{languageCode1}}-{{languageCode2}} | tee .test-mt
+	@echo "house" > .test-ref
 	@diff .test-ref .test-mt
-	echo "TODO test sentence 2" | apertium -d . {{languageCode2}}-{{languageCode1}} | tee .test-mt
-	@echo "TODO test translated sentence 2" > .test-ref
+	echo "house" | apertium -d . {{languageCode2}}-{{languageCode1}} | tee .test-mt
+	@echo "house" > .test-ref
 	@diff .test-ref .test-mt
 	@rm .test-ref .test-mt
 
