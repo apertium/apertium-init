@@ -12,7 +12,7 @@
 
    <section id="main" type="standard">
       <!-- Define entries within <e> here. -->
-      <e><p><l>gramofon<s n="n"/></l><r>gramophone<s n="n"/></r></p></e>
+      <e><p><l>house<s n="n"/><s n="sg"/></l><r>house<s n="n"/><s n="sg"/></r></p></e>
    </section>
 </dictionary>
 
