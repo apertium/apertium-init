@@ -18,6 +18,9 @@
       <program name="lt-proc -b">
         <file name="{{languageCode1}}-{{languageCode2}}.autobil.bin"/>
       </program>
+      <program name="lrx-proc">
+        <file name="{{languageCode1}}-{{languageCode2}}.autolex.bin"/>
+      </program>
       <program name="apertium-transfer -b">
         <file name="apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode1}}-{{languageCode2}}.t1x"/>
         <file name="{{languageCode1}}-{{languageCode2}}.t1x.bin"/>
@@ -31,6 +34,9 @@
         <file name="{{languageCode1}}-{{languageCode2}}.t3x.bin"/>
       </program>
       <program name="lt-proc $1">
+        <file name="{{languageCode1}}-{{languageCode2}}.autogen.bin"/>
+      </program>
+      <program name="lt-proc -p">
         <file name="{{languageCode1}}-{{languageCode2}}.autogen.bin"/>
       </program>
     </pipeline>
@@ -261,6 +267,9 @@
       <program name="lt-proc -b">
         <file name="{{languageCode2}}-{{languageCode1}}.autobil.bin"/>
       </program>
+      <program name="lrx-proc">
+        <file name="{{languageCode2}}-{{languageCode1}}.autolex.bin"/>
+      </program>
       <program name="apertium-transfer -b">
         <file name="apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode2}}-{{languageCode1}}.t1x"/>
         <file name="{{languageCode2}}-{{languageCode1}}.t1x.bin"/>
@@ -274,6 +283,9 @@
         <file name="{{languageCode2}}-{{languageCode1}}.t3x.bin"/>
       </program>
       <program name="lt-proc $1">
+        <file name="{{languageCode2}}-{{languageCode1}}.autogen.bin"/>
+      </program>
+      <program name="lt-proc -p">
         <file name="{{languageCode2}}-{{languageCode1}}.autogen.bin"/>
       </program>
     </pipeline>
