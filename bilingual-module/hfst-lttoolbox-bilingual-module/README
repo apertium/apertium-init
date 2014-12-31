@@ -67,7 +67,7 @@ Files and data
 * apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode2}}-{{languageCode1}}.t3x  - Chunking rules for translating into {{languageName2}}
 * apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode1}}-{{languageCode2}}.rlx  - Lexical selection rules for translating into {{languageName1}}
 * apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode2}}-{{languageCode1}}.rlx  - Lexical selection rules for translating into {{languageName2}}
-* modes.xml                             - Translation modes
+* modes.xml                     - Translation modes
 
 For more information
 ===============================================================================
