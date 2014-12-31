@@ -1,9 +1,7 @@
-#! /bin/sh
+#! /bin/bash
 
-cd hfst-bilingual-module/
-./updateBootstraper.py
-cd ../lttoolbox-bilingual-module/
-./updateBootstraper.py
-cd ../hfst-lttoolbox-bilingual-module/
-./updateBootstraper.py
+cd "$( dirname "${BASH_SOURCE[0]}" )"
+./hfst-bilingual-module/updateBootstraper.py
+./lttoolbox-bilingual-module/updateBootstraper.py
+./hfst-lttoolbox-bilingual-module/updateBootstraper.py
 
