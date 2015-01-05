@@ -49,6 +49,7 @@ $(LANG1).rlx.bin: $(BASENAME).$(LANG1).rlx $(CGCOMP)
 EXTRA_DIST=$(BASENAME).$(LANG1).dix \
 		$(BASENAME).$(LANG1).acx \
 		$(BASENAME).$(LANG1).rlx \
+		$(BASENAME).post-$(LANG1).dix \
 		$(LANG1).prob \
 		modes.xml
 
