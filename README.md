@@ -6,7 +6,7 @@ Bootstrap Apertium language modules and pairs using `apertium-init.py`.
 
 First, <a href="https://raw.githubusercontent.com/apertium/bootstrap/master/apertium-init.py" download>download the script</a>. Usage depends on the desired module and is described below. Remember to search for `TODO` in the generated module to add example sentences, etc.
 
-### Monlingual Lttoolbox module
+### Monolingual Lttoolbox module
 
 To bootstrap a monolingual language module `apertium-foo` using the [lttoolbox](http://wiki.apertium.org/wiki/Lttoolbox) formalism,
 
@@ -53,3 +53,5 @@ To bootstrap and compile it at the same time,
 ## Development
 
 After updating vanilla files, run `./updateBootstraper.py` to update the relevant encoded files in `apertium-init.py`. Or, run `make` in the root of the repository to update all the encoded files.
+
+You can also do `sudo make install` to install to `/usr/local/bin/apertium-init` or e.g. `PREFIX=$HOME/local make install` to install to `$HOME/local/bin/apertium-init`.
