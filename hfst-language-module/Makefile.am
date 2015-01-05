@@ -153,6 +153,7 @@ install-data-local:
 	$(INSTALL_DATA) $(BASENAME).$(LANG1).lexc $(DESTDIR)$(apertium_{{languageCode}}_srcdir)
 	$(INSTALL_DATA) $(BASENAME).$(LANG1).twol $(DESTDIR)$(apertium_{{languageCode}}_srcdir)
 	$(INSTALL_DATA) $(BASENAME).$(LANG1).rlx $(DESTDIR)$(apertium_{{languageCode}}_srcdir)
+	$(INSTALL_DATA) $(BASENAME).post-$(LANG1).dix $(DESTDIR)$(apertium_{{languageCode}}_srcdir)
 
 ###############################################################################
 ## Cleanup

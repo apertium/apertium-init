@@ -80,6 +80,7 @@ install-data-local:
 	test -d $(DESTDIR)$(apertium_{{languageCode}}_srcdir) || mkdir -p $(DESTDIR)$(apertium_{{languageCode}}_srcdir)
 	$(INSTALL_DATA) $(BASENAME).$(LANG1).dix $(DESTDIR)$(apertium_{{languageCode}}_srcdir)
 	$(INSTALL_DATA) $(BASENAME).$(LANG1).rlx $(DESTDIR)$(apertium_{{languageCode}}_srcdir)
+	$(INSTALL_DATA) $(BASENAME).post-$(LANG1).dix $(DESTDIR)$(apertium_{{languageCode}}_srcdir)
 
 CLEANFILES = $(TARGETS_COMMON)
 clean-local:
