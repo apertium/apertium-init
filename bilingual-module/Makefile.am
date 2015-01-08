@@ -12,7 +12,9 @@ BASENAME=apertium-$(PREFIX1)
 
 TARGETS_COMMON = \
 	$(PREFIX1).automorf.bin \
+{{if_prob1
 	$(PREFIX1).prob \
+if_prob1}}
 		$(PREFIX1).rlx.bin \
 	$(PREFIX1).autobil.bin \
 		$(PREFIX1).autolex.bin \
@@ -22,7 +24,9 @@ TARGETS_COMMON = \
 	$(PREFIX1).autogen.bin \
 	$(PREFIX1).autopgen.bin \
 	$(PREFIX2).automorf.bin \
+{{if_prob2
 	$(PREFIX2).prob \
+if_prob2}}
 		$(PREFIX2).rlx.bin \
 	$(PREFIX2).autobil.bin \
 		$(PREFIX2).autolex.bin \
@@ -56,10 +60,10 @@ $(PREFIX1).automorf.bin: $(AP_SRC1)/$(LANG1).automorf.att.gz .deps/$(PREFIX1).au
 	hfst-compose-intersect -1 .deps/$(LANG1).automorf.hfst -2 .deps/$(PREFIX1).autobil.prefixes -o .deps/$(PREFIX1).automorf.trimmed
 	hfst-fst2txt -i .deps/$(PREFIX1).automorf.trimmed -o .deps/$(PREFIX1).automorf.trimmed.att
 	lt-comp lr .deps/$(PREFIX1).automorf.trimmed.att $@
-}}{{if_lttoolbox1
+if_hfst1}}{{if_lttoolbox1
 $(PREFIX1).automorf.bin: $(AP_SRC1)/$(LANG1).automorf.bin $(PREFIX1).autobil.bin
 	lt-trim $^ $@
-}}
+if_lttoolbox1}}
 
 # -------------------
 # {{languageName1}} generation:
@@ -70,10 +74,10 @@ $(PREFIX2).autogen.hfst: $(AP_SRC1)/$(LANG1).autogen.hfst
 
 $(PREFIX2).autogen.bin: $(AP_SRC1)/$(LANG1).autogen.bin
 	cp $< $@
-}}{{if_lttoolbox1
+if_hfst1}}{{if_lttoolbox1
 $(PREFIX2).autogen.bin: $(AP_SRC1)/$(LANG1).autogen.bin
 	cp $< $@
-}}
+if_lttoolbox1}}
 
 # -------------------
 # {{languageName2}} analysis:
@@ -91,10 +95,10 @@ $(PREFIX2).automorf.bin: $(AP_SRC2)/$(LANG2).automorf.att.gz .deps/$(PREFIX2).au
 	hfst-compose-intersect -1 .deps/$(LANG2).automorf.hfst -2 .deps/$(PREFIX2).autobil.prefixes -o .deps/$(PREFIX2).automorf.trimmed
 	hfst-fst2txt -i .deps/$(PREFIX2).automorf.trimmed -o .deps/$(PREFIX2).automorf.trimmed.att
 	lt-comp lr .deps/$(PREFIX2).automorf.trimmed.att $@
-}}{{if_lttoolbox2
+if_hfst2}}{{if_lttoolbox2
 $(PREFIX2).automorf.bin: $(AP_SRC2)/$(LANG2).automorf.bin $(PREFIX2).autobil.bin
 	lt-trim $^ $@
-}}
+if_lttoolbox2}}
 
 # -------------------
 # {{languageName2}} generation:
@@ -105,20 +109,24 @@ $(PREFIX1).autogen.hfst: $(AP_SRC2)/$(LANG2).autogen.hfst
 
 $(PREFIX1).autogen.bin: $(AP_SRC2)/$(LANG2).autogen.bin
 	cp $< $@
-}}{{if_lttoolbox2
+if_hfst2}}{{if_lttoolbox2
 $(PREFIX1).autogen.bin: $(AP_SRC2)/$(LANG2).autogen.bin
 	cp $< $@
-}}
+if_lttoolbox2}}
 
 ###############################################################################
 ## Tagger models
 ###############################################################################
 
+{{if_prob1
 $(PREFIX1).prob: $(AP_SRC1)/$(LANG1).prob
 	cp $< $@
+if_prob1}}
 
+{{if_prob2
 $(PREFIX2).prob: $(AP_SRC2)/$(LANG2).prob
 	cp $< $@
+if_prob2}}
 
 ###############################################################################
 ## Disambiguation rules

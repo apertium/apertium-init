@@ -28,7 +28,7 @@ if test x$ac_cv_path_HFSTTWOLC = xno
 then
   AC_MSG_ERROR([You don't have hfst-twolc installed.])
 fi
-}}
+if_hfst}}
 
 AC_PATH_PROG(CGCOMP, cg-comp, no)
 if test x$ac_cv_path_CGCOMP = x
