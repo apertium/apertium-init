@@ -118,15 +118,11 @@ if_lttoolbox2}}
 ## Tagger models
 ###############################################################################
 
-{{if_prob1
 $(PREFIX1).prob: $(AP_SRC1)/$(LANG1).prob
 	cp $< $@
-if_prob1}}
 
-{{if_prob2
 $(PREFIX2).prob: $(AP_SRC2)/$(LANG2).prob
 	cp $< $@
-if_prob2}}
 
 ###############################################################################
 ## Disambiguation rules
