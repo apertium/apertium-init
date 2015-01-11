@@ -132,7 +132,6 @@ if_prob1}}{{ifnot_prob1
         <file name="{{languageCode1}}-{{languageCode2}}.rlx.bin"/>
       </program>
 ifnot_prob1}}
-      </program>
     </pipeline>
   </mode>
 
