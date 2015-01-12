@@ -8,6 +8,7 @@ AC_PROG_AWK
 m4_define([required_apertium_version], [3.3.0])
 PKG_CHECK_MODULES(APERTIUM, apertium >= required_apertium_version, [], [PKG_CHECK_MODULES(APERTIUM, apertium-3.2 >= required_apertium_version)])
 
+{{if_hfst
 AC_PATH_PROG(HFSTLEXC, hfst-lexc, no)
 if test x$ac_cv_path_HFSTLEXC = x
 then
@@ -27,6 +28,7 @@ if test x$ac_cv_path_HFSTTWOLC = xno
 then
   AC_MSG_ERROR([You don't have hfst-twolc installed.])
 fi
+if_hfst}}
 
 AC_PATH_PROG(CGCOMP, cg-comp, no)
 if test x$ac_cv_path_CGCOMP = x

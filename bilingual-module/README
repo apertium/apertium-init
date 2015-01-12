@@ -21,7 +21,9 @@ You will need the following software installed:
 * lttoolbox (>= 3.3.0)
 * apertium (>= 3.3.0)
 * vislcg3 (>= 0.9.9.10297)
+{{if_hfst
 * hfst (>= 3.8.2)
+if_hfst}}
 
 If this does not make any sense, we recommend you look at: www.apertium.org
 
