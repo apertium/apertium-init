@@ -12,7 +12,7 @@ BASENAME=apertium-$(PREFIX1)
 
 TARGETS_COMMON = \
 	$(PREFIX1).automorf.bin \ {{if_prob1
-	$(PREFIX1).prob 
+	$(PREFIX1).prob \
 if_prob1}}
 	$(PREFIX1).rlx.bin \
 	$(PREFIX1).autobil.bin \
@@ -24,7 +24,7 @@ if_prob1}}
 	$(PREFIX1).autopgen.bin \
 if_pgen2}}
 	$(PREFIX2).automorf.bin \ {{if_prob2
-	$(PREFIX2).prob
+	$(PREFIX2).prob \
 if_prob2}}
 	$(PREFIX2).rlx.bin \
 	$(PREFIX2).autobil.bin \
