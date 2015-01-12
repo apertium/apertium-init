@@ -18,12 +18,12 @@ if_prob1}}{{if_rlx1
 if_rlx1}}
 	$(PREFIX1).autobil.bin \
 		$(PREFIX1).autolex.bin \
-	$(PREFIX1).t1x.bin \
-	$(PREFIX1).t2x.bin \
-	$(PREFIX1).t3x.bin \
 	$(PREFIX1).autogen.bin \ {{if_pgen2
 	$(PREFIX1).autopgen.bin \
 if_pgen2}}
+	$(PREFIX1).t1x.bin \
+	$(PREFIX1).t2x.bin \
+	$(PREFIX1).t3x.bin \
 	$(PREFIX2).automorf.bin \ {{if_prob2
 	$(PREFIX2).prob \
 if_prob2}}{{if_rlx2
@@ -31,12 +31,12 @@ if_prob2}}{{if_rlx2
 if_rlx2}}
 	$(PREFIX2).autobil.bin \
 		$(PREFIX2).autolex.bin \
-	$(PREFIX2).t1x.bin \
-	$(PREFIX2).t2x.bin \
-	$(PREFIX2).t3x.bin \
-	$(PREFIX2).autogen.bin {{if_pgen1 \
-	$(PREFIX2).autopgen.bin
+	$(PREFIX2).autogen.bin \ {{if_pgen1
+	$(PREFIX2).autopgen.bin \
 if_pgen1}}
+    $(PREFIX2).t1x.bin \
+	$(PREFIX2).t2x.bin \
+	$(PREFIX2).t3x.bin
 
 
 # This include defines goals for install-modes, .deps/.d and .mode files:
