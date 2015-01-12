@@ -23,7 +23,11 @@ def makeReplacements(s, replacements, conditionals):
 
 def getLangName(code):
     code = iso639Codes[code] if len(code) > 2 and code in iso639Codes else code
-    return englishLangNames[code] if code in englishLangNames else code
+    if code in englishLangNames:
+        return englishLangNames[code]
+    else:
+        sys.stdout.write('Unable to find English language name for %s, using ISO code instead.\n' % code)
+        return code
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Bootstrap an Apertium language module/pair')
