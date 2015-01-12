@@ -53,6 +53,8 @@ if __name__ == '__main__':
         email = 'apertium-stuff@lists.sourceforge.net'
         sys.stderr.write('Unable to get email, defaulting to %s: %s\n' % (email, str(e).strip()))
 
+    args.name = args.name.replace('apertium-', '')
+
     if '-' in args.name and args.name.count('-') == 1:
         languageCode1, languageCode2 = args.name.split('-')
         replacements = {
