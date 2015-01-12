@@ -73,13 +73,10 @@ if_lttoolbox1}}
 {{if_hfst1
 $(PREFIX2).autogen.hfst: $(AP_SRC1)/$(LANG1).autogen.hfst
 	cp $< $@
+if_hfst1}}
 
 $(PREFIX2).autogen.bin: $(AP_SRC1)/$(LANG1).autogen.bin
 	cp $< $@
-if_hfst1}}{{if_lttoolbox1
-$(PREFIX2).autogen.bin: $(AP_SRC1)/$(LANG1).autogen.bin
-	cp $< $@
-if_lttoolbox1}}
 
 # -------------------
 # {{languageName2}} analysis:
@@ -108,13 +105,10 @@ if_lttoolbox2}}
 {{if_hfst2
 $(PREFIX1).autogen.hfst: $(AP_SRC2)/$(LANG2).autogen.hfst
 	cp $< $@
+if_hfst2}}
 
 $(PREFIX1).autogen.bin: $(AP_SRC2)/$(LANG2).autogen.bin
 	cp $< $@
-if_hfst2}}{{if_lttoolbox2
-$(PREFIX1).autogen.bin: $(AP_SRC2)/$(LANG2).autogen.bin
-	cp $< $@
-if_lttoolbox2}}
 
 ###############################################################################
 ## Tagger models
