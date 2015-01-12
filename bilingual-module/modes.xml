@@ -44,11 +44,11 @@ ifnot_prob1}}
       <program name="lt-proc $1">
         <file name="{{languageCode1}}-{{languageCode2}}.autogen.bin"/>
       </program>
-{{if_pgen1
+{{if_pgen2
       <program name="lt-proc -p">
         <file name="{{languageCode1}}-{{languageCode2}}.autopgen.bin"/>
       </program>
-if_pgen1}}
+if_pgen2}}
     </pipeline>
   </mode>
 
@@ -367,11 +367,11 @@ ifnot_prob2}}
       <program name="lt-proc $1">
         <file name="{{languageCode2}}-{{languageCode1}}.autogen.bin"/>
       </program>
-{{if_pgen2
+{{if_pgen1
       <program name="lt-proc -p">
         <file name="{{languageCode2}}-{{languageCode1}}.autopgen.bin"/>
       </program>
-if_pgen2}}
+if_pgen1}}
     </pipeline>
   </mode>
 
