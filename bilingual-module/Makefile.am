@@ -14,7 +14,7 @@ TARGETS_COMMON = \
 	$(PREFIX1).automorf.bin \ {{if_prob1
 	$(PREFIX1).prob 
 if_prob1}}
-    $(PREFIX1).rlx.bin \
+	$(PREFIX1).rlx.bin \
 	$(PREFIX1).autobil.bin \
 		$(PREFIX1).autolex.bin \
 	$(PREFIX1).t1x.bin \
