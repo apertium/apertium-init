@@ -8,7 +8,7 @@ LANG1={{languageCode}}
 BASENAME=apertium-$(LANG1)
 
 TARGETS_COMMON = $(LANG1).automorf.bin \
-	$(LANG1).autogen.bin $(LANG1).autopgen.bin $(LANG1).autogen.bin \
+	$(LANG1).autogen.bin $(LANG1).autopgen.bin \
 	$(LANG1).automorf.att.gz $(LANG1).autogen.att.gz \
 	$(LANG1).rlx.bin
 
@@ -63,7 +63,7 @@ EXTRA_DIST=$(BASENAME).$(LANG1).dix \
 apertium_{{languageCode}}dir=$(prefix)/share/apertium/$(BASENAME)/
 apertium_{{languageCode}}_srcdir=$(prefix)/share/apertium/$(BASENAME)/
 
-apertium_{{languageCode}}_DATA=$(TARGETS_COMMON)
+apertium_{{languageCode}}_DATA=$(TARGETS_COMMON) $(LANG1).prob
 
 pkgconfigdir = $(prefix)/share/pkgconfig
 pkgconfig_DATA = $(BASENAME).pc
