@@ -3,14 +3,14 @@
                             apertium-{{languageCode1}}-{{languageCode2}}
 ===============================================================================
 
-This is an Apertium language pair for translating between {{languageName1}} and 
+This is an Apertium language pair for translating between {{languageName1}} and
 {{languageName2}}. What you can use this language package for:
 
 * Translating between {{languageName1}} and {{languageName2}}
 * Morphological analysis of {{languageName1}} and {{languageName2}}
 * Part-of-speech tagging of {{languageName1}} and {{languageName2}}
 
-For information on the latter two points, see subheading "For more 
+For information on the latter two points, see subheading "For more
 information" below
 
 Requirements
@@ -20,10 +20,11 @@ You will need the following software installed:
 
 * lttoolbox (>= 3.3.0)
 * apertium (>= 3.3.0)
-* vislcg3 (>= 0.9.9.10297)
-{{if_hfst
+* vislcg3 (>= 0.9.9.10297){{if_hfst
 * hfst (>= 3.8.2)
 if_hfst}}
+* apertium-{{languageCode1}}
+* apertium-{{languageCode2}}
 
 If this does not make any sense, we recommend you look at: www.apertium.org
 
@@ -32,7 +33,7 @@ Compiling
 
 Given the requirements being installed, you should be able to just run:
 
-$ ./configure 
+$ ./configure
 $ make
 # make install
 
@@ -63,10 +64,10 @@ Files and data
 * apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode1}}-{{languageCode2}}.dix  - Bilingual dictionary
 * apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode1}}-{{languageCode2}}.t1x  - Chunking rules for translating into {{languageName1}}
 * apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode2}}-{{languageCode1}}.t1x  - Chunking rules for translating into {{languageName2}}
-* apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode1}}-{{languageCode2}}.t2x  - Chunking rules for translating into {{languageName1}}
-* apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode2}}-{{languageCode1}}.t2x  - Chunking rules for translating into {{languageName2}}
-* apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode1}}-{{languageCode2}}.t3x  - Chunking rules for translating into {{languageName1}}
-* apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode2}}-{{languageCode1}}.t3x  - Chunking rules for translating into {{languageName2}}
+* apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode1}}-{{languageCode2}}.t2x  - Interchunk rules for translating into {{languageName1}}
+* apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode2}}-{{languageCode1}}.t2x  - Interchunk rules for translating into {{languageName2}}
+* apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode1}}-{{languageCode2}}.t3x  - Postchunk rules for translating into {{languageName1}}
+* apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode2}}-{{languageCode1}}.t3x  - Postchunk rules for translating into {{languageName2}}
 * apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode1}}-{{languageCode2}}.lrx  - Lexical selection rules for translating into {{languageName1}}
 * apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode2}}-{{languageCode1}}.lrx  - Lexical selection rules for translating into {{languageName2}}
 * modes.xml                     - Translation modes
@@ -87,4 +88,3 @@ If you need help using this language pair or data, you can contact:
 * IRC: #apertium on irc.freenode.net
 
 See also the file AUTHORS included in this distribution.
-
