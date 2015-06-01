@@ -7,10 +7,15 @@ VERSION=0.1.0
 LANG1={{languageCode}}
 BASENAME=apertium-$(LANG1)
 
-TARGETS_COMMON = $(LANG1).automorf.hfst $(LANG1).autogen.hfst \
-	$(LANG1).automorf.bin $(LANG1).autopgen.bin \
-	$(LANG1).automorf.att.gz $(LANG1).autogen.att.gz \
-		$(LANG1).rlx.bin
+TARGETS_COMMON =			\
+	$(LANG1).automorf.hfst		\
+	$(LANG1).automorf.bin		\
+	$(LANG1).automorf.att.gz	\
+	$(LANG1).autogen.hfst		\
+	$(LANG1).autogen.bin		\
+	$(LANG1).autogen.att.gz		\
+	$(LANG1).autopgen.bin		\
+	$(LANG1).rlx.bin
 
 # This include defines goals for install-modes, .deps/.d and .mode files:
 @ap_include@
@@ -118,11 +123,11 @@ $(LANG1).zhfst: .deps/acceptor.default.hfst .deps/errmodel.default.hfst
 ## Distribution
 ###############################################################################
 
-EXTRA_DIST=$(BASENAME).$(LANG1).lexc \
-		$(BASENAME).$(LANG1).twol \
-		$(BASENAME).$(LANG1).rlx  \
-		$(BASENAME).post-$(LANG1).dix \
-		$(LANG1).prob \
+EXTRA_DIST=$(BASENAME).$(LANG1).lexc		\
+		$(BASENAME).$(LANG1).twol	\
+		$(BASENAME).$(LANG1).rlx	\
+		$(BASENAME).post-$(LANG1).dix	\
+		$(LANG1).prob			\
 		modes.xml
 
 ###############################################################################

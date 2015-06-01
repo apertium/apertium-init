@@ -23,35 +23,14 @@ AM_CONDITIONAL([HAVE_HFSTOSPELL], [test x$hfstospell = xyes])
 m4_define([required_apertium_version], [3.3.0])
 PKG_CHECK_MODULES(APERTIUM,   apertium >= required_apertium_version)
 
-AC_PATH_PROG(HFSTLEXC, hfst-lexc, no)
-if test x$ac_cv_path_HFSTLEXC = x
-then
-  AC_MSG_ERROR([You don't have hfst-lexc installed.])
-fi
-if test x$ac_cv_path_HFSTLEXC = xno
-then
-  AC_MSG_ERROR([You don't have hfst-lexc installed.])
-fi
+AC_PATH_PROG([HFSTLEXC], [hfst-lexc], [false], [$PATH$PATH_SEPARATOR$with_hfst_lexc/bin])
+AS_IF([test x$HFSTLEXC = xfalse], [AC_MSG_ERROR([You don't have hfst-lexc installed])])
 
-AC_PATH_PROG(HFSTTWOL, hfst-twolc, no)
-if test x$ac_cv_path_HFSTTWOL = x
-then
-  AC_MSG_ERROR([You don't have hfst-twolc installed.])
-fi
-if test x$ac_cv_path_HFSTTWOL = xno
-then
-  AC_MSG_ERROR([You don't have hfst-twolc installed.])
-fi
+AC_PATH_PROG([HFSTTWOLC], [hfst-twolc], [false], [$PATH$PATH_SEPARATOR$with_hfst_twolc/bin])
+AS_IF([test x$HFSTTWOLC = xfalse], [AC_MSG_ERROR([You don't have hfst-twolc installed])])
 
-AC_PATH_PROG(CGCOMP, cg-comp, no)
-if test x$ac_cv_path_CGCOMP = x
-then
-  AC_MSG_ERROR([You don't have cg-comp installed.])
-fi
-if test x$ac_cv_path_CGPROC = xno
-then
-  AC_MSG_ERROR([You don't have cg-comp installed.])
-fi
+AC_PATH_PROG([CGCOMP], [cg-comp], [false], [$PATH$PATH_SEPARATOR$with_cg_comp/bin])
+AS_IF([test x$CGCOMP = xfalse], [AC_MSG_ERROR([You don't have cg-comp installed])])
 
 
 AP_MKINCLUDE

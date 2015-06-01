@@ -10,32 +10,32 @@ PREFIX2=$(LANG2)-$(LANG1)
 
 BASENAME=apertium-$(PREFIX1)
 
-TARGETS_COMMON = \
-	$(PREFIX1).automorf.bin \{{if_prob1
-	$(PREFIX1).prob \
+TARGETS_COMMON =			\
+	$(PREFIX1).automorf.bin		\{{if_prob1
+	$(PREFIX1).prob			\
 if_prob1}}{{if_rlx1
-	$(PREFIX1).rlx.bin \
+	$(PREFIX1).rlx.bin		\
 if_rlx1}}
-	$(PREFIX1).autobil.bin \
-		$(PREFIX1).autolex.bin \
-	$(PREFIX1).autogen.bin \{{if_pgen2
-	$(PREFIX1).autopgen.bin \
+	$(PREFIX1).autobil.bin		\
+		$(PREFIX1).autolex.bin	\
+	$(PREFIX1).autogen.bin		\{{if_pgen2
+	$(PREFIX1).autopgen.bin		\
 if_pgen2}}
-	$(PREFIX1).t1x.bin \
-	$(PREFIX1).t2x.bin \
-	$(PREFIX1).t3x.bin \
-	$(PREFIX2).automorf.bin \{{if_prob2
-	$(PREFIX2).prob \
+	$(PREFIX1).t1x.bin		\
+	$(PREFIX1).t2x.bin		\
+	$(PREFIX1).t3x.bin		\
+	$(PREFIX2).automorf.bin		\{{if_prob2
+	$(PREFIX2).prob			\
 if_prob2}}{{if_rlx2
-	$(PREFIX2).rlx.bin \
+	$(PREFIX2).rlx.bin		\
 if_rlx2}}
-	$(PREFIX2).autobil.bin \
-		$(PREFIX2).autolex.bin \
-	$(PREFIX2).autogen.bin \{{if_pgen1
-	$(PREFIX2).autopgen.bin \
+	$(PREFIX2).autobil.bin		\
+		$(PREFIX2).autolex.bin	\
+	$(PREFIX2).autogen.bin		\{{if_pgen1
+	$(PREFIX2).autopgen.bin		\
 if_pgen1}}
-    $(PREFIX2).t1x.bin \
-	$(PREFIX2).t2x.bin \
+    $(PREFIX2).t1x.bin			\
+	$(PREFIX2).t2x.bin		\
 	$(PREFIX2).t3x.bin
 
 
@@ -195,16 +195,16 @@ $(PREFIX2).autopgen.bin: $(AP_SRC1)/$(LANG1).autopgen.bin
 ## Distribution
 ###############################################################################
 
-EXTRA_DIST= \
-		$(BASENAME).$(PREFIX1).lrx \
-		$(BASENAME).$(PREFIX1).dix \
-		$(BASENAME).$(PREFIX2).lrx \
-		$(BASENAME).$(PREFIX1).t1x \
-		$(BASENAME).$(PREFIX1).t2x \
-		$(BASENAME).$(PREFIX1).t3x \
-		$(BASENAME).$(PREFIX2).t1x \
-		$(BASENAME).$(PREFIX2).t2x \
-		$(BASENAME).$(PREFIX2).t3x \
+EXTRA_DIST=					\
+		$(BASENAME).$(PREFIX1).lrx	\
+		$(BASENAME).$(PREFIX1).dix	\
+		$(BASENAME).$(PREFIX2).lrx	\
+		$(BASENAME).$(PREFIX1).t1x	\
+		$(BASENAME).$(PREFIX1).t2x	\
+		$(BASENAME).$(PREFIX1).t3x	\
+		$(BASENAME).$(PREFIX2).t1x	\
+		$(BASENAME).$(PREFIX2).t2x	\
+		$(BASENAME).$(PREFIX2).t3x	\
 		modes.xml
 
 ###############################################################################
@@ -214,13 +214,13 @@ EXTRA_DIST= \
 apertium_{{languageCode1}}_{{languageCode2}}dir=$(prefix)/share/apertium/$(BASENAME)/
 
 # Files which should be installed to $(prefix)/share/apertium/$(BASENAME)/:
-apertium_{{languageCode1}}_{{languageCode2}}_DATA= \
-	$(TARGETS_COMMON) \
-	$(BASENAME).$(PREFIX1).t1x \
-	$(BASENAME).$(PREFIX1).t2x \
-	$(BASENAME).$(PREFIX1).t3x \
-	$(BASENAME).$(PREFIX2).t1x \
-	$(BASENAME).$(PREFIX2).t2x \
+apertium_{{languageCode1}}_{{languageCode2}}_DATA=	\
+	$(TARGETS_COMMON)				\
+	$(BASENAME).$(PREFIX1).t1x			\
+	$(BASENAME).$(PREFIX1).t2x			\
+	$(BASENAME).$(PREFIX1).t3x			\
+	$(BASENAME).$(PREFIX2).t1x			\
+	$(BASENAME).$(PREFIX2).t2x			\
 	$(BASENAME).$(PREFIX2).t3x
 
 # All modes are created by the same goal, listing several will just give problems with make -j2

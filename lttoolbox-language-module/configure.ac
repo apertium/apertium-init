@@ -11,16 +11,8 @@ m4_define([required_lttolbox_version], [3.3.0])
 PKG_CHECK_MODULES(APERTIUM, apertium >= required_apertium_version)
 PKG_CHECK_MODULES(LTTOOLBOX, lttoolbox >= required_lttolbox_version)
 
-
-AC_PATH_PROG(CGCOMP, cg-comp, no)
-if test x$ac_cv_path_CGCOMP = x
-then
-  AC_MSG_ERROR([You don't have cg-comp installed.])
-fi
-if test x$ac_cv_path_CGPROC = xno
-then
-  AC_MSG_ERROR([You don't have cg-comp installed.])
-fi
+AC_PATH_PROG([CGCOMP], [cg-comp], [false], [$PATH$PATH_SEPARATOR$with_cg_comp/bin])
+AS_IF([test x$CGCOMP = xfalse], [AC_MSG_ERROR([You don't have cg-comp installed])])
 
 
 AP_MKINCLUDE
