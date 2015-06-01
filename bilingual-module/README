@@ -62,14 +62,14 @@ Files and data
 ===============================================================================
 
 * apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode1}}-{{languageCode2}}.dix  - Bilingual dictionary
-* apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode1}}-{{languageCode2}}.t1x  - Chunking rules for translating into {{languageName1}}
-* apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode2}}-{{languageCode1}}.t1x  - Chunking rules for translating into {{languageName2}}
-* apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode1}}-{{languageCode2}}.t2x  - Interchunk rules for translating into {{languageName1}}
-* apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode2}}-{{languageCode1}}.t2x  - Interchunk rules for translating into {{languageName2}}
-* apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode1}}-{{languageCode2}}.t3x  - Postchunk rules for translating into {{languageName1}}
-* apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode2}}-{{languageCode1}}.t3x  - Postchunk rules for translating into {{languageName2}}
-* apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode1}}-{{languageCode2}}.lrx  - Lexical selection rules for translating into {{languageName1}}
-* apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode2}}-{{languageCode1}}.lrx  - Lexical selection rules for translating into {{languageName2}}
+* apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode1}}-{{languageCode2}}.t1x  - Chunking rules for translating into {{languageName2}}
+* apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode2}}-{{languageCode1}}.t1x  - Chunking rules for translating into {{languageName1}}
+* apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode1}}-{{languageCode2}}.t2x  - Interchunk rules for translating into {{languageName2}}
+* apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode2}}-{{languageCode1}}.t2x  - Interchunk rules for translating into {{languageName1}}
+* apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode1}}-{{languageCode2}}.t3x  - Postchunk rules for translating into {{languageName2}}
+* apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode2}}-{{languageCode1}}.t3x  - Postchunk rules for translating into {{languageName1}}
+* apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode1}}-{{languageCode2}}.lrx  - Lexical selection rules for translating into {{languageName2}}
+* apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode2}}-{{languageCode1}}.lrx  - Lexical selection rules for translating into {{languageName1}}
 * modes.xml                     - Translation modes
 
 For more information
