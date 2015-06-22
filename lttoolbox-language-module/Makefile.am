@@ -15,7 +15,7 @@ TARGETS_COMMON =			\
 	$(LANG1).autopgen.bin		\
 	$(LANG1).rlx.bin
 
-# Use this goal for creating .deps, otherwise make -j2 will give problems:
+# This include defines goals for install-modes, .deps/.d, autobil.prefixes and .mode files:
 @ap_include@
 
 ###############################################################################

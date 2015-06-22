@@ -39,7 +39,7 @@ if_pgen1}}
 	$(PREFIX2).t3x.bin
 
 
-# This include defines goals for install-modes, .deps/.d and .mode files:
+# This include defines goals for install-modes, .deps/.d, autobil.prefixes and .mode files:
 @ap_include@
 
 ###############################################################################

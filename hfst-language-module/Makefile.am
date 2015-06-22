@@ -17,7 +17,7 @@ TARGETS_COMMON =			\
 	$(LANG1).autopgen.bin		\
 	$(LANG1).rlx.bin
 
-# This include defines goals for install-modes, .deps/.d and .mode files:
+# This include defines goals for install-modes, .deps/.d, autobil.prefixes and .mode files:
 @ap_include@
 
 ###############################################################################
