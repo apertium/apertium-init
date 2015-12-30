@@ -1,7 +1,8 @@
 AC_PREREQ(2.52)
 
-AC_INIT([apertium-{{languageCode}}], [0.1.0], [{{email}}])
-AM_INIT_AUTOMAKE([apertium-{{languageCode}}], [0.1.0], no-define)
+AC_INIT([Apertium {{languageName1}}-{{languageName2}}], [0.1.0], [{{email}}], [apertium-{{languageCode1}}-{{languageCode2}}], [http://wiki.apertium.org/wiki/Apertium-{{languageCode1}}-{{languageCode2}}])
+AM_INIT_AUTOMAKE
+
 AC_PROG_LN_S
 AC_PROG_AWK
 
@@ -20,7 +21,7 @@ AS_IF([test x$hfstospell = xyes], [
 AM_CONDITIONAL([HAVE_HFSTOSPELL], [test x$hfstospell = xyes])
 
 
-m4_define([required_apertium_version], [3.3.0])
+m4_define([required_apertium_version], [3.4.0])
 PKG_CHECK_MODULES(APERTIUM,   apertium >= required_apertium_version)
 
 AC_PATH_PROG([HFSTLEXC], [hfst-lexc], [false], [$PATH$PATH_SEPARATOR$with_hfst_lexc/bin])
