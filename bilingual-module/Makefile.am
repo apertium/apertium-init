@@ -57,8 +57,15 @@ if_pgen1}}
 	echo " ?* " | hfst-regexp2fst > .deps/any-symbol.hfst
 	hfst-concatenate -1 .deps/$(PREFIX1).autobil.upper -2 .deps/any-symbol.hfst -o .deps/$(PREFIX1).autobil.prefixes
 
-$(PREFIX1).automorf.bin: $(AP_SRC1)/$(LANG1).automorf.att.gz .deps/$(PREFIX1).autobil.prefixes .deps/.d
-	$(ZCAT) $< | hfst-txt2fst > .deps/$(LANG1).automorf.hfst
+.deps/$(LANG1).automorf.hfst: $(AP_SRC1)/$(LANG1).automorf.att.gz .deps/.d
+	$(ZCAT) $< | hfst-txt2fst > $@
+
+.deps/$(LANG1).automorf.bin: $(AP_SRC1)/$(LANG1).automorf.att.gz .deps/.d
+	@$(ZCAT) $< > $@.att
+	lt-comp lr $@.att $@
+	@rm $@.att
+
+$(PREFIX1).automorf.bin: .deps/$(LANG1).automorf.hfst .deps/$(PREFIX1).autobil.prefixes
 	hfst-compose-intersect -1 .deps/$(LANG1).automorf.hfst -2 .deps/$(PREFIX1).autobil.prefixes -o .deps/$(PREFIX1).automorf.trimmed
 	hfst-fst2txt -i .deps/$(PREFIX1).automorf.trimmed -o .deps/$(PREFIX1).automorf.trimmed.att
 	lt-comp lr .deps/$(PREFIX1).automorf.trimmed.att $@
@@ -92,8 +99,15 @@ $(PREFIX2).autogen.bin: $(AP_SRC1)/$(LANG1).autogen.bin
 	echo " ?* " | hfst-regexp2fst > .deps/any-symbol.hfst
 	hfst-concatenate -1 .deps/$(PREFIX2).autobil.upper -2 .deps/any-symbol.hfst -o .deps/$(PREFIX2).autobil.prefixes
 
-$(PREFIX2).automorf.bin: $(AP_SRC2)/$(LANG2).automorf.att.gz .deps/$(PREFIX2).autobil.prefixes .deps/.d
-	$(ZCAT) $< | hfst-txt2fst > .deps/$(LANG2).automorf.hfst
+.deps/$(LANG2).automorf.hfst: $(AP_SRC2)/$(LANG2).automorf.att.gz .deps/.d
+	$(ZCAT) $< | hfst-txt2fst > $@
+
+.deps/$(LANG2).automorf.bin: $(AP_SRC2)/$(LANG2).automorf.att.gz .deps/.d
+	@$(ZCAT) $< > $@.att
+	lt-comp lr $@.att $@
+	@rm $@.att
+
+$(PREFIX2).automorf.bin: .deps/$(LANG2).automorf.hfst .deps/$(PREFIX2).autobil.prefixes
 	hfst-compose-intersect -1 .deps/$(LANG2).automorf.hfst -2 .deps/$(PREFIX2).autobil.prefixes -o .deps/$(PREFIX2).automorf.trimmed
 	hfst-fst2txt -i .deps/$(PREFIX2).automorf.trimmed -o .deps/$(PREFIX2).automorf.trimmed.att
 	lt-comp lr .deps/$(PREFIX2).automorf.trimmed.att $@
@@ -230,7 +244,9 @@ apertium_{{languageCode1}}_{{languageCode2}}_DATA=	\
 	$(BASENAME).$(PREFIX2).t3x
 
 # All modes are created by the same goal, listing several will just give problems with make -j2
-noinst_DATA=modes/$(PREFIX1).mode
+noinst_DATA=modes/$(PREFIX1).mode \
+	.deps/$(LANG1).automorf.bin \
+	.deps/$(LANG2).automorf.bin
 
 install-data-local: install-modes
 
