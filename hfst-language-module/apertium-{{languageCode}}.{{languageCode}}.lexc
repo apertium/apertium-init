@@ -4,6 +4,8 @@ Multichar_Symbols
 
 ! Part of speech categories
 %<n%>  ! Noun
+
+! Number morphology
 %<pl%> ! Plural
 %<sg%> ! Singular
 
@@ -25,8 +27,8 @@ house RegNounInfl ; ! A noun
 
 LEXICON RegNounInfl
 
-%<n%>%<sg%>:   # ;
-%<n%>%<pl%>:s   # ;
+%<n%>%<sg%>: # ;
+%<n%>%<pl%>:s # ;
 
 ! Resources:
 ! http://wiki.apertium.org/wiki/Starting_a_new_language_with_HFST#Lexicon
