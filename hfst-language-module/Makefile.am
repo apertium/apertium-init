@@ -15,6 +15,7 @@ TARGETS_COMMON =			\
 	$(LANG1).autogen.bin		\
 	$(LANG1).autogen.att.gz		\
 	$(LANG1).autopgen.bin		\
+	$(LANG1).prob                   \
 	$(LANG1).rlx.bin
 
 # This include defines goals for install-modes, .deps/.d, autobil.prefixes and .mode files:
@@ -120,6 +121,13 @@ $(LANG1).zhfst: .deps/acceptor.default.hfst .deps/errmodel.default.hfst
 
 
 ###############################################################################
+## Unigram tagger
+###############################################################################
+
+$(LANG1).prob: corpus/$(LANG1).tagged
+	apertium-tagger -s 0 -u 2 $@ $<
+
+###############################################################################
 ## Distribution
 ###############################################################################
 
@@ -146,7 +154,7 @@ if HAVE_HFSTOSPELL
 EXTRA_TARGETS += $(LANG1).zhfst
 endif # HAVE_HFSTOSPELL
 
-apertium_{{languageCode}}_DATA=$(TARGETS_COMMON) $(EXTRA_TARGETS) $(LANG1).prob
+apertium_{{languageCode}}_DATA=$(TARGETS_COMMON) $(EXTRA_TARGETS)
 
 pkgconfigdir = $(prefix)/share/pkgconfig
 pkgconfig_DATA = $(BASENAME).pc
@@ -177,4 +185,3 @@ test: all
 	@echo "TODO test analysis results" > .test-ref
 	@diff .test-ref .test-mt
 	@rm .test-ref .test-mt
-

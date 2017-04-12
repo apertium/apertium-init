@@ -12,6 +12,7 @@ files = [
     'configure.ac',
     'Makefile.am',
     'modes.xml',
+    'corpus/{{languageCode}}.tagged',
     'README'
 ]
 
