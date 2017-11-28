@@ -60,7 +60,6 @@ TODO: test tagger result
 Files and data
 ===============================================================================
 
-* apertium-{{languageCode}}.{{languageCode}}.dix           - Monolingual dictionary
 * apertium-{{languageCode}}.{{languageCode}}.lexc          - Morphotactic dictionary
 * apertium-{{languageCode}}.{{languageCode}}.twol          - Morphophonological rules
 * apertium-{{languageCode}}.{{languageCode}}.rlx           - Constraint Grammar disambiguation rules
