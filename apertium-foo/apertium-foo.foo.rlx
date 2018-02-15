@@ -1,0 +1,20 @@
+# Firstly, we need to define what tags should be considered sentence delimiters. For this example, only full stop is set as delimiter.
+DELIMITERS = "<.>" ;
+
+# We can define sets for common tag clusters
+LIST Case = (n s) (n p) ; # A set that matches either a Noun Singular or a Noun Plural
+
+SECTION
+# If there is a singular noun to the right, I cannot be a verb or noun.
+REMOVE (n) OR (v) IF (1 (n s)) ;
+
+# If there is a conjunction followed by a certain cohort of the same CASE as me, choose me.
+SELECT $$Case IF (1 (cnjcoo) LINK 1C $$Case) ;
+
+# Resources:
+# http://visl.sdu.dk/cg3.html
+# http://groups.google.com/group/constraint-grammar
+# http://kevindonnelly.org.uk/2010/05/constraint-grammar-tutorial/
+# http://wiki.apertium.org/wiki/Constraint_Grammar
+# http://wiki.apertium.org/wiki/Apertium_and_Constraint_Grammar
+
