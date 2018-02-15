@@ -30,6 +30,42 @@ def makeReplacements(s, replacements, conditionals):
     return s
 
 
+def push_to_github(folder, username):
+    global args
+    orgname = 'goavki'
+    reponame = "apertium-{}".format(args.name)
+    description = "Apertium data for {}".format(reponame)  # FIXME: should say something more like the first line of the READMEs
+    if os.path.isdir(folder):
+        try:
+            # FIXME FIXME FIXME
+            # implement here native HTTP request
+            # and password / auth checking
+            creation_exec = 'curl -u \'{}\' https://api.github.com/orgs/%s/repos -d \'{{"name":"{}", "description":"{}", "has_issues": true}}\''.format(username, orgname, reponame, description)
+            authenticated = False
+            while authenticated != True:
+                print(creation_exec)
+                payload = subprocess.check_output(creation_exec, shell=True, stderr=subprocess.STDOUT, stdin=subprocess.PIPE)
+                print(payload)  # DEBUG output
+
+            print('Successfully created remote git repository {}/{}.'.format(orgname, reponame))
+        except subprocess.CalledProcessError as e:
+            print('Failed to create remote git repository {}/{}!'.format(orgname, reponame))
+            sys.exit(-1)
+
+        try:
+            remoteurl = payload['ssh_url']  # "ssh_url": "git@github.com:goavki/apertium-test.git",
+            remotename = "origin"
+            subprocess.check_output("git remote add {} {}".format(remotename, remoteurl), cwd=args.destination, stderr=subprocess.STDOUT, shell=True)
+        except:
+            print('Adding remote {} ({}) failed!'.format(remotename, remoteurl))
+
+
+        try:
+            subprocess.check_output("git push {} master".format(remotename), cwd=args.destination, stderr=subprocess.STDOUT, shell=True)
+        except:
+            print('Pushing to remote %s failed!'.formate(remotename))
+
+
 def getLangName(code):
     code = iso639Codes[code] if len(code) > 2 and code in iso639Codes else code
     if code in englishLangNames:
@@ -42,7 +78,10 @@ def getLangName(code):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Bootstrap an Apertium language module/pair')
     parser.add_argument('name', help='name of new Apertium language module/pair using ISO-639-3 language code(s)')
-    parser.add_argument('-d', '--destination', help='destination directory for new language module/pair', default=os.getcwd())
+    parser.add_argument('-d', '--destination', help='destination directory for new language module/pair.  Use with -u', default=os.getcwd())
+    parser.add_argument('-p', '--push-new-to-github', help='push newly created repository to incubator on the Apertium organisation on github.  Use with -u', action='store_true', default=False)
+    parser.add_argument('-pe', '--push-existing-to-github', help='push existing repository to incubator on the Apertium organisation on github ', default=None)
+    parser.add_argument('-u', '--username', help='override github username (for pushing repository to github); otherwise git config is use', default=None)
 
     parser.add_argument('-a', '--analyser', help='analyser to use for all languages', choices=['lt', 'lttoolbox', 'hfst'], default='lt')
     parser.add_argument('-a1', '--analyser1', help='analyser to use for first language of pair', choices=['lt', 'lttoolbox', 'hfst'], default='lt')
@@ -63,7 +102,11 @@ if __name__ == '__main__':
         email = 'apertium-stuff@lists.sourceforge.net'
         sys.stderr.write('Unable to get email, defaulting to %s: %s\n' % (email, str(e).strip()))
 
+    username = args.username or email
+
     args.name = args.name.replace('apertium-', '')
+
+    # FIXME: handle -pe argument
 
     if '-' in args.name and args.name.count('-') == 1:
         languageCode1, languageCode2 = args.name.split('-')
@@ -124,7 +167,10 @@ if __name__ == '__main__':
             sys.exit(-1)
         else:
             # os.makedirs(args.destination)
-            subprocess.check_output(shlex.split('git init %s' % args.destination))
+            try:
+                subprocess.check_output(shlex.split('git init %s' % args.destination))
+            except subprocess.CalledProcessError as e:
+                print(e)
 
         if args.analyser in ['lt', 'lttoolbox']:
             files = dict(lttoolbox_language_module_files, **any_module_files)
@@ -150,12 +196,18 @@ if __name__ == '__main__':
     autogenFile = os.path.join(args.destination, 'autogen.sh')
     os.chmod(autogenFile, os.stat(autogenFile).st_mode | stat.S_IEXEC)
 
-    print('Succesfully created /apertium-%s.' % args.name)
+    print('Successfully created %s.' % args.destination)
 
     try:
         subprocess.check_output(shlex.split('git add .'), cwd=args.destination)
-        subprocess.check_output(shlex.split('git commit -m "Initial commit" .'), cwd=args.destination)
+        subprocess.check_output(shlex.split('git commit -m "Initial commit"'), cwd=args.destination)
         print('Created git repository apertium-%s.' % args.name)
-        print('You\'ll probably want to add a remote and push.')
+        print('Successfully added files to git repository apertium-{}.'.format(args.name))
     except subprocess.CalledProcessError as e:
-        sys.stderr.write('Unable to add files to git repository: %s\n' % (args.destination, str(e.output, 'utf-8').strip()))
+        sys.stderr.write('Unable to add files to git repository apertium-{}: {}\n'.format(args.name, str(e.output, 'utf-8').strip()))
+
+    if args.push_new_to_github:
+        push_to_github(args.destination, username)
+    else:
+        print("To push your new local repo to incubator in the Apertium organisation on github:")
+        print("  apertium-init.py -pe {}".format(args.destination))
