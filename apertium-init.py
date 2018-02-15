@@ -113,7 +113,8 @@ if __name__ == '__main__':
             sys.stderr.write('Directory %s already exists, quitting.\n' % args.destination)
             sys.exit(-1)
         else:
-            os.makedirs(args.destination)
+            #os.makedirs(args.destination)
+            subprocess.check_output('git init %s' % args.destination, stderr=subprocess.STDOUT, shell=True)
 
         if args.analyser in ['lt', 'lttoolbox']:
             files = dict(lttoolbox_language_module_files, **any_module_files)
@@ -142,8 +143,9 @@ if __name__ == '__main__':
     print('Succesfully created /apertium-%s.' % args.name)
 
     try:
-        subprocess.check_output('svn add %s' % args.destination, stderr=subprocess.STDOUT, shell=True)
-        print('Added apertium-%s to SVN.' % args.name)
+        subprocess.check_output('git add %s' % ".", cwd=args.destination, stderr=subprocess.STDOUT, shell=True)
+        print('Added apertium-%s to git.' % args.name)
+        print("You'll probably want to commit, add a remote, and push.")
     except subprocess.CalledProcessError as e:
         sys.stderr.write('Unable to add %s to SVN: %s\n' % (args.destination, str(e.output, 'utf-8').strip()))
 
