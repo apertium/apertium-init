@@ -147,5 +147,5 @@ if __name__ == '__main__':
         print('Added apertium-%s to git.' % args.name)
         print("You'll probably want to commit, add a remote, and push.")
     except subprocess.CalledProcessError as e:
-        sys.stderr.write('Unable to add %s to SVN: %s\n' % (args.destination, str(e.output, 'utf-8').strip()))
+        sys.stderr.write('Unable to add %s to git: %s\n' % (args.destination, str(e.output, 'utf-8').strip()))
 
