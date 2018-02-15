@@ -43,7 +43,7 @@ house:house RegNounInfl ; ! A noun
 ! http://wiki.apertium.org/wiki/Lttoolbox_and_lexc
 ! http://wiki.apertium.org/wiki/Apertium-specific_conventions_for_lexc
 ! https://kitwiki.csc.fi/twiki/bin/view/KitWiki/HfstHome
-! http://hfst.sourceforge.net/
+! https://github.com/hfst/
 ! http://www.cis.upenn.edu/~cis639/docs/lexc.html
 ! http://wiki.apertium.org/wiki/Hfst
 
