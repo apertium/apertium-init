@@ -144,8 +144,8 @@ if __name__ == '__main__':
 
     try:
         subprocess.check_output('git add %s' % ".", cwd=args.destination, stderr=subprocess.STDOUT, shell=True)
-        print('Added apertium-%s to git.' % args.name)
+        print('Create git repository apertium-%s.' % args.name)
         print("You'll probably want to commit, add a remote, and push.")
     except subprocess.CalledProcessError as e:
-        sys.stderr.write('Unable to add %s to git: %s\n' % (args.destination, str(e.output, 'utf-8').strip()))
+        sys.stderr.write('Unable to add files to git repository: %s\n' % (args.destination, str(e.output, 'utf-8').strip()))
 
