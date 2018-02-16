@@ -5,7 +5,7 @@ all:
 	./lttoolbox-language-module/updateBootstraper.py
 
 test:
-	flake8 *.py **/*.py --max-line-length 160
+	flake8 *.py **/*.py
 
 PREFIX ?= /usr/local
 install:
