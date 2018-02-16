@@ -56,13 +56,12 @@ def push_to_github(folder, username):
             remoteurl = payload['ssh_url']  # "ssh_url": "git@github.com:goavki/apertium-test.git",
             remotename = "origin"
             subprocess.check_output("git remote add {} {}".format(remotename, remoteurl), cwd=args.destination, stderr=subprocess.STDOUT, shell=True)
-        except:
+        except subprocess.CalledProcessError as e:
             print('Adding remote {} ({}) failed!'.format(remotename, remoteurl))
-
 
         try:
             subprocess.check_output("git push {} master".format(remotename), cwd=args.destination, stderr=subprocess.STDOUT, shell=True)
-        except:
+        except subprocess.CalledProcessError as e:
             print('Pushing to remote %s failed!'.formate(remotename))
 
 
@@ -75,7 +74,7 @@ def getLangName(code):
         return code
 
 
-if __name__ == '__main__':
+def main():
     parser = argparse.ArgumentParser(description='Bootstrap an Apertium language module/pair')
     parser.add_argument('name', help='name of new Apertium language module/pair using ISO-639-3 language code(s)')
     parser.add_argument('-d', '--destination', help='destination directory for new language module/pair.  Use with -u', default=os.getcwd())
@@ -211,3 +210,7 @@ if __name__ == '__main__':
     else:
         print("To push your new local repo to incubator in the Apertium organisation on github:")
         print("  apertium-init.py -pe {}".format(args.destination))
+
+
+if __name__ == '__main__':
+    main()
