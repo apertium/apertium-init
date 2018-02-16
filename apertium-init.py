@@ -133,36 +133,36 @@ def make_all_replacements(destination, files, replacements, conditionals):
 
 
 def push_to_github(args, folder, username):
-    reponame = 'apertium-{}'.format(args.name)
-    description = 'Apertium data for {}'.format(reponame)  # FIXME: should say something more like the first line of the READMEs
-    if os.path.isdir(folder):
-        try:
-            # FIXME FIXME FIXME
-            # implement here native HTTP request
-            # and password / auth checking
-            creation_exec = 'curl -u \'{}\' https://api.github.com/orgs/%s/repos -d \'{{"name":"{}", "description":"{}", "has_issues": true}}\''.format(username, organization_name, reponame, description)
-            authenticated = False
-            while authenticated != True:
-                print(creation_exec)
-                payload = subprocess.check_output(creation_exec, shell=True, stderr=subprocess.STDOUT, stdin=subprocess.PIPE)
-                print(payload)  # DEBUG output
+    repository_name = 'apertium-{}'.format(args.name)
+    description = 'Apertium data for {}'.format(repository_name)  # TODO: should say something more like the first line of the READMEs
 
-            print('Successfully created remote git repository {}/{}.'.format(organization_name, reponame))
-        except subprocess.CalledProcessError as e:
-            print('Failed to create remote git repository {}/{}!'.format(organization_name, reponame))
-            sys.exit(-1)
+    try:
+        # FIXME FIXME FIXME
+        # implement here native HTTP request
+        # and password / auth checking
+        creation_exec = 'curl -u \'{}\' https://api.github.com/orgs/%s/repos -d \'{{"name":"{}", "description":"{}", "has_issues": true}}\''.format(username, organization_name, reponame, description)
+        authenticated = False
+        while not authenticated:
+            print(creation_exec)
+            payload = subprocess.check_output(creation_exec, shell=True, stderr=subprocess.STDOUT, stdin=subprocess.PIPE)
+            print(payload)  # DEBUG output
 
-        try:
-            remoteurl = payload['ssh_url']  # "ssh_url": "git@github.com:goavki/apertium-test.git",
-            remotename = 'origin'
-            subprocess.check_output("git remote add {} {}".format(remotename, remoteurl), cwd=args.destination, stderr=subprocess.STDOUT, shell=True)
-        except subprocess.CalledProcessError as e:
-            print('Adding remote {} ({}) failed!'.format(remotename, remoteurl))
+        print('Successfully created remote git repository {}/{}.'.format(organization_name, reponame))
+    except subprocess.CalledProcessError as e:
+        sys.stderr.write('Failed to create remote git repository {}/{}!'.format(organization_name, reponame))
+        sys.exit(-1)
 
-        try:
-            subprocess.check_output("git push {} master".format(remotename), cwd=args.destination, stderr=subprocess.STDOUT, shell=True)
-        except subprocess.CalledProcessError as e:
-            print('Pushing to remote %s failed!'.formate(remotename))
+    try:
+        remoteurl = payload['ssh_url']  # "ssh_url": "git@github.com:goavki/apertium-test.git",
+        remotename = 'origin'
+        subprocess.check_output("git remote add {} {}".format(remotename, remoteurl), cwd=args.destination, stderr=subprocess.STDOUT, shell=True)
+    except subprocess.CalledProcessError as e:
+        sys.stderr.write('Adding remote {} ({}) failed!'.format(remotename, remoteurl))
+
+    try:
+        subprocess.check_output("git push {} master".format(remotename), cwd=args.destination, stderr=subprocess.STDOUT, shell=True)
+    except subprocess.CalledProcessError as e:
+        sys.stderr.write('Pushing to remote %s failed!'.formate(remotename))
 
 
 def main():
@@ -195,15 +195,17 @@ def main():
     username = args.username or email
     args.name = args.name.replace('apertium-', '')
 
-    # TODO: handle -pe argument
+    if args.push_existing_to_github:
+        if not os.path.isdir(args.push_existing_to_github):
+            parser.error('--push_existing_to_github required an existing directory')
+        # TODO: handle -pe argument
 
     if '-' in args.name and args.name.count('-') == 1:
         files, replacements, conditionals = init_pair(args, email)
     elif '-' not in args.name:
         files, replacements, conditionals = init_lang_module(args, email)
     else:
-        sys.stderr.write('Invalid language module name: %s' % args.name)
-        sys.exit(-1)
+        parser.error('Invalid language module name: %s' % args.name)
 
     make_all_replacements(args.destination, files, replacements, conditionals)
 
@@ -228,8 +230,8 @@ def main():
     if args.push_new_to_github:
         push_to_github(args, args.destination, username)
     else:
-        print("To push your new local repo to incubator in the Apertium organisation on github:")
-        print("  apertium-init.py -pe {}".format(args.destination))
+        print('To push your new local repository to incubator in the Apertium organisation on GitHub:')
+        print('\tapertium-init.py -pe {}'.format(args.destination))
 
 
 if __name__ == '__main__':
