@@ -200,6 +200,7 @@ def main():
     if args.push_existing_to_github:
         if not os.path.isdir(args.push_existing_to_github):
             parser.error('--push_existing_to_github requires an existing directory')
+        raise NotImplementedError
         # TODO: handle -pe argument
 
     if '-' in args.name and args.name.count('-') == 1:
@@ -232,6 +233,7 @@ def main():
         sys.exit(-1)
 
     if args.push_new_to_github:
+        raise NotImplementedError
         push_to_github(args, args.destination, username)
     else:
         print('To push your new local repository to incubator in the Apertium organisation on GitHub:')
