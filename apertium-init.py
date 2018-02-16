@@ -221,6 +221,7 @@ def main():
         print('Initialized git repository apertium-{}.'.format(args.name))
     except subprocess.CalledProcessError as e:
         sys.stderr.write('Unable to initialize git repository: {}'.format(e.output))
+        sys.exit(-1)
 
     try:
         subprocess.check_output(shlex.split('git add .'), cwd=args.destination, universal_newlines=True, stderr=subprocess.STDOUT)
@@ -228,6 +229,7 @@ def main():
         print('Successfully added and committed files to git repository apertium-{}.'.format(args.name))
     except subprocess.CalledProcessError as e:
         sys.stderr.write('Unable to add/commit files to git repository apertium-{}: {}'.format(args.name, e.output))
+        sys.exit(-1)
 
     if args.push_new_to_github:
         push_to_github(args, args.destination, username)
