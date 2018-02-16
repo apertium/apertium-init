@@ -21,48 +21,6 @@ iso639_codes = {'roh': 'rm', 'gv': 'glv', 'gu': 'guj', 'ron': 'ro', 'oss': 'os',
 organization_name = 'mock-apertium'
 
 
-def make_replacements(s, replacements, conditionals):
-    for _ in range(2):
-        s = re.sub(r'{{if_(\w+)[^\n]*(.*?)\nif_\1}}', lambda x: x.group(2) if x.group(1) in conditionals else '', s, flags=re.DOTALL)
-        s = re.sub(r'{{ifnot_(\w+)[^\n]*(.*?)\nifnot_\1}}', lambda x: x.group(2) if x.group(1) not in conditionals else '', s, flags=re.DOTALL)
-    for replacementName, replacementValue in replacements.items():
-        s = s.replace('{{%s}}' % replacementName, replacementValue)
-    return s
-
-
-def push_to_github(args, folder, username):
-    reponame = 'apertium-{}'.format(args.name)
-    description = 'Apertium data for {}'.format(reponame)  # FIXME: should say something more like the first line of the READMEs
-    if os.path.isdir(folder):
-        try:
-            # FIXME FIXME FIXME
-            # implement here native HTTP request
-            # and password / auth checking
-            creation_exec = 'curl -u \'{}\' https://api.github.com/orgs/%s/repos -d \'{{"name":"{}", "description":"{}", "has_issues": true}}\''.format(username, organization_name, reponame, description)
-            authenticated = False
-            while authenticated != True:
-                print(creation_exec)
-                payload = subprocess.check_output(creation_exec, shell=True, stderr=subprocess.STDOUT, stdin=subprocess.PIPE)
-                print(payload)  # DEBUG output
-
-            print('Successfully created remote git repository {}/{}.'.format(organization_name, reponame))
-        except subprocess.CalledProcessError as e:
-            print('Failed to create remote git repository {}/{}!'.format(organization_name, reponame))
-            sys.exit(-1)
-
-        try:
-            remoteurl = payload['ssh_url']  # "ssh_url": "git@github.com:goavki/apertium-test.git",
-            remotename = 'origin'
-            subprocess.check_output("git remote add {} {}".format(remotename, remoteurl), cwd=args.destination, stderr=subprocess.STDOUT, shell=True)
-        except subprocess.CalledProcessError as e:
-            print('Adding remote {} ({}) failed!'.format(remotename, remoteurl))
-
-        try:
-            subprocess.check_output("git push {} master".format(remotename), cwd=args.destination, stderr=subprocess.STDOUT, shell=True)
-        except subprocess.CalledProcessError as e:
-            print('Pushing to remote %s failed!'.formate(remotename))
-
-
 def get_lang_name(code):
     code = iso639_codes[code] if len(code) > 2 and code in iso639_codes else code
     if code in english_lang_names:
@@ -152,6 +110,61 @@ def init_lang_module(args, email):
     return files, replacements, conditionals
 
 
+def make_replacements(s, replacements, conditionals):
+    for _ in range(2):
+        s = re.sub(r'{{if_(\w+)[^\n]*(.*?)\nif_\1}}', lambda x: x.group(2) if x.group(1) in conditionals else '', s, flags=re.DOTALL)
+        s = re.sub(r'{{ifnot_(\w+)[^\n]*(.*?)\nifnot_\1}}', lambda x: x.group(2) if x.group(1) not in conditionals else '', s, flags=re.DOTALL)
+    for replacementName, replacementValue in replacements.items():
+        s = s.replace('{{%s}}' % replacementName, replacementValue)
+    return s
+
+
+def make_all_replacements(destination, files, replacements, conditionals):
+    for filename, encodedFile in files.items():
+        path = os.path.join(destination, make_replacements(filename, replacements, conditionals))
+        folder = os.path.dirname(path)
+        if not os.path.isdir(folder):
+            os.mkdir(folder)
+        with open(path, 'wb') as f:
+            try:
+                f.write(make_replacements(str(base64.b85decode(encodedFile), encoding='utf-8'), replacements, conditionals).encode('utf-8'))
+            except UnicodeDecodeError:  # binary file
+                f.write(base64.b85decode(encodedFile))
+
+
+def push_to_github(args, folder, username):
+    reponame = 'apertium-{}'.format(args.name)
+    description = 'Apertium data for {}'.format(reponame)  # FIXME: should say something more like the first line of the READMEs
+    if os.path.isdir(folder):
+        try:
+            # FIXME FIXME FIXME
+            # implement here native HTTP request
+            # and password / auth checking
+            creation_exec = 'curl -u \'{}\' https://api.github.com/orgs/%s/repos -d \'{{"name":"{}", "description":"{}", "has_issues": true}}\''.format(username, organization_name, reponame, description)
+            authenticated = False
+            while authenticated != True:
+                print(creation_exec)
+                payload = subprocess.check_output(creation_exec, shell=True, stderr=subprocess.STDOUT, stdin=subprocess.PIPE)
+                print(payload)  # DEBUG output
+
+            print('Successfully created remote git repository {}/{}.'.format(organization_name, reponame))
+        except subprocess.CalledProcessError as e:
+            print('Failed to create remote git repository {}/{}!'.format(organization_name, reponame))
+            sys.exit(-1)
+
+        try:
+            remoteurl = payload['ssh_url']  # "ssh_url": "git@github.com:goavki/apertium-test.git",
+            remotename = 'origin'
+            subprocess.check_output("git remote add {} {}".format(remotename, remoteurl), cwd=args.destination, stderr=subprocess.STDOUT, shell=True)
+        except subprocess.CalledProcessError as e:
+            print('Adding remote {} ({}) failed!'.format(remotename, remoteurl))
+
+        try:
+            subprocess.check_output("git push {} master".format(remotename), cwd=args.destination, stderr=subprocess.STDOUT, shell=True)
+        except subprocess.CalledProcessError as e:
+            print('Pushing to remote %s failed!'.formate(remotename))
+
+
 def main():
     parser = argparse.ArgumentParser(description='Bootstrap an Apertium language module/pair')
     parser.add_argument('name', help='name of new Apertium language module/pair using ISO-639-3 language code(s)')
@@ -192,16 +205,7 @@ def main():
         sys.stderr.write('Invalid language module name: %s' % args.name)
         sys.exit(-1)
 
-    for filename, encodedFile in files.items():
-        path = os.path.join(args.destination, make_replacements(filename, replacements, conditionals))
-        folder = os.path.dirname(path)
-        if not os.path.isdir(folder):
-            os.mkdir(folder)
-        with open(path, 'wb') as f:
-            try:
-                f.write(make_replacements(str(base64.b85decode(encodedFile), encoding='utf-8'), replacements, conditionals).encode('utf-8'))
-            except UnicodeDecodeError:  # binary file
-                f.write(base64.b85decode(encodedFile))
+    make_all_replacements(args.destination, files, replacements, conditionals)
 
     autogenFile = os.path.join(args.destination, 'autogen.sh')
     os.chmod(autogenFile, os.stat(autogenFile).st_mode | stat.S_IEXEC)
@@ -209,9 +213,9 @@ def main():
     print('Successfully created %s.' % args.destination)
 
     try:
-        subprocess.check_output(shlex.split('git init .'), cwd=args.destination)
+        subprocess.check_output(shlex.split('git init .'), cwd=args.destination, universal_newlines=True)
     except subprocess.CalledProcessError as e:
-        print(e)
+        sys.stderr.write('Unable to initialize git repository: {}\n'.format(e.output))
 
     try:
         subprocess.check_output(shlex.split('git add .'), cwd=args.destination)
