@@ -140,36 +140,38 @@ def push_to_github(args, folder, username):
         # FIXME FIXME FIXME
         # implement here native HTTP request
         # and password / auth checking
-        creation_exec = 'curl -u \'{}\' https://api.github.com/orgs/%s/repos -d \'{{"name":"{}", "description":"{}", "has_issues": true}}\''.format(username, organization_name, reponame, description)
+        creation_exec = 'curl -u \'{}\' https://api.github.com/orgs/%s/repos -d \'{{"name":"{}", "description":"{}", "has_issues": true}}\''.format(
+            username, organization_name, repository_name, description)
         authenticated = False
         while not authenticated:
             print(creation_exec)
             payload = subprocess.check_output(creation_exec, shell=True, stderr=subprocess.STDOUT, stdin=subprocess.PIPE)
             print(payload)  # DEBUG output
 
-        print('Successfully created remote git repository {}/{}.'.format(organization_name, reponame))
+        print('Successfully created GitHub repository {}/{}.'.format(organization_name, repository_name))
     except subprocess.CalledProcessError as e:
-        sys.stderr.write('Failed to create remote git repository {}/{}!'.format(organization_name, reponame))
+        sys.stderr.write('Failed to create GitHub repository {}/{}: {}'.format(organization_name, repository_name, e.output))
         sys.exit(-1)
 
+    remote_name = 'origin'
     try:
-        remoteurl = payload['ssh_url']  # "ssh_url": "git@github.com:goavki/apertium-test.git",
-        remotename = 'origin'
-        subprocess.check_output("git remote add {} {}".format(remotename, remoteurl), cwd=args.destination, stderr=subprocess.STDOUT, shell=True)
+        remote_url = payload['ssh_url']  # "ssh_url": "git@github.com:goavki/apertium-test.git",
+        subprocess.check_output(shlex.split('git remote add {} {}'.format(remote_name, remote_url)), cwd=args.destination, stderr=subprocess.STDOUT)
     except subprocess.CalledProcessError as e:
-        sys.stderr.write('Adding remote {} ({}) failed!'.format(remotename, remoteurl))
+        sys.stderr.write('Adding remote {} ({}) failed: {}'.format(remote_name, remote_url, e.output))
 
     try:
-        subprocess.check_output("git push {} master".format(remotename), cwd=args.destination, stderr=subprocess.STDOUT, shell=True)
+        subprocess.check_output(shlex.split('git push {} master'.format(remote_name)), cwd=args.destination, stderr=subprocess.STDOUT)
     except subprocess.CalledProcessError as e:
-        sys.stderr.write('Pushing to remote %s failed!'.formate(remotename))
+        sys.stderr.write('Pushing to remote %s failed: {}'.formate(remote_name, e.output))
 
 
 def main():
     parser = argparse.ArgumentParser(description='Bootstrap an Apertium language module/pair')
     parser.add_argument('name', help='name of new Apertium language module/pair using ISO-639-3 language code(s)')
-    parser.add_argument('-d', '--destination', help='destination directory for new language module/pair. Use with -u', default=os.getcwd())
-    parser.add_argument('-p', '--push-new-to-github', help='push newly created repository to incubator on the Apertium organisation on GitHub.  Use with -u', action='store_true', default=False)
+    parser.add_argument('-d', '--destination', help='destination directory for new language module/pair (use with -u)', default=os.getcwd())
+    parser.add_argument('-p', '--push-new-to-github', help='push newly created repository to incubator on the Apertium organisation on GitHub (use with -u)',
+                        action='store_true', default=False)
     parser.add_argument('-pe', '--push-existing-to-github', help='push existing repository to incubator on the Apertium organisation on GitHub', default=None)
     parser.add_argument('-u', '--username', help='override GitHub username (for pushing repository to GitHub); otherwise git config is used', default=None)
 
@@ -215,17 +217,17 @@ def main():
     print('Successfully created %s.' % args.destination)
 
     try:
-        subprocess.check_output(shlex.split('git init .'), cwd=args.destination, universal_newlines=True)
+        subprocess.check_output(shlex.split('git init .'), cwd=args.destination, universal_newlines=True, stderr=subprocess.STDOUT)
         print('Initialized git repository apertium-{}.'.format(args.name))
     except subprocess.CalledProcessError as e:
-        sys.stderr.write('Unable to initialize git repository: {}\n'.format(e.output))
+        sys.stderr.write('Unable to initialize git repository: {}'.format(e.output))
 
     try:
-        subprocess.check_output(shlex.split('git add .'), cwd=args.destination, universal_newlines=True)
-        subprocess.check_output(shlex.split('git commit -m "Initial commit"'), cwd=args.destination, universal_newlines=True)
+        subprocess.check_output(shlex.split('git add .'), cwd=args.destination, universal_newlines=True, stderr=subprocess.STDOUT)
+        subprocess.check_output(shlex.split('git commit -m "Initial commit"'), cwd=args.destination, universal_newlines=True, stderr=subprocess.STDOUT)
         print('Successfully added and committed files to git repository apertium-{}.'.format(args.name))
     except subprocess.CalledProcessError as e:
-        sys.stderr.write('Unable to add/commit files to git repository apertium-{}: {}\n'.format(args.name, e.output))
+        sys.stderr.write('Unable to add/commit files to git repository apertium-{}: {}'.format(args.name, e.output))
 
     if args.push_new_to_github:
         push_to_github(args, args.destination, username)
