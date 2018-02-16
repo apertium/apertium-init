@@ -1,6 +1,11 @@
 #!/usr/bin/env python3
 
-import argparse, base64, sys, re, fileinput, os
+import argparse
+import base64
+import fileinput
+import os
+import re
+import sys
 
 files = [
     '{{languageCode}}.prob',
@@ -33,4 +38,3 @@ if __name__ == '__main__':
 
     for line in fileinput.input([args.bootstraperScript], inplace=True):
         sys.stdout.write(re.sub(r'^hfst_language_module_files = {.*?}$', 'hfst_language_module_files = %s' % repr(encodedFiles), line))
-

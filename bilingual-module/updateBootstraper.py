@@ -1,6 +1,11 @@
 #!/usr/bin/env python3
 
-import argparse, base64, sys, re, fileinput, os
+import argparse
+import base64
+import fileinput
+import os
+import re
+import sys
 
 files = [
     'apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode1}}-{{languageCode2}}.lrx',
@@ -34,5 +39,4 @@ if __name__ == '__main__':
             encodedFiles[filename] = base64.b85encode(f.read())
 
     for line in fileinput.input([args.bootstraperScript], inplace=True):
-        sys.stdout.write(re.sub(r'^bilingual_module_files = {.*?}$', 'bilingual_module_files = %s' % repr(encodedFiles), line))
-
+        sys.stdout.write(re.sub(r'^bilingual_module_files = {.*?}$  # noqa: E501', 'bilingual_module_files = %s' % repr(encodedFiles), line))

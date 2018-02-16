@@ -3,6 +3,8 @@ all:
 	./hfst-language-module/updateBootstraper.py
 	./lttoolbox-language-module/updateBootstraper.py
 
+test:
+	flake8 *.py **/*.py --max-line-length 160
 
 PREFIX ?= /usr/local
 install:

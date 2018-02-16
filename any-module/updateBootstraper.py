@@ -1,6 +1,11 @@
 #!/usr/bin/env python3
 
-import argparse, base64, sys, re, fileinput, os
+import argparse
+import base64
+import fileinput
+import os
+import re
+import sys
 
 files = [
     'AUTHORS',
@@ -26,5 +31,4 @@ if __name__ == '__main__':
             encodedFiles[filename] = base64.b85encode(f.read())
 
     for line in fileinput.input([args.bootstraperScript], inplace=True):
-        sys.stdout.write(re.sub(r'^any_module_files = {.*?}$', 'any_module_files = %s' % repr(encodedFiles), line))
-
+        sys.stdout.write(re.sub(r'^any_module_files = {.*?}$  # noqa: E501', 'any_module_files = %s' % repr(encodedFiles), line))
