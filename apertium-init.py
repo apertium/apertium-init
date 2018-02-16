@@ -72,13 +72,93 @@ def get_lang_name(code):
         return code
 
 
+def init_pair(args, email):
+    languageCode1, languageCode2 = args.name.split('-')
+    replacements = {
+        'languageCode1': languageCode1,
+        'languageCode2': languageCode2,
+        'languageName1': get_lang_name(languageCode1),
+        'languageName2': get_lang_name(languageCode2),
+        'email': email,
+    }
+    args.destination = os.path.join(args.destination, 'apertium-%s' % args.name)
+
+    if os.path.exists(args.destination):
+        sys.stderr.write('Directory %s already exists, quitting.\n' % args.destination)
+        sys.exit(-1)
+    else:
+        os.makedirs(args.destination)
+
+    if args.analyser == 'hfst' or (args.analyser1 == 'hfst' and args.analyser2 == 'hfst'):
+        conditionals = ['hfst', 'hfst1', 'hfst2']
+    elif args.analyser1 == 'hfst' and args.analyser2 in ['lt', 'lttoolbox']:
+        conditionals = ['hfst', 'hfst1', 'lttoolbox2']
+    elif args.analyser1 in ['lt', 'lttoolbox'] and args.analyser2 == 'hfst':
+        conditionals = ['hfst', 'lttoolbox1', 'hfst2']
+    else:
+        conditionals = ['lttoolbox1', 'lttoolbox2']
+
+    if (args.no_prob1 and args.no_rlx1) or (args.no_prob2 and args.no_rlx2):
+        raise argparse.ArgumentError('Both --no-prob and --no-rlx can\'t be applied to the same language.')
+
+    if not args.no_prob1:
+        conditionals.append('prob1')
+    if not args.no_prob2:
+        conditionals.append('prob2')
+
+    if not args.no_rlx1:
+        conditionals.append('rlx1')
+    if not args.no_rlx2:
+        conditionals.append('rlx2')
+
+    if not args.no_pgen1:
+        conditionals.append('pgen1')
+    if not args.no_pgen2:
+        conditionals.append('pgen2')
+
+    files = dict(bilingual_module_files, **any_module_files)
+    return files, replacements, conditionals
+
+
+def init_lang_module(args, email):
+    replacements = {
+        'languageCode': args.name,
+        'languageName': get_lang_name(args.name),
+        'email': email,
+    }
+    conditionals = []
+    args.destination = os.path.join(args.destination, 'apertium-%s' % args.name)
+
+    if os.path.exists(args.destination):
+        sys.stderr.write('Directory %s already exists, quitting.\n' % args.destination)
+        sys.exit(-1)
+    else:
+        os.makedirs(args.destination)
+
+    if args.analyser in ['lt', 'lttoolbox']:
+        files = dict(lttoolbox_language_module_files, **any_module_files)
+    elif args.analyser == 'hfst':
+        files = dict(hfst_language_module_files, **any_module_files)
+    else:
+        raise Exception('Unrecognized analyser: ' % args.analyser)
+
+    if args.analyser in ['lt', 'lttoolbox']:
+        files = dict(lttoolbox_language_module_files, **any_module_files)
+    elif args.analyser == 'hfst':
+        files = dict(hfst_language_module_files, **any_module_files)
+    else:
+        raise Exception('Unrecognized analyser: ' % args.analyser)
+
+    return files, replacements, conditionals
+
+
 def main():
     parser = argparse.ArgumentParser(description='Bootstrap an Apertium language module/pair')
     parser.add_argument('name', help='name of new Apertium language module/pair using ISO-639-3 language code(s)')
-    parser.add_argument('-d', '--destination', help='destination directory for new language module/pair.  Use with -u', default=os.getcwd())
-    parser.add_argument('-p', '--push-new-to-github', help='push newly created repository to incubator on the Apertium organisation on github.  Use with -u', action='store_true', default=False)
-    parser.add_argument('-pe', '--push-existing-to-github', help='push existing repository to incubator on the Apertium organisation on github ', default=None)
-    parser.add_argument('-u', '--username', help='override github username (for pushing repository to github); otherwise git config is use', default=None)
+    parser.add_argument('-d', '--destination', help='destination directory for new language module/pair. Use with -u', default=os.getcwd())
+    parser.add_argument('-p', '--push-new-to-github', help='push newly created repository to incubator on the Apertium organisation on GitHub.  Use with -u', action='store_true', default=False)
+    parser.add_argument('-pe', '--push-existing-to-github', help='push existing repository to incubator on the Apertium organisation on GitHub', default=None)
+    parser.add_argument('-u', '--username', help='override GitHub username (for pushing repository to GitHub); otherwise git config is used', default=None)
 
     parser.add_argument('-a', '--analyser', help='analyser to use for all languages', choices=['lt', 'lttoolbox', 'hfst'], default='lt')
     parser.add_argument('-a1', '--analyser1', help='analyser to use for first language of pair', choices=['lt', 'lttoolbox', 'hfst'], default='lt')
@@ -100,81 +180,14 @@ def main():
         sys.stderr.write('Unable to get email, defaulting to %s: %s\n' % (email, str(e).strip()))
 
     username = args.username or email
-
     args.name = args.name.replace('apertium-', '')
 
-    # FIXME: handle -pe argument
+    # TODO: handle -pe argument
 
     if '-' in args.name and args.name.count('-') == 1:
-        languageCode1, languageCode2 = args.name.split('-')
-        replacements = {
-            'languageCode1': languageCode1,
-            'languageCode2': languageCode2,
-            'languageName1': get_lang_name(languageCode1),
-            'languageName2': get_lang_name(languageCode2),
-            'email': email
-        }
-        args.destination = os.path.join(args.destination, 'apertium-%s' % args.name)
-
-        if os.path.exists(args.destination):
-            sys.stderr.write('Directory %s already exists, quitting.\n' % args.destination)
-            sys.exit(-1)
-        else:
-            os.makedirs(args.destination)
-
-        if args.analyser == 'hfst' or (args.analyser1 == 'hfst' and args.analyser2 == 'hfst'):
-            conditionals = ['hfst', 'hfst1', 'hfst2']
-        elif args.analyser1 == 'hfst' and args.analyser2 in ['lt', 'lttoolbox']:
-            conditionals = ['hfst', 'hfst1', 'lttoolbox2']
-        elif args.analyser1 in ['lt', 'lttoolbox'] and args.analyser2 == 'hfst':
-            conditionals = ['hfst', 'lttoolbox1', 'hfst2']
-        else:
-            conditionals = ['lttoolbox1', 'lttoolbox2']
-
-        if (args.no_prob1 and args.no_rlx1) or (args.no_prob2 and args.no_rlx2):
-            raise argparse.ArgumentError('Both --no-prob and --no-rlx can\'t be applied to the same language.')
-
-        if not args.no_prob1:
-            conditionals.append('prob1')
-        if not args.no_prob2:
-            conditionals.append('prob2')
-
-        if not args.no_rlx1:
-            conditionals.append('rlx1')
-        if not args.no_rlx2:
-            conditionals.append('rlx2')
-
-        if not args.no_pgen1:
-            conditionals.append('pgen1')
-        if not args.no_pgen2:
-            conditionals.append('pgen2')
-
-        files = dict(bilingual_module_files, **any_module_files)
+        files, replacements, conditionals = init_pair(args, email)
     elif '-' not in args.name:
-        replacements = {
-            'languageCode': args.name,
-            'languageName': get_lang_name(args.name),
-            'email': email
-        }
-        conditionals = []
-        args.destination = os.path.join(args.destination, 'apertium-%s' % args.name)
-
-        if os.path.exists(args.destination):
-            sys.stderr.write('Directory %s already exists, quitting.\n' % args.destination)
-            sys.exit(-1)
-        else:
-            # os.makedirs(args.destination)
-            try:
-                subprocess.check_output(shlex.split('git init %s' % args.destination))
-            except subprocess.CalledProcessError as e:
-                print(e)
-
-        if args.analyser in ['lt', 'lttoolbox']:
-            files = dict(lttoolbox_language_module_files, **any_module_files)
-        elif args.analyser == 'hfst':
-            files = dict(hfst_language_module_files, **any_module_files)
-        else:
-            raise Exception('Unrecognized analyser: ' % args.analyser)
+        files, replacements, conditionals = init_lang_module(args, email)
     else:
         sys.stderr.write('Invalid language module name: %s' % args.name)
         sys.exit(-1)
@@ -194,6 +207,11 @@ def main():
     os.chmod(autogenFile, os.stat(autogenFile).st_mode | stat.S_IEXEC)
 
     print('Successfully created %s.' % args.destination)
+
+    try:
+        subprocess.check_output(shlex.split('git init .'), cwd=args.destination)
+    except subprocess.CalledProcessError as e:
+        print(e)
 
     try:
         subprocess.check_output(shlex.split('git add .'), cwd=args.destination)
