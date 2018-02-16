@@ -197,7 +197,7 @@ def main():
 
     if args.push_existing_to_github:
         if not os.path.isdir(args.push_existing_to_github):
-            parser.error('--push_existing_to_github required an existing directory')
+            parser.error('--push_existing_to_github requires an existing directory')
         # TODO: handle -pe argument
 
     if '-' in args.name and args.name.count('-') == 1:
