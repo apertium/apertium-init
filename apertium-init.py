@@ -136,22 +136,23 @@ def make_all_replacements(destination, files, replacements, conditionals):
 
 
 def push_to_github(args, folder, username):
+    remote_name = 'origin'
     repository_name = 'apertium-{}'.format(args.name)
     description = 'Apertium data for {}'.format(repository_name)  # TODO: should say something more like the first line of the READMEs
 
     def create_github_repository():
-        manager = urllib.request.HTTPPasswordMgrWithDefaultRealm()
         password = getpass.getpass(prompt='GitHub Password ({}): '.format(username))
-        manager.add_password(None, 'https://api.github.com', username, password)
-        handler = urllib.request.HTTPBasicAuthHandler(manager)
-        opener = urllib.request.build_opener(handler)
         data = bytes(json.dumps({
             'name': repository_name,
             'description': description
         }), encoding='utf-8')
+        req = urllib.request.Request('https://api.github.com/orgs/{}/repos'.format(organization_name), data=data)
+        credentials = '{}:{}'.format(username, password)
+        encoded_credentials = base64.b64encode(credentials.encode('ascii'))
+        req.add_header('Authorization', 'Basic {}'.format(encoded_credentials.decode('ascii')))
         try:
             # TODO: add apertium-incubator label?
-            response = opener.open('https://api.github.com/orgs/{}/repos'.format(organization_name), data=data)
+            response = urllib.request.urlopen(req)
             print('Successfully created GitHub repository {}/{}.'.format(organization_name, repository_name))
             return response
         except urllib.error.HTTPError as e:
@@ -159,20 +160,22 @@ def push_to_github(args, folder, username):
                 print('Authentication failed. Retrying...')
                 return create_github_repository()
             else:
-                sys.stderr.write('Failed to create GitHub repository: {}'.format(e))
+                sys.stderr.write('Failed to create GitHub repository: {}.'.format(e))
                 sys.exit(-1)
 
     response = create_github_repository()
+    body = json.loads(response.read().decode('utf-8'))
 
-    remote_name = 'origin'
     try:
-        remote_url = response['ssh_url']
+        remote_url = body['ssh_url']
         subprocess.check_output(shlex.split('git remote add {} {}'.format(remote_name, remote_url)), cwd=args.destination, stderr=subprocess.STDOUT)
+        print('Added GitHub remote {}.'.format(remote_url))
     except subprocess.CalledProcessError as e:
         sys.stderr.write('Adding remote {} ({}) failed: {}'.format(remote_name, remote_url, e.output))
 
     try:
         subprocess.check_output(shlex.split('git push {} master'.format(remote_name)), cwd=args.destination, stderr=subprocess.STDOUT)
+        print('Pushed to GitHub. Visit your new repository at {}.'.format(body['html_url']))
     except subprocess.CalledProcessError as e:
         sys.stderr.write('Pushing to remote %s failed: {}'.formate(remote_name, e.output))
 
