@@ -138,7 +138,11 @@ def make_all_replacements(destination, files, replacements, conditionals):
 def push_to_github(args, folder, username):
     remote_name = 'origin'
     repository_name = 'apertium-{}'.format(args.name)
-    description = 'Apertium data for {}'.format(repository_name)  # TODO: should say something more like the first line of the READMEs
+    if '-' in args.name:
+        code1, code2 = args.name.split('-')
+        description = 'Apertium translation pair for {} and {}'.format(get_lang_name(code1), get_lang_name(code2))
+    else:
+        description = 'Apertium linguistic data for {}'.format(get_lang_name(args.name))
 
     def create_github_repository():
         password = getpass.getpass(prompt='GitHub Password ({}): '.format(username))
