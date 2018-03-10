@@ -8,11 +8,13 @@ import re
 import sys
 
 files = [
+    '.gitattributes',
+    '.gitignore',
     'AUTHORS',
     'autogen.sh',
     'COPYING',
     'NEWS',
-    'ChangeLog'
+    'ChangeLog',
 ]
 
 if __name__ == '__main__':
@@ -30,5 +32,5 @@ if __name__ == '__main__':
         with open(os.path.join(args.vanillaDirectory, filename), 'rb') as f:
             encodedFiles[filename] = base64.b85encode(f.read())
 
-    for line in fileinput.input([args.bootstraperScript], inplace=True):
-        sys.stdout.write(re.sub(r'^any_module_files = {.*?}$', 'any_module_files = %s  # noqa: E501' % repr(encodedFiles), line))
+    for line in fileinput.input((args.bootstraperScript, ), inplace=True):
+        sys.stdout.write(re.sub(r'^any_module_files = {.*?}  # noqa: E501$', 'any_module_files = %s  # noqa: E501' % repr(encodedFiles), line))

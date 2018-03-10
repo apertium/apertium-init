@@ -39,4 +39,4 @@ if __name__ == '__main__':
             encodedFiles[filename] = base64.b85encode(f.read())
 
     for line in fileinput.input([args.bootstraperScript], inplace=True):
-        sys.stdout.write(re.sub(r'^bilingual_module_files = {.*?}$', 'bilingual_module_files = %s  # noqa: E501' % repr(encodedFiles), line))
+        sys.stdout.write(re.sub(r'^bilingual_module_files = {.*?}  # noqa: E501$', 'bilingual_module_files = %s  # noqa: E501' % repr(encodedFiles), line))
