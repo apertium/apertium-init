@@ -181,7 +181,7 @@ def push_to_github(args, folder, username):
         subprocess.check_output(shlex.split('git push {} master'.format(remote_name)), cwd=args.destination, stderr=subprocess.STDOUT)
         print('Pushed to GitHub. Visit your new repository at {}.'.format(body['html_url']))
     except subprocess.CalledProcessError as e:
-        sys.stderr.write('Pushing to remote %s failed: {}'.formate(remote_name, e.output))
+        sys.stderr.write('Pushing to remote %s failed: {}'.format(remote_name, e.output))
 
 
 def main():
