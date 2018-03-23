@@ -10,3 +10,6 @@ install:
 script:
   - flake8 *.py **/*.py
   - mypy --strict *.py
+notifications:
+  on_failure: change
+  on_success: change
