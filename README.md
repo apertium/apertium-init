@@ -1,5 +1,7 @@
 # Apertium Bootstrap
 
+[![Build Status](https://travis-ci.org/apertium/apertium-init.svg)](https://travis-ci.org/apertium/apertium-init)
+
 Bootstrap Apertium language modules and pairs using `apertium-init.py`.
 
 ## Usage
