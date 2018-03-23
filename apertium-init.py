@@ -12,6 +12,10 @@ import subprocess
 import sys
 import urllib.request
 
+if False:  # for mypy
+    import http.client  # noqa: F401
+    from typing import Dict, List, Tuple  # noqa: F401
+
 __author__ = "Sushain K. Cherivirala, Kevin Brubeck Unhammer"
 __copyright__ = "Copyright 2016--2018, Sushain K. Cherivirala, Kevin Brubeck Unhammer"
 __credits__ = ["Sushain K. Cherivirala", "Kevin Brubeck Unhammer", "Jonathan North Washington", "Shardul Chiplunkar"]
@@ -31,7 +35,7 @@ iso639_codes = {'roh': 'rm', 'gv': 'glv', 'gu': 'guj', 'ron': 'ro', 'oss': 'os',
 organization_name = 'apertium'
 
 
-def get_lang_name(code):
+def get_lang_name(code):  # type: (str) -> str
     code = iso639_codes[code] if len(code) > 2 and code in iso639_codes else code
     if code in english_lang_names:
         return english_lang_names[code]
@@ -40,7 +44,7 @@ def get_lang_name(code):
         return code
 
 
-def init_pair(args, email):
+def init_pair(args, email):  # type: (argparse.Namespace, str) -> Tuple[Dict[str, bytes], Dict[str, str], List[str]]
     languageCode1, languageCode2 = args.name.split('-')
     replacements = {
         'languageCode1': languageCode1,
@@ -88,13 +92,12 @@ def init_pair(args, email):
     return files, replacements, conditionals
 
 
-def init_lang_module(args, email):
+def init_lang_module(args, email):  # type: (argparse.Namespace, str) -> Tuple[Dict[str, bytes], Dict[str, str]]
     replacements = {
         'languageCode': args.name,
         'languageName': get_lang_name(args.name),
         'email': email,
     }
-    conditionals = []
     args.destination = os.path.join(args.destination, 'apertium-%s' % args.name)
 
     if os.path.exists(args.destination):
@@ -117,10 +120,10 @@ def init_lang_module(args, email):
     else:
         raise Exception('Unrecognized analyser: ' % args.analyser)
 
-    return files, replacements, conditionals
+    return files, replacements
 
 
-def make_replacements(s, replacements, conditionals):
+def make_replacements(s, replacements, conditionals):  # type: (str, Dict[str, str], List[str]) -> str
     for _ in range(2):
         s = re.sub(r'{{if_(\w+)[^\n]*(.*?)\nif_\1}}', lambda x: x.group(2) if x.group(1) in conditionals else '', s, flags=re.DOTALL)
         s = re.sub(r'{{ifnot_(\w+)[^\n]*(.*?)\nifnot_\1}}', lambda x: x.group(2) if x.group(1) not in conditionals else '', s, flags=re.DOTALL)
@@ -129,7 +132,7 @@ def make_replacements(s, replacements, conditionals):
     return s
 
 
-def make_all_replacements(destination, files, replacements, conditionals):
+def make_all_replacements(destination, files, replacements, conditionals):  # type: (str, Dict[str, bytes], Dict[str, str], List[str]) -> None
     for filename, encodedFile in files.items():
         path = os.path.join(destination, make_replacements(filename, replacements, conditionals))
         folder = os.path.dirname(path)
@@ -142,7 +145,7 @@ def make_all_replacements(destination, files, replacements, conditionals):
                 f.write(base64.b85decode(encodedFile))
 
 
-def push_to_github(args, folder, username):
+def push_to_github(args, folder, username):  # type: (argparse.Namespace, str, str) -> None
     remote_name = 'origin'
     repository_name = 'apertium-{}'.format(args.name)
     if '-' in args.name:
@@ -151,7 +154,7 @@ def push_to_github(args, folder, username):
     else:
         description = 'Apertium linguistic data for {}'.format(get_lang_name(args.name))
 
-    def create_github_repository():
+    def create_github_repository():  # type: () -> http.client.HTTPResponse
         password = getpass.getpass(prompt='GitHub Password ({}): '.format(username))
         data = bytes(json.dumps({
             'name': repository_name,
@@ -162,11 +165,10 @@ def push_to_github(args, folder, username):
         encoded_credentials = base64.b64encode(credentials.encode('ascii'))
         req.add_header('Authorization', 'Basic {}'.format(encoded_credentials.decode('ascii')))
         try:
-            # TODO: add apertium-incubator label?
             response = urllib.request.urlopen(req)
             print('Successfully created GitHub repository {}/{}.'.format(organization_name, repository_name))
-            return response
-        except urllib.error.HTTPError as e:
+            return response  # type: ignore
+        except urllib.error.HTTPError as e:  # type: ignore
             if e.getcode() == 401:
                 print('Authentication failed. Retrying...')
                 return create_github_repository()
@@ -191,7 +193,7 @@ def push_to_github(args, folder, username):
         sys.stderr.write('Pushing to remote %s failed: {}'.format(remote_name, e.output))
 
 
-def main():
+def main():  # type: () -> None
     parser = argparse.ArgumentParser(description='Bootstrap an Apertium language module/pair')
     parser.add_argument('name', help='name of new Apertium language module/pair using ISO-639-3 language code(s)')
     parser.add_argument('-d', '--destination', help='destination directory for new language module/pair (use with -u)', default=os.getcwd())
@@ -231,7 +233,8 @@ def main():
     if '-' in args.name and args.name.count('-') == 1:
         files, replacements, conditionals = init_pair(args, email)
     elif '-' not in args.name:
-        files, replacements, conditionals = init_lang_module(args, email)
+        conditionals = []
+        files, replacements = init_lang_module(args, email)
     else:
         parser.error('Invalid language module name: %s' % args.name)
 
