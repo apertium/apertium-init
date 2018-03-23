@@ -1,0 +1,12 @@
+language: python
+cache: pip
+python:
+  - '3.4'
+  - '3.5'
+  - '3.6'
+  - 'nightly'
+install:
+  - travis_retry pip install flake8 mypy
+script:
+  - flake8 *.py **/*.py
+  - mypy --strict *.py
