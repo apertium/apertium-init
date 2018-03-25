@@ -240,8 +240,15 @@ def main():  # type: () -> None
 
     make_all_replacements(args.destination, files, replacements, conditionals)
 
-    autogen_file = os.path.join(args.destination, 'autogen.sh')
-    os.chmod(autogen_file, os.stat(autogen_file).st_mode | stat.S_IEXEC)
+    autogen_path = os.path.join(args.destination, 'autogen.sh')
+    os.chmod(autogen_path, os.stat(autogen_path).st_mode | stat.S_IEXEC)
+
+    try:
+        readme_path = os.path.join(args.destination, 'README')
+        if os.path.exists(readme_path):
+            os.symlink('README', os.path.join(args.destination, 'README.md'))
+    except OSError as err:  # e.g. on Windows without running as an admin
+        sys.stderr.write('Unable to create symlink from README.md -> README: {}'.format(err))
 
     print('Successfully created %s.' % args.destination)
 
