@@ -4,11 +4,14 @@ all:
 	./hfst-language-module/updateBootstraper.py
 	./lttoolbox-language-module/updateBootstraper.py
 
-release:
-	python3 setup.py sdist bdist_wheel
+dist:
+	python3 setup.py sdist
 
-publish: release
-	python3 setup.py upload --repository https://test.pypi.org/legacy/ --sign
+release:
+	python3 setup.py sdist bdist_wheel upload --sign
+
+test-release:
+	python3 setup.py sdist bdist_wheel upload --repository https://test.pypi.org/legacy/ --sign
 
 test:
 	flake8 *.py **/*.py
@@ -20,4 +23,4 @@ install:
 	install -m755 apertium-init.py $(DESTDIR)$(PREFIX)/bin/apertium-init
 
 clean:
-	rm -rf dist/ build/
+	rm -rf dist/ build/ *.egg-info/

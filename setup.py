@@ -7,7 +7,7 @@ setup(
     name='apertium-init',
     version=apertium_init.__version__,  # type: ignore
     license=apertium_init.__license__,  # type: ignore
-    description='Python library to parse Apertium stream format',
+    description='Bootstrap Apertium language modules and pairs',
     long_description=open(path.join(path.abspath(path.dirname(__file__)), 'README.md')).read(),
     long_description_content_type='text/markdown; charset=UTF-8',
     keywords='apertium parsing linguistics',
