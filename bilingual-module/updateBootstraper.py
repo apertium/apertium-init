@@ -20,7 +20,7 @@ files = [
     'apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode1}}-{{languageCode2}}.dix',
     'Makefile.am',
     'README',
-    'configure.ac'
+    'configure.ac',
 ]
 
 if __name__ == '__main__':

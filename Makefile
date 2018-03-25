@@ -6,6 +6,7 @@ all:
 
 test:
 	flake8 *.py **/*.py
+	mypy --strict *.py
 
 PREFIX ?= /usr/local
 install:

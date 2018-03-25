@@ -18,7 +18,7 @@ files = [
     'Makefile.am',
     'modes.xml',
     'corpus/{{languageCode}}.tagged',
-    'README'
+    'README',
 ]
 
 if __name__ == '__main__':
