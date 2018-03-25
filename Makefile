@@ -4,13 +4,13 @@ all:
 	./hfst-language-module/updateBootstraper.py
 	./lttoolbox-language-module/updateBootstraper.py
 
-dist:
+dist: all
 	python3 setup.py sdist
 
-release:
+release: all
 	python3 setup.py sdist bdist_wheel upload --sign
 
-test-release:
+test-release: all
 	python3 setup.py sdist bdist_wheel upload --repository https://test.pypi.org/legacy/ --sign
 
 test:
