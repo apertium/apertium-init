@@ -33,7 +33,7 @@ Given the requirements being installed, you should be able to just run:
     # make install
 
 You can use `./autogen.sh` instead of `./configure` you're compiling from
-SVN. If you installed any prerequisite language packages using a `--prefix`
+source. If you installed any prerequisite language packages using a `--prefix`
 to `./configure`, make sure to give the same `--prefix` to `./configure` here.
 
 ## Testing

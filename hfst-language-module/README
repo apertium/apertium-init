@@ -1,7 +1,4 @@
-{{languageName}}
-
-                            apertium-{{languageCode}}
-===============================================================================
+# {{languageName}}: apertium-{{languageCode}}
 
 This is an Apertium monolingual language package for {{languageName}}. What
 you can use this language package for:
@@ -10,8 +7,7 @@ you can use this language package for:
 * Morphological generation of {{languageName}}
 * Part-of-speech tagging of {{languageName}}
 
-Requirements
-===============================================================================
+## Requirements
 
 You will need the following software installed:
 
@@ -20,18 +16,17 @@ You will need the following software installed:
 * vislcg3 (>= 0.9.9.10297)
 * hfst (>= 3.8.2)
 
-If this does not make any sense, we recommend you look at: www.apertium.org
+If this does not make any sense, we recommend you look at: www.apertium.org.
 
-Compiling
-===============================================================================
+## Compiling
 
 Given the requirements being installed, you should be able to just run:
 
-$ ./configure
-$ make
+    $ ./configure
+    $ make
 
-You can use ./autogen.sh instead of ./configure if you're compiling
-from SVN.
+You can use `./autogen.sh` instead of `./configure` if you're compiling
+from source.
 
 If you're doing development, you don't have to install the data, you
 can use it directly from this directory.
@@ -39,26 +34,24 @@ can use it directly from this directory.
 If you are installing this language package as a prerequisite for an
 Apertium translation pair, then do (typically as root / with sudo):
 
-# make install
+    # make install
 
-You can give a --prefix to ./configure to install as a non-root user,
+You can give a `--prefix` to `./configure` to install as a non-root user,
 but make sure to use the same prefix when installing the translation
 pair and any other language packages.
 
-Testing
-===============================================================================
+## Testing
 
 If you are in the source directory after running make, the following
 commands should work:
 
-$  echo "TODO: test sentence" | apertium -d . {{languageCode}}-morph
-TODO: test analysis result
+    $  echo "TODO: test sentence" | apertium -d . {{languageCode}}-morph
+    TODO: test analysis result
 
-$ echo "TODO: test sentence" | apertium -d . {{languageCode}}-tagger
-TODO: test tagger result
+    $ echo "TODO: test sentence" | apertium -d . {{languageCode}}-tagger
+    TODO: test tagger result
 
-Files and data
-===============================================================================
+## Files and data
 
 * apertium-{{languageCode}}.{{languageCode}}.lexc          - Morphotactic dictionary
 * apertium-{{languageCode}}.{{languageCode}}.twol          - Morphophonological rules
@@ -67,15 +60,13 @@ Files and data
 * {{languageCode}}.prob                       - Tagger model
 * modes.xml                      - Translation modes
 
-For more information
-===============================================================================
+## For more information
 
 * http://wiki.apertium.org/wiki/Installation
 * http://wiki.apertium.org/wiki/apertium-{{languageCode}}
 * http://wiki.apertium.org/wiki/Using_an_lttoolbox_dictionary
 
-Help and support
-===============================================================================
+## Help and support
 
 If you need help using this language pair or data, you can contact:
 
@@ -83,4 +74,3 @@ If you need help using this language pair or data, you can contact:
 * IRC: #apertium on irc.freenode.net
 
 See also the file AUTHORS included in this distribution.
-
