@@ -5,8 +5,8 @@ import apertium_init
 
 setup(
     name='apertium-init',
-    version=apertium_init.__version__,  # type: ignore
-    license=apertium_init.__license__,  # type: ignore
+    version=apertium_init.__version__,
+    license=apertium_init.__license__,
     description='Bootstrap Apertium language modules and pairs',
     long_description=open(path.join(path.abspath(path.dirname(__file__)), 'README.md')).read(),
     long_description_content_type='text/markdown; charset=UTF-8',
@@ -30,6 +30,5 @@ setup(
     entry_points={
         'console_scripts': ['apertium-init=apertium_init:main'],
     },
-    data_files=[('apertium_init', ['apertium-init.py'])],
     py_modules=['apertium_init'],
 )
