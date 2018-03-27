@@ -9,7 +9,11 @@ install:
   - travis_retry pip install -r requirements.txt
   - make
 script:
-  - make test
+  - if [[ $TRAVIS_PYTHON_VERSION != '3.4'* && $TRAVIS_PYTHON_VERSION != '3.5'* ]]; then
+      git diff --exit-code apertium-init.py; # these versions of Python have unstable dictionary sorting
+    fi
+  - flake8 *.py **/*.py
+  - mypy --strict *.py
 notifications:
   on_failure: change
   on_success: change
