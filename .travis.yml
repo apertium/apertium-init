@@ -7,7 +7,9 @@ python:
   - 'nightly'
 install:
   - travis_retry pip install -r requirements.txt
+  - make
 script:
+  - git diff --exit-code apertium-init.py
   - flake8 *.py **/*.py
   - mypy --strict *.py
 notifications:
