@@ -2,6 +2,7 @@
 /*.gz
 /*.m4
 /*.pc
+/.DS_Store
 /INSTALL
 /Makefile
 /Makefile.in
