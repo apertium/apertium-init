@@ -181,7 +181,7 @@ def push_to_github(args, folder, username):  # type: (argparse.Namespace, str, s
         sys.stderr.write('Pushing to remote %s failed: {}'.format(remote_name, e.output))
 
 
-def main():  # type: () -> None
+def main(cli_args):  # type: (List[str]) -> None
     parser = argparse.ArgumentParser(description='Bootstrap an Apertium language module/pair')
     parser.add_argument('name', help='name of new Apertium language module/pair using ISO-639-3 language code(s)')
     parser.add_argument('-d', '--destination', help='destination directory for new language module/pair (default: cwd)', default=os.getcwd())
@@ -202,7 +202,7 @@ def main():  # type: () -> None
     parser.add_argument('--no-pgen1', help='no post-dix present in first language of pair (only used for bilingual pair)', action='store_true', default=False)
     parser.add_argument('--no-pgen2', help='no post-dix present in second language of pair (only used for bilingual pair)', action='store_true', default=False)
 
-    args = parser.parse_args()
+    args = parser.parse_args(cli_args)
 
     try:
         email = subprocess.check_output(shlex.split('git config user.email')).decode('utf-8').strip()
@@ -212,7 +212,8 @@ def main():  # type: () -> None
 
     username = args.username or email
     args.name = re.sub(r'^{}-'.format(re.escape(args.prefix)), '', args.name)
-    args.destination = os.path.join(args.destination, '{}-{}'.format(args.prefix, args.name))
+    repository_name = '{}-{}'.format(args.prefix, args.name)
+    args.destination = os.path.join(args.destination, repository_name)
 
     if os.path.exists(args.destination):
         sys.stderr.write('Directory {} already exists, quitting.\n'.format(args.destination))
@@ -250,7 +251,7 @@ def main():  # type: () -> None
 
     try:
         subprocess.check_output(shlex.split('git init .'), cwd=args.destination, universal_newlines=True, stderr=subprocess.STDOUT)
-        print('Initialized git repository apertium-{}.'.format(args.name))
+        print('Initialized git repository {}.'.format(repository_name))
     except subprocess.CalledProcessError as e:
         sys.stderr.write('Unable to initialize git repository: {}'.format(e.output))
         sys.exit(-1)
@@ -258,17 +259,17 @@ def main():  # type: () -> None
     try:
         subprocess.check_output(shlex.split('git add .'), cwd=args.destination, universal_newlines=True, stderr=subprocess.STDOUT)
         subprocess.check_output(shlex.split('git commit -m "Initial commit"'), cwd=args.destination, universal_newlines=True, stderr=subprocess.STDOUT)
-        print('Successfully added and committed files to git repository apertium-{}.'.format(args.name))
+        print('Successfully added and committed files to git repository {}.'.format(repository_name))
     except subprocess.CalledProcessError as e:
-        sys.stderr.write('Unable to add/commit files to git repository apertium-{}: {}'.format(args.name, e.output))
+        sys.stderr.write('Unable to add/commit files to git repository {}: {}'.format(repository_name, e.output))
         sys.exit(-1)
 
     if args.push_new_to_github:
         push_to_github(args, args.destination, username)
     else:
-        print('To push your new local repository to incubator in the Apertium organisation on GitHub:')
-        print('\tapertium-init.py -pe {} {}'.format(args.destination, args.name))
+        print('To push your new local repository to incubator in the {} organisation on GitHub:'.format(organization_name))
+        print('\tapertium-init.py -pe {} {}'.format(args.destination, repository_name))
 
 
 if __name__ == '__main__':
-    main()
+    main(sys.argv[1:])

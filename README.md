@@ -1,6 +1,7 @@
 # Apertium-Init (a.k.a. Apertium Bootstrap)
 
 [![Build Status](https://travis-ci.org/apertium/apertium-init.svg)](https://travis-ci.org/apertium/apertium-init)
+[![Coverage Status](https://coveralls.io/repos/github/apertium/apertium-init/badge.svg?branch=master)](https://coveralls.io/github/apertium/apertium-init?branch=master)
 [![PyPI](https://img.shields.io/pypi/v/apertium-init.svg)](https://pypi.org/project/apertium-init/)
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/apertium-init.svg)](https://pypi.org/project/apertium-init/)
 

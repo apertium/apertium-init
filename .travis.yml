@@ -1,5 +1,6 @@
 language: python
 cache: pip
+sudo: required
 python:
   - '3.4'
   - '3.5'
@@ -8,12 +9,13 @@ python:
 install:
   - travis_retry pip install -r requirements.txt
   - make
+before_script:
+  - wget http://apertium.projectjj.com/apt/install-nightly.sh -O - | sudo bash
+  - sudo apt-get -f --allow-unauthenticated install apertium-all-dev
 script:
-  - if [[ $TRAVIS_PYTHON_VERSION != '3.4'* && $TRAVIS_PYTHON_VERSION != '3.5'* ]]; then
-      git diff --exit-code apertium-init.py;
-    fi
-  - flake8 *.py **/*.py
-  - mypy --strict *.py
+  - make test
+after_success:
+    - coveralls
 notifications:
   on_failure: change
   on_success: change
