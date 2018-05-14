@@ -11,6 +11,7 @@ apertium_init = importlib.import_module('apertium-init')
 
 class TestModule:
     name = 'eng'
+    path = '{}-{}'.format(apertium_init.default_prefix, name)
 
     @classmethod
     def tearDownClass(cls):
@@ -25,16 +26,12 @@ class TestModule:
 
 
 class TestLttoolboxModule(TestModule, unittest.TestCase):
-    name = 'eng'
-
     @classmethod
     def setUpClass(cls):
         apertium_init.main([cls.name])
-        cls.path = '{}-{}'.format(apertium_init.default_prefix, cls.name)
 
 
 class TestHfstModule(TestModule, unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         apertium_init.main([cls.name, '--analyser=hfst'])
-        cls.path = '{}-{}'.format(apertium_init.default_prefix, cls.name)
