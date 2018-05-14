@@ -42,6 +42,14 @@ class TestModule:
         build(self.path)
 
 
+class TestInvalidModule(unittest.TestCase):
+    name = 'eng-cat-spa'
+
+    def test_init(self):
+        with self.assertRaises(SystemExit):
+            apertium_init.main([self.name])
+
+
 class TestLttoolboxModule(TestModule, unittest.TestCase):
     @classmethod
     def setUpClass(cls):
