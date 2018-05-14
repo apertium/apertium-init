@@ -212,8 +212,8 @@ def main(cli_args):  # type: (List[str]) -> None
 
     username = args.username or email
     args.name = re.sub(r'^{}-'.format(re.escape(args.prefix)), '', args.name)
-    full_name = '{}-{}'.format(args.prefix, args.name)
-    args.destination = os.path.join(args.destination, full_name)
+    repository_name = '{}-{}'.format(args.prefix, args.name)
+    args.destination = os.path.join(args.destination, repository_name)
 
     if os.path.exists(args.destination):
         sys.stderr.write('Directory {} already exists, quitting.\n'.format(args.destination))
@@ -251,7 +251,7 @@ def main(cli_args):  # type: (List[str]) -> None
 
     try:
         subprocess.check_output(shlex.split('git init .'), cwd=args.destination, universal_newlines=True, stderr=subprocess.STDOUT)
-        print('Initialized git repository {}.'.format(full_name))
+        print('Initialized git repository {}.'.format(repository_name))
     except subprocess.CalledProcessError as e:
         sys.stderr.write('Unable to initialize git repository: {}'.format(e.output))
         sys.exit(-1)
@@ -259,16 +259,16 @@ def main(cli_args):  # type: (List[str]) -> None
     try:
         subprocess.check_output(shlex.split('git add .'), cwd=args.destination, universal_newlines=True, stderr=subprocess.STDOUT)
         subprocess.check_output(shlex.split('git commit -m "Initial commit"'), cwd=args.destination, universal_newlines=True, stderr=subprocess.STDOUT)
-        print('Successfully added and committed files to git repository {}.'.format(full_name))
+        print('Successfully added and committed files to git repository {}.'.format(repository_name))
     except subprocess.CalledProcessError as e:
-        sys.stderr.write('Unable to add/commit files to git repository {}: {}'.format(full_name, e.output))
+        sys.stderr.write('Unable to add/commit files to git repository {}: {}'.format(repository_name, e.output))
         sys.exit(-1)
 
     if args.push_new_to_github:
         push_to_github(args, args.destination, username)
     else:
         print('To push your new local repository to incubator in the {} organisation on GitHub:'.format(organization_name))
-        print('\tapertium-init.py -pe {} {}'.format(args.destination, full_name))
+        print('\tapertium-init.py -pe {} {}'.format(args.destination, repository_name))
 
 
 if __name__ == '__main__':
