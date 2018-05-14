@@ -9,9 +9,27 @@ import unittest
 apertium_init = importlib.import_module('apertium-init')
 
 
+def make_path(name, prefix=apertium_init.default_prefix):
+    return '{}-{}'.format(prefix, name)
+
+
+def build(path, autogen_args=[]):
+    try:
+        subprocess.check_output(['./autogen.sh'] + autogen_args, cwd=path, stderr=subprocess.STDOUT, universal_newlines=True)
+    except subprocess.CalledProcessError as error:
+        print(error.output)
+        raise
+
+    try:
+        subprocess.check_output('make', cwd=path, stderr=subprocess.STDOUT, universal_newlines=True)
+    except subprocess.CalledProcessError as error:
+        print(error.output)
+        raise
+
+
 class TestModule:
     name = 'eng'
-    path = '{}-{}'.format(apertium_init.default_prefix, name)
+    path = make_path(name)
 
     @classmethod
     def tearDownClass(cls):
@@ -21,8 +39,7 @@ class TestModule:
         os.path.exists('eng')
 
     def test_builds(self):
-        subprocess.check_call('./autogen.sh', cwd=self.path)
-        subprocess.check_call('make', cwd=self.path)
+        build(self.path)
 
 
 class TestLttoolboxModule(TestModule, unittest.TestCase):
@@ -35,3 +52,34 @@ class TestHfstModule(TestModule, unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         apertium_init.main([cls.name, '--analyser=hfst'])
+
+
+class TestLttoolboxPair(TestModule, unittest.TestCase):
+    name = 'eng-cat'
+    path = make_path(name)
+
+    name1 = 'eng'
+    path1 = make_path(name1)
+
+    name2 = 'cat'
+    path2 = make_path(name2)
+
+    @classmethod
+    def setUpClass(cls):
+        for name, path in [(cls.name1, cls.path1), (cls.name2, cls.path2)]:
+            apertium_init.main([name])
+            build(path)
+        apertium_init.main([cls.name])
+
+    @classmethod
+    def tearDownClass(cls):
+        for path in [cls.path, cls.path1, cls.path2]:
+            shutil.rmtree(path)
+
+    def test_builds(self):
+        autogen_args = ['--with-lang1=../{}'.format(self.path1), '--with-lang2=../{}'.format(self.path2)]
+        build(self.path, autogen_args=autogen_args)
+
+
+if __name__ == '__main__':
+    unittest.main(buffer=True, verbosity=2)

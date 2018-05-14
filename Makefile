@@ -24,7 +24,7 @@ test:
 	flake8 *.py **/*.py
 	mypy --strict apertium-init.py
 	coverage run -m unittest --verbose
-	coverage report --show-missing --fail-under 50
+	coverage report --show-missing --fail-under 65
 	if [[ "$(TRAVIS_PYTHON_VERSION)" != '3.4'* && $(TRAVIS_PYTHON_VERSION) != '3.5'*  ]]; then \
 		git diff --exit-code apertium-init.py; \
 	fi
