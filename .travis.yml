@@ -14,6 +14,8 @@ script:
     fi
   - flake8 *.py **/*.py
   - mypy --strict *.py
+after_success:
+    - coveralls
 notifications:
   on_failure: change
   on_success: change

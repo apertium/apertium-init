@@ -3,6 +3,7 @@
 [![Build Status](https://travis-ci.org/apertium/apertium-init.svg)](https://travis-ci.org/apertium/apertium-init)
 [![PyPI](https://img.shields.io/pypi/v/apertium-init.svg)](https://pypi.org/project/apertium-init/)
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/apertium-init.svg)](https://pypi.org/project/apertium-init/)
+[![Coverage Status](https://coveralls.io/repos/github/apertium/apertium-init/badge.svg?branch=master)](https://coveralls.io/github/apertium/apertium-init?branch=master)
 
 Bootstrap Apertium language modules and pairs using `apertium-init.py`.
 

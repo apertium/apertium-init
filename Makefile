@@ -1,3 +1,5 @@
+SHELL := /bin/bash
+TRAVIS_PYTHON_VERSION ?= $(shell python3 --version | cut -d ' ' -f 2)
 PREFIX ?= /usr/local
 
 all:
@@ -18,10 +20,14 @@ release: all apertium_init.py
 test-release: all apertium_init.py
 	python3 setup.py sdist bdist_wheel upload --repository https://test.pypi.org/legacy/ --sign
 
-test: apertium_init.py
+test:
 	flake8 *.py **/*.py
-	mypy --strict *.py
-	git diff --exit-code apertium-init.py
+	mypy --strict apertium-init.py
+	coverage run -m unittest --verbose
+	coverage report --show-missing --fail-under 50
+	if [[ "$(TRAVIS_PYTHON_VERSION)" != '3.4'* && $(TRAVIS_PYTHON_VERSION) != '3.5'*  ]]; then \
+		git diff --exit-code apertium-init.py; \
+	fi
 
 install:
 	@install -d $(DESTDIR)$(PREFIX)/bin
