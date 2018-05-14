@@ -1,5 +1,6 @@
 language: python
 cache: pip
+sudo: required
 python:
   - '3.4'
   - '3.5'
@@ -8,6 +9,9 @@ python:
 install:
   - travis_retry pip install -r requirements.txt
   - make
+before_script:
+  - wget http://apertium.projectjj.com/apt/install-nightly.sh -O - | sudo bash
+  - sudo apt-get -f --allow-unauthenticated install apertium-all-dev
 script:
   - make test
 after_success:
