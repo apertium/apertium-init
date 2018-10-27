@@ -8,6 +8,7 @@ you can use this language package for:
 * Morphological generation of {{languageName}}
 * Part-of-speech tagging of {{languageName}}
 
+
 Requirements
 -------------------------------------------------------------------------------
 
@@ -19,6 +20,7 @@ You will need the following software installed:
 * hfst (>= 3.8.2)
 
 If this does not make any sense, we recommend you look at: www.apertium.org.
+
 
 Compiling
 -------------------------------------------------------------------------------
@@ -37,11 +39,14 @@ can use it directly from this directory.
 If you are installing this language package as a prerequisite for an
 Apertium translation pair, then do (typically as root / with sudo):
 
-    # make install
+```bash
+$ make install
+```
 
-You can give a `--prefix` to `./configure` to install as a non-root user,
+You can use a `--prefix` with `./configure` to install as a non-root user,
 but make sure to use the same prefix when installing the translation
 pair and any other language packages.
+
 
 Testing
 -------------------------------------------------------------------------------
@@ -49,21 +54,24 @@ Testing
 If you are in the source directory after running make, the following
 commands should work:
 
-    $  echo "TODO: test sentence" | apertium -d . {{languageCode}}-morph
-    TODO: test analysis result
+```bash
+$  echo "TODO: test sentence" | apertium -d . {{languageCode}}-morph
+TODO: test analysis result
 
-    $ echo "TODO: test sentence" | apertium -d . {{languageCode}}-tagger
-    TODO: test tagger result
+$ echo "TODO: test sentence" | apertium -d . {{languageCode}}-tagger
+TODO: test tagger result
+```
 
 Files and data
 -------------------------------------------------------------------------------
 
-* `apertium-{{languageCode}}.{{languageCode}}.lexc`          - Morphotactic dictionary
-* `apertium-{{languageCode}}.{{languageCode}}.twol`          - Morphophonological rules
-* `apertium-{{languageCode}}.{{languageCode}}.rlx`           - Constraint Grammar disambiguation rules
-* `apertium-{{languageCode}}.post-{{languageCode}}.dix`      - Post-generator
-* `{{languageCode}}.prob`                       - Tagger model
-* `modes.xml`                      - Translation modes
+* [`apertium-{{languageCode}}.{{languageCode}}.lexc`](apertium-{{languageCode}}.{{languageCode}}.lexc) - Morphotactic dictionary
+* [`apertium-{{languageCode}}.{{languageCode}}.twol`](apertium-{{languageCode}}.{{languageCode}}.twol) - Morphophonological rules
+* [`apertium-{{languageCode}}.{{languageCode}}.rlx`](apertium-{{languageCode}}.{{languageCode}}.rlx) - Constraint Grammar disambiguation rules
+* [`apertium-{{languageCode}}.post-{{languageCode}}.dix`](apertium-{{languageCode}}.post-{{languageCode}}.dix) - Post-generator
+* [`{{languageCode}}.prob`]({{languageCode}}.prob) - Tagger model
+* [`modes.xml`](modes.xml) - Translation modes
+
 
 For more information
 -------------------------------------------------------------------------------
@@ -72,12 +80,13 @@ For more information
 * http://wiki.apertium.org/wiki/apertium-{{languageCode}}
 * http://wiki.apertium.org/wiki/Using_an_lttoolbox_dictionary
 
+
 Help and support
 -------------------------------------------------------------------------------
 
 If you need help using this language pair or data, you can contact:
 
 * Mailing list: apertium-stuff@lists.sourceforge.net
-* IRC: `#apertium` on `irc.freenode.net`
+* IRC: [`#apertium` on irc.freenode.net]((irc://irc.freenode.net/#apertium))
 
-See also the file AUTHORS included in this distribution.
+See also the file [`AUTHORS`](AUTHORS), included in this distribution.
