@@ -11,7 +11,6 @@ This is an Apertium language pair for translating between {{languageName1}} and
 For information on the latter two points, see subheading "For more
 information" below.
 
-
 Requirements
 -------------------------------------------------------------------------------
 
@@ -27,7 +26,6 @@ if_hfst}}
 
 If this does not make any sense, we recommend you look at: www.apertium.org.
 
-
 Compiling
 -------------------------------------------------------------------------------
 
@@ -36,14 +34,13 @@ Given the requirements being installed, you should be able to just run:
 ```bash
 $ ./configure
 $ make
-$ make install
+# make install
 ```
 
 You can use `./autogen.sh` instead of `./configure` in case you're compiling from
 source (GitHub).
 If you installed any prerequisite language packages using a `--prefix`
 with `./configure`, make sure to use the same `--prefix` when running `./configure` here.
-
 
 Testing
 -------------------------------------------------------------------------------
@@ -66,7 +63,6 @@ $ echo "TODO test sentence 1" | apertium {{languageCode1}}-{{languageCode2}}
 TODO test translated sentence 1
 ```
 
-
 Files and data
 -------------------------------------------------------------------------------
 
@@ -81,7 +77,6 @@ Files and data
 * [`apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode2}}-{{languageCode1}}.lrx`](apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode2}}-{{languageCode1}}.lrx) - Lexical selection rules for translating into {{languageName1}}
 * [`modes.xml`](modes.xml) - Translation modes
 
-
 For more information
 -------------------------------------------------------------------------------
 
@@ -89,13 +84,12 @@ For more information
 * http://wiki.apertium.org/wiki/apertium-{{languageCode1}}-{{languageCode2}}
 * http://wiki.apertium.org/wiki/Using_an_lttoolbox_dictionary
 
-
 Help and support
 -------------------------------------------------------------------------------
 
 If you need help using this language pair or data, you can contact:
 
 * Mailing list: apertium-stuff@lists.sourceforge.net
-* IRC: [`#apertium` on irc.freenode.net]((irc://irc.freenode.net/#apertium))
+* IRC: [`#apertium` on irc.freenode.net](irc://irc.freenode.net/#apertium)
 
 See also the file [`AUTHORS`](AUTHORS), included in this distribution.

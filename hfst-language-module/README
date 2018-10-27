@@ -8,7 +8,6 @@ you can use this language package for:
 * Morphological generation of {{languageName}}
 * Part-of-speech tagging of {{languageName}}
 
-
 Requirements
 -------------------------------------------------------------------------------
 
@@ -21,17 +20,18 @@ You will need the following software installed:
 
 If this does not make any sense, we recommend you look at: www.apertium.org.
 
-
 Compiling
 -------------------------------------------------------------------------------
 
 Given the requirements being installed, you should be able to just run:
 
-    $ ./configure
-    $ make
+```bash
+$ ./configure
+$ make
+```
 
 You can use `./autogen.sh` instead of `./configure` if you're compiling
-from source.
+from source (GitHub).
 
 If you're doing development, you don't have to install the data, you
 can use it directly from this directory.
@@ -46,7 +46,6 @@ $ make install
 You can use a `--prefix` with `./configure` to install as a non-root user,
 but make sure to use the same prefix when installing the translation
 pair and any other language packages.
-
 
 Testing
 -------------------------------------------------------------------------------
@@ -72,7 +71,6 @@ Files and data
 * [`{{languageCode}}.prob`]({{languageCode}}.prob) - Tagger model
 * [`modes.xml`](modes.xml) - Translation modes
 
-
 For more information
 -------------------------------------------------------------------------------
 
@@ -80,13 +78,12 @@ For more information
 * http://wiki.apertium.org/wiki/apertium-{{languageCode}}
 * http://wiki.apertium.org/wiki/Using_an_lttoolbox_dictionary
 
-
 Help and support
 -------------------------------------------------------------------------------
 
 If you need help using this language pair or data, you can contact:
 
 * Mailing list: apertium-stuff@lists.sourceforge.net
-* IRC: [`#apertium` on irc.freenode.net]((irc://irc.freenode.net/#apertium))
+* IRC: [`#apertium` on irc.freenode.net](irc://irc.freenode.net/#apertium)
 
 See also the file [`AUTHORS`](AUTHORS), included in this distribution.
