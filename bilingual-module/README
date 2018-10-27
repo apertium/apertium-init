@@ -38,7 +38,7 @@ $ make
 ```
 
 You can use `./autogen.sh` instead of `./configure` in case you're compiling from
-source (GitHub).
+source.
 If you installed any prerequisite language packages using a `--prefix`
 with `./configure`, make sure to use the same `--prefix` when running `./configure` here.
 

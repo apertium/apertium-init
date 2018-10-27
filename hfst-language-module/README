@@ -31,7 +31,7 @@ $ make
 ```
 
 You can use `./autogen.sh` instead of `./configure` if you're compiling
-from source (GitHub).
+from source.
 
 If you're doing development, you don't have to install the data, you
 can use it directly from this directory.
