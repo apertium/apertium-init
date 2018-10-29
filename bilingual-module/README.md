@@ -31,7 +31,7 @@ Compiling
 
 Given the requirements being installed, you should be able to just run:
 
-```bash
+```
 $ ./configure
 $ make
 # make install
@@ -48,7 +48,7 @@ Testing
 If you are in the source directory after running make, the following
 commands should work:
 
-```bash
+```
 $ echo "TODO test sentence 1" | apertium -d . {{languageCode1}}-{{languageCode2}}
 TODO test translated sentence 1
 
@@ -58,7 +58,7 @@ TODO test translated sentence 2
 
 After installing somewhere in `$PATH`, you should be able to do e.g.
 
-```bash
+```
 $ echo "TODO test sentence 1" | apertium {{languageCode1}}-{{languageCode2}}
 TODO test translated sentence 1
 ```
@@ -90,6 +90,6 @@ Help and support
 If you need help using this language pair or data, you can contact:
 
 * Mailing list: apertium-stuff@lists.sourceforge.net
-* IRC: [`#apertium` on irc.freenode.net](irc://irc.freenode.net/#apertium)
+* IRC: `#apertium` on irc.freenode.net (irc://irc.freenode.net/#apertium)
 
 See also the file [`AUTHORS`](AUTHORS), included in this distribution.
