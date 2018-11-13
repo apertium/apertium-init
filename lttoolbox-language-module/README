@@ -53,7 +53,7 @@ If you are in the source directory after running make, the following
 commands should work:
 
 ```console
-$  echo "TODO: test sentence" | apertium -d . {{languageCode}}-morph
+$ echo "TODO: test sentence" | apertium -d . {{languageCode}}-morph
 TODO: test analysis result
 
 $ echo "TODO: test sentence" | apertium -d . {{languageCode}}-tagger
