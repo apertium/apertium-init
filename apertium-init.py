@@ -47,12 +47,12 @@ def get_lang_name(code):  # type: (str) -> str
 
 
 def init_pair(args, email):  # type: (argparse.Namespace, str) -> Tuple[Dict[str, bytes], Dict[str, str], List[str]]
-    languageCode1, languageCode2 = args.name.split('-')
+    language_code_1, language_code_2 = args.name.split('-')
     replacements = {
-        'languageCode1': languageCode1,
-        'languageCode2': languageCode2,
-        'languageName1': get_lang_name(languageCode1),
-        'languageName2': get_lang_name(languageCode2),
+        'languageCode1': language_code_1,
+        'languageCode2': language_code_2,
+        'languageName1': get_lang_name(language_code_1),
+        'languageName2': get_lang_name(language_code_2),
         'email': email,
     }
 
