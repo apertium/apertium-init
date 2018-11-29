@@ -90,3 +90,5 @@ of the repository to update all the encoded files.
 
 You can also do `sudo make install` to install to `/usr/local/bin/apertium-init`
 or e.g. `PREFIX=$HOME/local make install` to install to `$HOME/local/bin/apertium-init`.
+
+To install dev dependencies, run `pipenv install --dev`
