@@ -51,8 +51,8 @@ def init_pair(args, email):  # type: (argparse.Namespace, str) -> Tuple[Dict[str
     replacements = {
         'languageCode1': language_code_1,
         'languageCode2': language_code_2,
-        'languageName1': get_lang_name(languageCode1),
-        'languageName2': get_lang_name(languageCode2),
+        'languageName1': get_lang_name(language_code_1),
+        'languageName2': get_lang_name(language_code_2),
         'email': email,
     }
 
