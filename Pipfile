@@ -11,4 +11,4 @@ flake8-quotes = "*"
 pep8-naming = "*"
 coverage = "*"
 coveralls = "*"
-mypy = { version = "*", implementation_name = "!= 'pypy'" }
+mypy = "*"
