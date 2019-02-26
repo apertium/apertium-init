@@ -15,10 +15,12 @@ dist: all apertium_init.py
 	python3 setup.py sdist
 
 release: all apertium_init.py
-	python3 setup.py sdist bdist_wheel upload --sign
+	python3 setup.py sdist bdist_wheel
+	twine upload --sign dist/*
 
 test-release: all apertium_init.py
-	python3 setup.py sdist bdist_wheel upload --repository https://test.pypi.org/legacy/ --sign
+	python3 setup.py sdist bdist_wheel
+	twine upload --sign --repository-url https://test.pypi.org/legacy/ dist/*
 
 test:
 	flake8 *.py **/*.py

@@ -5,7 +5,7 @@ __copyright__ = 'Copyright 2014--2018, Sushain K. Cherivirala, Kevin Brubeck Unh
 __credits__ = ['Sushain K. Cherivirala', 'Kevin Brubeck Unhammer', 'Jonathan North Washington', 'Shardul Chiplunkar']
 __license__ = 'GPLv3+'
 __status__ = 'Production'
-__version__ = '2.1.3'
+__version__ = '2.1.4'
 
 import argparse
 import base64

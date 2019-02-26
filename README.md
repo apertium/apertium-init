@@ -91,4 +91,18 @@ of the repository to update all the encoded files.
 You can also do `sudo make install` to install to `/usr/local/bin/apertium-init`
 or e.g. `PREFIX=$HOME/local make install` to install to `$HOME/local/bin/apertium-init`.
 
-Use `pipenv install --dev` to install the requirements required for development, e.g. linters.
+Use `pipenv install --dev` to install the requirements required for
+development, e.g. linters.
+
+## Releasing
+
+After installing development resources following the instructions above,
+deploying to PyPi is relatively straightforward.
+
+Use `make dist` to create a source distributable inside the `dist` directory
+that can be installed locally via `pip`.
+
+Use `make test-release` and `make release` to deploy to the [testing PyPi instance](https://test.pypi.org/)
+and the [production PyPi instance](https://pypi.org/) respectively. Either
+step requires PyPi authentication credentials with access to the apertium-init
+package.
