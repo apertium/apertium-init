@@ -115,22 +115,22 @@ def make_replacements(s, replacements, conditionals):  # type: (str, Dict[str, s
     for _ in range(2):
         s = re.sub(r'{{if_(\w+)[^\n]*(.*?)\nif_\1}}', lambda x: x.group(2) if x.group(1) in conditionals else '', s, flags=re.DOTALL)
         s = re.sub(r'{{ifnot_(\w+)[^\n]*(.*?)\nifnot_\1}}', lambda x: x.group(2) if x.group(1) not in conditionals else '', s, flags=re.DOTALL)
-    for replacementName, replacementValue in replacements.items():
-        s = s.replace('{{%s}}' % replacementName, replacementValue)
+    for replacement_name, replacement_value in replacements.items():
+        s = s.replace('{{%s}}' % replacement_name, replacement_value)
     return s
 
 
 def make_all_replacements(destination, files, replacements, conditionals):  # type: (str, Dict[str, bytes], Dict[str, str], List[str]) -> None
-    for filename, encodedFile in files.items():
+    for filename, encoded_file in files.items():
         path = os.path.join(destination, make_replacements(filename, replacements, conditionals))
         folder = os.path.dirname(path)
         if not os.path.isdir(folder):
             os.mkdir(folder)
         with open(path, 'wb') as f:
             try:
-                f.write(make_replacements(str(base64.b85decode(encodedFile), encoding='utf-8'), replacements, conditionals).encode('utf-8'))
+                f.write(make_replacements(str(base64.b85decode(encoded_file), encoding='utf-8'), replacements, conditionals).encode('utf-8'))
             except UnicodeDecodeError:  # binary file
-                f.write(base64.b85decode(encodedFile))
+                f.write(base64.b85decode(encoded_file))
 
 
 def push_to_github(args, folder, username):  # type: (argparse.Namespace, str, str) -> None
