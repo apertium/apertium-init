@@ -62,6 +62,18 @@ class TestHfstModule(TestModule, unittest.TestCase):
         apertium_init.main([cls.name, '--analyser=hfst'])
 
 
+class TestTwocModule(TestModule, unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        apertium_init.main([cls.name, '--analyser=hfst', '--with-twoc'])
+
+
+class TestInvalidTwocModule(unittest.TestCase):
+    def test_init(self):
+        with self.assertRaises(SystemExit):
+            apertium_init.main(['bkl', '--with-twoc'])
+
+
 class TestLttoolboxPair(TestModule, unittest.TestCase):
     name = 'eng-cat'
     path = make_path(name)
