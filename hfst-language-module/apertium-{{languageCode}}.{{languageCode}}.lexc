@@ -11,7 +11,14 @@ Multichar_Symbols
 
 ! Other symbols
 %>      ! Morpheme boundary
+{{if_twoc
+! Path features
+%[%-sg%]
+%[%+sg%]
+%[%-pl%]
+%[%+pl%]
 
+if_twoc}}
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 !!!                       M O R P H O T A C T I C S                         !!!
