@@ -5,7 +5,6 @@ import os
 import shutil
 import subprocess
 import unittest
-import argparse
 
 apertium_init = importlib.import_module('apertium-init')
 
@@ -69,11 +68,12 @@ class TestTwocModule(TestModule, unittest.TestCase):
         apertium_init.main([cls.name, '--analyser=hfst', '--with-twoc'])
 
 
-# This test should exist but it's not working right now
-#class TestInvalidTwocModule(unittest.TestCase):
-#    def test_init(self):
-#        with self.assertRaises(argparse.ArgumentError):
-#            apertium_init.main(['eng', '--with-twoc'])
+class TestInvalidTwocModule(unittest.TestCase):
+    name = 'eng'
+
+    def test_init(self):
+        with self.assertRaises(SystemExit):
+            apertium_init.main([self.name, '--with-twoc'])
 
 
 class TestLttoolboxPair(TestModule, unittest.TestCase):
