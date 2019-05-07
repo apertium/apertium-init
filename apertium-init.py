@@ -103,7 +103,6 @@ def init_lang_module(args, email):  # type: (argparse.Namespace, str) -> Tuple[D
     elif args.analyser == 'hfst':
         files = dict(hfst_language_module_files, **any_module_files)
         if args.with_twoc:
-            print('adding twoc')
             conditionals.append('twoc')
         else:
             del files['apertium-{{languageCode}}.{{languageCode}}.twoc']
