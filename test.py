@@ -5,6 +5,7 @@ import os
 import shutil
 import subprocess
 import unittest
+import argparse
 
 apertium_init = importlib.import_module('apertium-init')
 
@@ -70,8 +71,8 @@ class TestTwocModule(TestModule, unittest.TestCase):
 
 class TestInvalidTwocModule(unittest.TestCase):
     def test_init(self):
-        with self.assertRaises(SystemExit):
-            apertium_init.main(['bkl', '--with-twoc'])
+        with self.assertRaises(argparse.ArgumentError):
+            apertium_init.main(['eng', '--with-twoc'])
 
 
 class TestLttoolboxPair(TestModule, unittest.TestCase):
