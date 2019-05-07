@@ -99,7 +99,7 @@ def init_lang_module(args, email):  # type: (argparse.Namespace, str) -> Tuple[D
     if args.analyser in ['lt', 'lttoolbox']:
         files = dict(lttoolbox_language_module_files, **any_module_files)
         if args.with_twoc:
-            raise argparse.ArgumentError('--with-twoc can only be used in hfst modules')
+            raise argparse.ArgumentError(None, '--with-twoc can only be used in hfst modules')
     elif args.analyser == 'hfst':
         files = dict(hfst_language_module_files, **any_module_files)
         if args.with_twoc:
