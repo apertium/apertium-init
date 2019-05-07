@@ -65,9 +65,6 @@ def init_pair(args, email):  # type: (argparse.Namespace, str) -> Tuple[Dict[str
     else:
         conditionals = ['lttoolbox1', 'lttoolbox2']
 
-    if (args.no_prob1 and args.no_rlx1) or (args.no_prob2 and args.no_rlx2):
-        raise argparse.ArgumentError('Both --no-prob and --no-rlx can\'t be applied to the same language.')
-
     if not args.no_prob1:
         conditionals.append('prob1')
     if not args.no_prob2:
@@ -98,8 +95,6 @@ def init_lang_module(args, email):  # type: (argparse.Namespace, str) -> Tuple[D
 
     if args.analyser in ['lt', 'lttoolbox']:
         files = dict(lttoolbox_language_module_files, **any_module_files)
-        if args.with_twoc:
-            raise argparse.ArgumentError('--with-twoc can only be used in hfst modules')
     elif args.analyser == 'hfst':
         files = dict(hfst_language_module_files, **any_module_files)
         if args.with_twoc:
@@ -196,15 +191,26 @@ def main(cli_args):  # type: (List[str]) -> None
     parser.add_argument('-a1', '--analyser1', help='analyser to use for first language of pair', choices=['lt', 'lttoolbox', 'hfst'], default='lt')
     parser.add_argument('-a2', '--analyser2', help='analyser to use for second language of pair', choices=['lt', 'lttoolbox', 'hfst'], default='lt')
 
-    parser.add_argument('--no-rlx1', help='no .rlx present in first language of pair (only used for bilingual pair)', action='store_true', default=False)
-    parser.add_argument('--no-rlx2', help='no .rlx present in second language of pair (only used for bilingual pair)', action='store_true', default=False)
-    parser.add_argument('--no-prob1', help='no .prob present in first language of pair (only used for bilingual pair)', action='store_true', default=False)
-    parser.add_argument('--no-prob2', help='no .prob present in second language of pair (only used for bilingual pair)', action='store_true', default=False)
+    rlx_prob_group1 = parser.add_mutually_exclusive_group()
+    rlx_prob_group1.add_argument('--no-rlx1', help='no .rlx present in first language of pair (only used for bilingual pair)',
+                                 action='store_true', default=False)
+    rlx_prob_group1.add_argument('--no-prob1', help='no .prob present in first language of pair (only used for bilingual pair)',
+                                 action='store_true', default=False)
+
+    rlx_prob_group2 = parser.add_mutually_exclusive_group()
+    rlx_prob_group2.add_argument('--no-prob2', help='no .prob present in second language of pair (only used for bilingual pair)',
+                                 action='store_true', default=False)
+    rlx_prob_group2.add_argument('--no-rlx2', help='no .rlx present in second language of pair (only used for bilingual pair)',
+                                 action='store_true', default=False)
+
     parser.add_argument('--no-pgen1', help='no post-dix present in first language of pair (only used for bilingual pair)', action='store_true', default=False)
     parser.add_argument('--no-pgen2', help='no post-dix present in second language of pair (only used for bilingual pair)', action='store_true', default=False)
     parser.add_argument('--with-twoc', help='include .twoc file (only used for monolingual hfst modules)', action='store_true', default=False)
 
     args = parser.parse_args(cli_args)
+
+    if args.analyser in ['lt', 'lttoolbox'] and args.with_twoc:
+        parser.error('--with-twoc can only be used in hfst modules')
 
     try:
         email = subprocess.check_output(shlex.split('git config user.email')).decode('utf-8').strip()

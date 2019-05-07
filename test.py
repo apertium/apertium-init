@@ -43,11 +43,17 @@ class TestModule:
 
 
 class TestInvalidModule(unittest.TestCase):
-    name = 'eng-cat-spa'
-
-    def test_init(self):
+    def test_rejects_invalid_name(self):
         with self.assertRaises(SystemExit):
-            apertium_init.main([self.name])
+            apertium_init.main(['eng-cat-spa'])
+
+    def test_rejects_twoc_without_hfst(self):
+        with self.assertRaises(SystemExit):
+            apertium_init.main(['eng', '--with-twoc'])
+
+    def test_no_rlx_and_no_prob(self):
+        with self.assertRaises(SystemExit):
+            apertium_init.main(['eng', '--no-rlx1', '--no-prob1'])
 
 
 class TestLttoolboxModule(TestModule, unittest.TestCase):
