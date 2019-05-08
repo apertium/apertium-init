@@ -65,8 +65,9 @@ Files and data
 -------------------------------------------------------------------------------
 
 * [`apertium-{{languageCode}}.{{languageCode}}.lexc`](apertium-{{languageCode}}.{{languageCode}}.lexc) - Morphotactic dictionary
-* [`apertium-{{languageCode}}.{{languageCode}}.twol`](apertium-{{languageCode}}.{{languageCode}}.twol) - Morphophonological rules
-* [`apertium-{{languageCode}}.{{languageCode}}.rlx`](apertium-{{languageCode}}.{{languageCode}}.rlx) - Constraint Grammar disambiguation rules
+* [`apertium-{{languageCode}}.{{languageCode}}.twol`](apertium-{{languageCode}}.{{languageCode}}.twol) - Morphophonological rules{{if_twoc
+* [`apertium-{{languageCode}}.{{languageCode}}.twoc`](apertium-{{languageCode}}.{{languageCode}}.twoc) - Path-restriction rules for prefixes
+if_twoc}}* [`apertium-{{languageCode}}.{{languageCode}}.rlx`](apertium-{{languageCode}}.{{languageCode}}.rlx) - Constraint Grammar disambiguation rules
 * [`apertium-{{languageCode}}.post-{{languageCode}}.dix`](apertium-{{languageCode}}.post-{{languageCode}}.dix) - Post-generator
 * [`{{languageCode}}.prob`]({{languageCode}}.prob) - Tagger model
 * [`modes.xml`](modes.xml) - Translation modes

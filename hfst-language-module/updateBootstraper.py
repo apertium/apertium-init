@@ -11,6 +11,7 @@ files = [
     '{{languageCode}}.prob',
     'apertium-{{languageCode}}.{{languageCode}}.lexc',
     'apertium-{{languageCode}}.{{languageCode}}.twol',
+    'apertium-{{languageCode}}.{{languageCode}}.twoc',
     'apertium-{{languageCode}}.{{languageCode}}.rlx',
     'apertium-{{languageCode}}.post-{{languageCode}}.dix',
     'apertium-{{languageCode}}.pc.in',
