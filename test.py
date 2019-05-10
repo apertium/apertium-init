@@ -131,7 +131,7 @@ class TestPair(TestModule, unittest.TestCase):
         build(self.path, autogen_args=autogen_args)
 
 
-class TestUnspecifiedPair(TestPair, unittest.TestCase):
+class TestDefaultPair(TestPair, unittest.TestCase):
     pass
 
 
