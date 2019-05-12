@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <rules>
   <!-- 
     This rule chooses "energía" as the translation of "power" when it is preceded by "wind". 
