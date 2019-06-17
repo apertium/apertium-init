@@ -1,10 +1,12 @@
 language: python
-cache: pip
-sudo: required
+dist: xenial
+cache:
+    pip: true
 python:
   - '3.4'
   - '3.5'
   - '3.6'
+  - '3.7'
   - 'nightly'
 install:
   - pip install pipenv
