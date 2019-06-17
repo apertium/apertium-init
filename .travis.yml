@@ -1,10 +1,11 @@
 language: python
-cache: pip
-sudo: required
+dist: xenial
+cache:
+    pip: true
 python:
-  - '3.4'
   - '3.5'
   - '3.6'
+  - '3.7'
   - 'nightly'
 install:
   - pip install pipenv
@@ -20,3 +21,6 @@ after_success:
 notifications:
   on_failure: change
   on_success: change
+matrix:
+  allow_failures:
+    - python: nightly
