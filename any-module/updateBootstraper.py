@@ -6,6 +6,7 @@ import fileinput
 import os
 import re
 import sys
+import zlib
 
 files = [
     '.gitattributes',
@@ -30,7 +31,7 @@ if __name__ == '__main__':
 
     for filename in files:
         with open(os.path.join(args.vanillaDirectory, filename), 'rb') as f:
-            encoded_files[filename] = base64.b85encode(f.read())
+            encoded_files[filename] = base64.b85encode(zlib.compress(f.read()))
 
     for line in fileinput.input((args.bootstraperScript, ), inplace=True):
         sys.stdout.write(re.sub(r'^any_module_files = {.*?}  # noqa: E501$', 'any_module_files = %s  # noqa: E501' % repr(encoded_files), line))
