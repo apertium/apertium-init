@@ -69,8 +69,9 @@ Files and data
 * [`apertium-{{languageCode}}.{{languageCode}}.twoc`](apertium-{{languageCode}}.{{languageCode}}.twoc) - Path-restriction rules for prefixes
 if_twoc}}* [`apertium-{{languageCode}}.{{languageCode}}.rlx`](apertium-{{languageCode}}.{{languageCode}}.rlx) - Constraint Grammar disambiguation rules
 * [`apertium-{{languageCode}}.post-{{languageCode}}.dix`](apertium-{{languageCode}}.post-{{languageCode}}.dix) - Post-generator
-* [`{{languageCode}}.prob`]({{languageCode}}.prob) - Tagger model
-* [`modes.xml`](modes.xml) - Translation modes
+* [`{{languageCode}}.prob`]({{languageCode}}.prob) - Tagger model{{if_spellrelax
+* [`spellrelax.twol`](spellrelax.twol) - Typographical variance rules
+if_spellrelax}}* [`modes.xml`](modes.xml) - Translation modes
 
 For more information
 -------------------------------------------------------------------------------

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dictionary type="separable">
+	<alphabet>aAáÁăảạÆbBcCčdDÐeEéèễệfFgGhHiIíjJkKlLmMnNoOóöớpPqQrRsSšştTŢuUúüưvVwWxXyYzZ</alphabet>
+	<sdefs>
+		<sdef n="adj"/>
+		<sdef n="adv"/>
+		<sdef n="pr"/>
+		<sdef n="n"/>
+		<sdef n="v"/>
+		<sdef n="vblex"/>
+		<sdef n="vbser"/>
+		<sdef n="det"/>
+	</sdefs>
+
+	<pardefs>
+		<pardef n="adj">
+			<e><i><w/><s n="adj"/><j/></i></e>
+			<e><i><w/><s n="adj"/><t/><j/></i></e>
+		</pardef>
+		<pardef n="adv">
+			<e><i><w/><s n="adv"/><j/></i></e>
+			<e><i><w/><s n="adv"/><t/><j/></i></e>
+		</pardef>
+		<pardef n="n">
+			<e><i><w/><s n="n"/><t/><j/></i></e>
+		</pardef>
+		<pardef n="det">
+			<e><i><w/><s n="det"/><t/><j/></i></e>
+		</pardef>
+		<pardef n="SN">
+			<e><par n="n"/></e>
+			<e><par n="adj"/><par n="n"/></e>
+			<e><par n="adj"/><par n="adj"/><par n="n"/></e>
+			<e><par n="det"/><par n="n"/></e>
+			<e><par n="det"/><par n="adj"/><par n="n"/></e>
+			<e><par n="det"/><par n="adj"/><par n="adj"/><par n="n"/></e>
+		</pardef>
+	</pardefs>
+
+	<section id="main" type="standard">
+
+  <!--
+      This replaces
+      ^take<vblex>...$ [noun phrase] ^out<adv>$
+      with
+      ^take# out<vblex>...$ [noun phrase]
+  -->
+
+		<e lm="take out" c="sacar">
+			<p>
+				<l>take<s n="vblex"/></l>
+				<r>take<b/>out<s n="vblex"/></r>
+			</p>
+			<i><t/><j/></i>
+			<par n="SN"/>
+			<p>
+				<l>out<s n="adv"/><j/></l>
+				<r></r>
+			</p>
+		</e>
+	</section>
+</dictionary>
+
+<!-- 
+Resources: 
+    http://wiki.apertium.org/wiki/Apertium_separable
+-->
+

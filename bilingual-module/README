@@ -74,7 +74,10 @@ Files and data
 * [`apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode1}}-{{languageCode2}}.t3x`](apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode1}}-{{languageCode2}}.t3x) - Postchunk rules for translating into {{languageName2}}
 * [`apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode2}}-{{languageCode1}}.t3x`](apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode2}}-{{languageCode1}}.t3x) - Postchunk rules for translating into {{languageName1}}
 * [`apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode1}}-{{languageCode2}}.lrx`](apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode1}}-{{languageCode2}}.lrx) - Lexical selection rules for translating into {{languageName2}}
-* [`apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode2}}-{{languageCode1}}.lrx`](apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode2}}-{{languageCode1}}.lrx) - Lexical selection rules for translating into {{languageName1}}
+* [`apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode2}}-{{languageCode1}}.lrx`](apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode2}}-{{languageCode1}}.lrx) - Lexical selection rules for translating into {{languageName1}}{{if_lsx
+* [`apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode1}}-{{languageCode2}}.lsx`](apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode1}}-{{languageCode2}}.lsx) - Discontiguous multiword rules for translating into {{languageName2}}
+* [`apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode2}}-{{languageCode1}}.lsx`](apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode2}}-{{languageCode1}}.lsx) - Discontiguous multiword rules for translating into {{languageName1}}
+if_lsx}}
 * [`modes.xml`](modes.xml) - Translation modes
 
 For more information
