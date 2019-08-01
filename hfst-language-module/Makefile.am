@@ -67,7 +67,7 @@ if_twoc}}
 $(LANG1).autogen.hfst: .deps/$(LANG1).RL.hfst
 	hfst-fst2fst -O $< -o $@{{if_spellrelax
 
-.deps/spellrelax.hfst: spellrelax.twoc .deps/.d
+.deps/spellrelax.hfst: spellrelax.twol .deps/.d
 	hfst-twolc $< -o $@
 
 $(LANG1).automorf.hfst: .deps/$(LANG1).LR.hfst .deps/spellrelax.hfst
