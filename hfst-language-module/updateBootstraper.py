@@ -16,7 +16,7 @@ files = [
     'apertium-{{languageCode}}.{{languageCode}}.rlx',
     'apertium-{{languageCode}}.post-{{languageCode}}.dix',
     'apertium-{{languageCode}}.pc.in',
-    'spellrelax.twol',
+    'spellrelax.twoc',
     'configure.ac',
     'Makefile.am',
     'modes.xml',
