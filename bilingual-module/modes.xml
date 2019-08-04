@@ -22,6 +22,11 @@ if_prob1}}{{ifnot_prob1
         <file name="{{languageCode1}}-{{languageCode2}}.rlx.bin"/>
       </program>
 ifnot_prob1}}
+{{if_lsx
+      <program name="lsx-proc">
+        <file name="{{languageCode1}}-{{languageCode2}}.autoseq.bin"/>
+      </program>
+if_lsx}}
       <program name="apertium-pretransfer"/>
       <program name="lt-proc -b">
         <file name="{{languageCode1}}-{{languageCode2}}.autobil.bin"/>
@@ -41,6 +46,11 @@ ifnot_prob1}}
         <file name="apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode1}}-{{languageCode2}}.t3x"/>
         <file name="{{languageCode1}}-{{languageCode2}}.t3x.bin"/>
       </program>
+{{if_lsx
+      <program name="lsx-proc" debug-suff="revautoseq">
+        <file name="{{languageCode1}}-{{languageCode2}}.revautoseq.bin"/>
+      </program>
+if_lsx}}
       <program name="lt-proc $1">
         <file name="{{languageCode1}}-{{languageCode2}}.autogen.bin"/>
       </program>
@@ -73,6 +83,11 @@ if_prob2}}{{ifnot_prob2
         <file name="{{languageCode2}}-{{languageCode1}}.rlx.bin"/>
       </program>
 ifnot_prob2}}
+{{if_lsx
+      <program name="lsx-proc">
+        <file name="{{languageCode2}}-{{languageCode1}}.autoseq.bin"/>
+      </program>
+if_lsx}}
       <program name="apertium-pretransfer"/>
       <program name="lt-proc -b">
         <file name="{{languageCode2}}-{{languageCode1}}.autobil.bin"/>
@@ -92,6 +107,11 @@ ifnot_prob2}}
         <file name="apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode2}}-{{languageCode1}}.t3x"/>
         <file name="{{languageCode2}}-{{languageCode1}}.t3x.bin"/>
       </program>
+{{if_lsx
+      <program name="lsx-proc" debug-suff="revautoseq">
+        <file name="{{languageCode2}}-{{languageCode1}}.revautoseq.bin"/>
+      </program>
+if_lsx}}
       <program name="lt-proc $1">
         <file name="{{languageCode2}}-{{languageCode1}}.autogen.bin"/>
       </program>

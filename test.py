@@ -51,6 +51,10 @@ class TestInvalidModule(unittest.TestCase):
         with self.assertRaises(SystemExit):
             apertium_init.main(['eng', '--with-twoc'])
 
+    def test_rejects_spellrelax_without_hfst(self):
+        with self.assertRaises(SystemExit):
+            apertium_init.main(['eng', '--with-spellrelax'])
+
     def test_no_rlx_and_no_prob(self):
         with self.assertRaises(SystemExit):
             apertium_init.main(['eng', '--no-rlx1', '--no-prob1'])
@@ -85,6 +89,18 @@ class TestTwocModule(TestModule, unittest.TestCase):
         apertium_init.main([cls.name, '--analyser=hfst', '--with-twoc'])
 
 
+class TestSpellrelaxModule(TestModule, unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        apertium_init.main([cls.name, '--analyser=hfst', '--with-spellrelax'])
+
+
+class TestTwocAndSpellrelaxModule(TestModule, unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        apertium_init.main([cls.name, '--analyser=hfst', '--with-twoc', '--with-spellrelax'])
+
+
 class TestUnknownCodeModule(TestModule, unittest.TestCase):
     name = 'bkl'
     path = make_path(name)
@@ -106,6 +122,8 @@ class TestPair(TestModule, unittest.TestCase):
     path2 = make_path(name2)
     analyser2 = ''
 
+    other_args = []
+
     @classmethod
     def setUpClass(cls):
         for name, path, analyser in [(cls.name1, cls.path1, cls.analyser1), (cls.name2, cls.path2, cls.analyser2)]:
@@ -114,7 +132,7 @@ class TestPair(TestModule, unittest.TestCase):
             else:
                 apertium_init.main([name])
             build(path)
-        pair_args = [cls.name]
+        pair_args = [cls.name] + cls.other_args
         if cls.analyser1:
             pair_args.append('--analyser1={}'.format(cls.analyser1))
         if cls.analyser2:
@@ -153,6 +171,10 @@ class TestHfstLtPair(TestPair, unittest.TestCase):
 class TestLtHfstPair(TestPair, unittest.TestCase):
     analyser1 = 'lt'
     analyser2 = 'hfst'
+
+
+class TestPairWithSeparable(TestPair, unittest.TestCase):
+    other_args = ['--with-lsx']
 
 
 if __name__ == '__main__':

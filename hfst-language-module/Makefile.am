@@ -65,10 +65,18 @@ ifnot_twoc}}{{if_twoc
 if_twoc}}
 
 $(LANG1).autogen.hfst: .deps/$(LANG1).RL.hfst
-	hfst-fst2fst -O $< -o $@
+	hfst-fst2fst -O $< -o $@{{if_spellrelax
+
+.deps/spellrelax.hfst: $(BASENAME).$(LANG1).spellrelax .deps/.d
+	hfst-twolc $< -o $@
+
+$(LANG1).automorf.hfst: .deps/$(LANG1).LR.hfst .deps/spellrelax.hfst
+	hfst-compose-intersect -1 $< -2 .deps/spellrelax.hfst | hfst-invert | hfst-fst2fst -O -o $@
+if_spellrelax}}{{ifnot_spellrelax
 
 $(LANG1).automorf.hfst: .deps/$(LANG1).LR.hfst
 	hfst-invert $< | hfst-fst2fst -O -o $@
+ifnot_spellrelax}}
 
 $(LANG1).autogen.att.gz: $(LANG1).autogen.hfst
 	hfst-fst2txt $< | gzip -9 -c -n > $@

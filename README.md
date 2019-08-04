@@ -45,6 +45,18 @@ To bootstrap and compile it at the same time,
 $ python3 apertium-init.py foo --analyser=hfst && ( cd apertium-foo/ && ./autogen.sh && make )
 ```
 
+To include a twoc file for handling prefixes,
+
+```bash
+$ python3 apertium-init.py foo --analyser=hfst --with-twoc
+```
+
+To include a spellrelax file for handling typographical variance,
+
+```bash
+$ python3 apertium-init.py foo --analyser=hfst --with-spellrelax
+```
+
 ### Bilingual Lttoolbox module
 
 To bootstrap a bilingual language module `apertium-foo-bar` where the
@@ -80,6 +92,39 @@ To bootstrap and compile it at the same time,
 $ python3 apertium-init.py foo-bar --analysers=hfst && ( cd apertium-foo-bar/ && ./autogen.sh && make test) # Both foo and bar use HFST
 $ python3 apertium-init.py foo-bar --analyser1=hfst && ( cd apertium-foo-bar/ && ./autogen.sh && make test) # Only foo (first language) uses HFST
 $ python3 apertium-init.py foo-bar --analyser2=hfst && ( cd apertium-foo-bar/ && ./autogen.sh && make test) # Only bar (second language) uses HFST
+```
+
+### Bilingual module for monolinguals that don't use apertium-tagger or CG
+
+To bootstrap a bilingual module when one or both of the monolingual modules don't use apertium-tagger,
+
+```bash
+$ python3 apertium-init.py foo-bar --no-prob1            # Only foo doesn't have .prob
+$ python3 apertium-init.py foo-bar --no-prob2            # Only bar doesn't have .prop
+$ python3 apertium-init.py foo-bar --no-prob1 --no-prob2 # Neither foo nor bar have .prob
+```
+
+To bootstrap a bilingual module when one or both of the monolingual modules don't use [CG](http://wiki.apertium.org/wiki/Constraint_Grammar),
+
+```bash
+$ python3 apertium-init.py foo-bar --no-rlx1           # Only foo doesn't have .rlx
+$ python3 apertium-init.py foo-bar --no-rlx2           # Only bar doesn't have .rlx
+$ python3 apertium-init.py foo-bar --no-rlx1 --no-rlx2 # Neither foo nor bar have .rlx
+```
+
+### Pushing to Github
+
+To bootstrap a module or pair and also add it to the [apertium incubator](https://github.com/apertium/apertium-incubator),
+
+```bash
+$ python3 apertium-init.py foo -p     # Bootstrap module apertium-foo and push to Github
+$ python3 apertium-init.py foo-bar -p # Bootstrap pair apertium-foo-bar and push to Github
+```
+
+To specify what username to push as (rather than relying on `git config`),
+
+```bash
+$ python3 apertium-init.py foo -p -u bar # Bootstrap module apertium-foo and push to Github under username bar
 ```
 
 ## Development

@@ -20,7 +20,10 @@ if_rlx1}}
 	$(PREFIX1).autolex.bin	\
 	$(PREFIX1).autogen.bin	\{{if_pgen2
 	$(PREFIX1).autopgen.bin	\
-if_pgen2}}
+if_pgen2}}{{if_lsx
+	$(PREFIX1).autoseq.bin	\
+	$(PREFIX1).revautoseq.bin	\
+if_lsx}}
 	$(PREFIX1).t1x.bin	\
 	$(PREFIX1).t2x.bin	\
 	$(PREFIX1).t3x.bin	\
@@ -33,7 +36,10 @@ if_rlx2}}
 	$(PREFIX2).autolex.bin	\
 	$(PREFIX2).autogen.bin	\{{if_pgen1
 	$(PREFIX2).autopgen.bin	\
-if_pgen1}}
+if_pgen1}}{{if_lsx
+	$(PREFIX2).autoseq.bin	\
+	$(PREFIX2).revautoseq.bin	\
+if_lsx}}
 	$(PREFIX2).t1x.bin	\
 	$(PREFIX2).t2x.bin	\
 	$(PREFIX2).t3x.bin
@@ -171,6 +177,19 @@ $(PREFIX1).autolex.bin: $(BASENAME).$(PREFIX1).lrx
 
 $(PREFIX2).autolex.bin: $(BASENAME).$(PREFIX2).lrx
 	lrx-comp $< $@
+{{if_lsx
+$(PREFIX1).autoseq.bin: $(BASENAME).$(PREFIX1).lsx
+	lsx-comp lr $< $@
+
+$(PREFIX2).autoseq.bin: $(BASENAME).$(PREFIX2).lsx
+	lsx-comp lr $< $@
+
+$(PREFIX1).revautoseq.bin: $(BASENAME).$(PREFIX1).lsx
+	lsx-comp rl $< $@
+
+$(PREFIX2).revautoseq.bin: $(BASENAME).$(PREFIX2).lsx
+	lsx-comp rl $< $@
+if_lsx}}
 
 ###############################################################################
 ## Structural transfer rules
