@@ -12,14 +12,14 @@ apertium_init.py: apertium-init.py
 	cp $< $@
 
 dist: all apertium_init.py
-	python3 setup.py sdist
+	./setup.py sdist
 
 release: all apertium_init.py
-	python3 setup.py sdist bdist_wheel
+	./setup.py sdist bdist_wheel
 	twine upload --sign dist/*
 
 test-release: all apertium_init.py
-	python3 setup.py sdist bdist_wheel
+	./setup.py sdist bdist_wheel
 	twine upload --sign --repository-url https://test.pypi.org/legacy/ dist/*
 
 test:
