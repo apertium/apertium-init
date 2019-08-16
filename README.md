@@ -112,6 +112,30 @@ $ python3 apertium-init.py foo-bar --no-rlx2           # Only bar doesn't have .
 $ python3 apertium-init.py foo-bar --no-rlx1 --no-rlx2 # Neither foo nor bar have .rlx
 ```
 
+### Bilingual module using recursive transfer
+
+To bootstrap a bilingual module which uses apertium-recursive,
+
+```bash
+$ python3 apertium-init.py foo-bar --transfer=rtx
+```
+
+### Bilingual module with anaphora resolution
+
+To bootstrap a bilingual module which uses apertium-anaphora,
+
+```bash
+$ python3 apertium-init.py foo-bar --with-anaphora
+```
+
+### Bilingual module with discontiguous multiwords
+
+To bootstrap a bilingual module which uses apertium-separable,
+
+```bash
+$ python3 apertium-init.py foo-bar --with-separable
+```
+
 ### Pushing to Github
 
 To bootstrap a module or pair and also add it to the [apertium incubator](https://github.com/apertium/apertium-incubator),

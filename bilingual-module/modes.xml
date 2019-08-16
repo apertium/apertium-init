@@ -21,8 +21,7 @@ if_prob1}}{{ifnot_prob1
       <program name="cg-proc -w -1 -n">
         <file name="{{languageCode1}}-{{languageCode2}}.rlx.bin"/>
       </program>
-ifnot_prob1}}
-{{if_lsx
+ifnot_prob1}}{{if_lsx
       <program name="lsx-proc">
         <file name="{{languageCode1}}-{{languageCode2}}.autoseq.bin"/>
       </program>
@@ -33,7 +32,12 @@ if_lsx}}
       </program>
       <program name="lrx-proc -m">
         <file name="{{languageCode1}}-{{languageCode2}}.autolex.bin"/>
+      </program>{{if_anaphora
+      <program name="apertium-anaphora">
+        <file name="apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode1}}-{{languageCode2}}.arx"/>
       </program>
+if_anaphora}}
+{{if_chunk
       <program name="apertium-transfer -b">
         <file name="apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode1}}-{{languageCode2}}.t1x"/>
         <file name="{{languageCode1}}-{{languageCode2}}.t1x.bin"/>
@@ -46,7 +50,15 @@ if_lsx}}
         <file name="apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode1}}-{{languageCode2}}.t3x"/>
         <file name="{{languageCode1}}-{{languageCode2}}.t3x.bin"/>
       </program>
-{{if_lsx
+if_chunk}}{{if_rtx
+{{if_anaphora
+      <program name="rtx-proc -a">
+if_anaphora}}{{ifnot_anaphora
+      <program name="rtx-proc">
+ifnot_anaphora}}
+        <file name="{{languageCode1}}-{{languageCode2}}.rtx.bin"/>
+      </program>
+if_rtx}}{{if_lsx
       <program name="lsx-proc" debug-suff="revautoseq">
         <file name="{{languageCode1}}-{{languageCode2}}.revautoseq.bin"/>
       </program>
@@ -94,7 +106,12 @@ if_lsx}}
       </program>
       <program name="lrx-proc -m">
         <file name="{{languageCode2}}-{{languageCode1}}.autolex.bin"/>
+      </program>{{if_anaphora
+      <program name="apertium-anaphora">
+        <file name="apertium-{{languageCode2}}-{{languageCode1}}.{{languageCode2}}-{{languageCode1}}.arx"/>
       </program>
+if_anaphora}}
+{{if_chunk
       <program name="apertium-transfer -b">
         <file name="apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode2}}-{{languageCode1}}.t1x"/>
         <file name="{{languageCode2}}-{{languageCode1}}.t1x.bin"/>
@@ -107,7 +124,15 @@ if_lsx}}
         <file name="apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode2}}-{{languageCode1}}.t3x"/>
         <file name="{{languageCode2}}-{{languageCode1}}.t3x.bin"/>
       </program>
-{{if_lsx
+if_chunk}}{{if_rtx
+{{if_anaphora
+      <program name="rtx-proc -a">
+if_anaphora}}{{ifnot_anaphora
+      <program name="rtx-proc">
+ifnot_anaphora}}
+        <file name="{{languageCode2}}-{{languageCode1}}.rtx.bin"/>
+      </program>
+if_rtx}}{{if_lsx
       <program name="lsx-proc" debug-suff="revautoseq">
         <file name="{{languageCode2}}-{{languageCode1}}.revautoseq.bin"/>
       </program>
