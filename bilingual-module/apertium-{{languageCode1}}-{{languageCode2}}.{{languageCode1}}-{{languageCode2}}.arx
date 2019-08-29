@@ -22,10 +22,6 @@
 			<cat-item has-tags="det pos"/>
 		</def-cat>
 
-		<def-cat n="adj">
-			<cat-item has-tags="adj"/>
-		</def-cat>
-
 		<def-cat n="nom">
 			<cat-item has-tags="n"/>
 		</def-cat>
@@ -36,10 +32,6 @@
 
 		<def-cat n="prep">
 			<cat-item has-tags="pr"/>
-		</def-cat>
-
-		<def-cat n="ind">
-			<cat-item has-tags="ind"/>
 		</def-cat>
 
 	</section-def-cats>
@@ -56,70 +48,6 @@
 				<pattern-item n="prep"/>
 				<pattern-item n="nom" head="t"/>
 			</pattern>
-			<pattern>
-				<pattern-item n="prep"/>
-				<pattern-item n="det"/>
-				<pattern-item n="adj"/>
-				<pattern-item n="nom" head="t"/>
-			</pattern>
-			<pattern>
-				<pattern-item n="prep"/>
-				<pattern-item n="det"/>
-				<pattern-item n="adv"/>
-				<pattern-item n="adj"/>
-				<pattern-item n="nom" head="t"/>
-			</pattern>
-			<pattern>
-				<pattern-item n="prep"/>
-				<pattern-item n="det"/>
-				<pattern-item n="preadv"/>
-				<pattern-item n="adj"/>
-				<pattern-item n="nom" head="t"/>
-			</pattern>
-			<pattern>
-				<pattern-item n="prep"/>
-				<pattern-item n="predet"/>
-				<pattern-item n="det"/>
-				<pattern-item n="nom" head="t"/>
-			</pattern>
-			<pattern>
-				<pattern-item n="prep"/>
-				<pattern-item n="predet"/>
-				<pattern-item n="det"/>
-				<pattern-item n="adj"/>
-				<pattern-item n="nom" head="t"/>
-			</pattern>
-			<pattern>
-				<pattern-item n="prep"/>
-				<pattern-item n="predet"/>
-				<pattern-item n="det"/>
-				<pattern-item n="adv"/>
-				<pattern-item n="adj"/>
-				<pattern-item n="nom" head="t"/>
-			</pattern>
-			<pattern>
-				<pattern-item n="prep"/>
-				<pattern-item n="predet"/>
-				<pattern-item n="det"/>
-				<pattern-item n="preadv"/>
-				<pattern-item n="adj"/>
-				<pattern-item n="nom" head="t"/>
-			</pattern>
-			<pattern>
-				<pattern-item n="prep"/>
-				<pattern-item n="np" head="t"/>
-			</pattern>
-			<pattern>
-				<pattern-item n="prep"/>
-				<pattern-item n="det"/>
-				<pattern-item n="np" head="t"/>
-			</pattern>
-			<pattern>
-				<pattern-item n="prep"/>
-				<pattern-item n="predet"/>
-				<pattern-item n="det"/>
-				<pattern-item n="np" head="t"/>
-			</pattern>
 
 			<score n="-1"/> <!-- This gives a -1 score to any antecedent that is part of a PP -->
 		</markable>
@@ -127,11 +55,6 @@
 		<markable n="IP">
 			<pattern>
 				<pattern-item n="ind"/>
-				<pattern-item n="nom"/>
-			</pattern>
-			<pattern>
-				<pattern-item n="ind"/>
-				<pattern-item n="adj"/>
 				<pattern-item n="nom"/>
 			</pattern>
 

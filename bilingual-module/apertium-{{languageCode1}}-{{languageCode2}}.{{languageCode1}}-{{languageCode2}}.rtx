@@ -38,3 +38,8 @@ det: (if (1.det_type = def or 1.det_type = ind)
 !!!!!!!!!!!!!!!
 
 NP -> n.$number adj { 2[gender=1.gender, number=1.number] _1 1 } ;
+
+! Resources:
+! http://wiki.apertium.org/wiki/Apertium-recursive
+! http://wiki.apertium.org/wiki/Apertium-recursive/Formalism
+! http://wiki.apertium.org/wiki/Apertium-recursive/Cookbook
