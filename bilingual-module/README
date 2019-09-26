@@ -66,18 +66,25 @@ TODO test translated sentence 1
 Files and data
 -------------------------------------------------------------------------------
 
-* [`apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode1}}-{{languageCode2}}.dix`](apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode1}}-{{languageCode2}}.dix) - Bilingual dictionary
+* [`apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode1}}-{{languageCode2}}.dix`](apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode1}}-{{languageCode2}}.dix) - Bilingual dictionary{{if_chunk
 * [`apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode1}}-{{languageCode2}}.t1x`](apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode1}}-{{languageCode2}}.t1x) - Chunking rules for translating into {{languageName2}}
 * [`apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode2}}-{{languageCode1}}.t1x`](apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode2}}-{{languageCode1}}.t1x) - Chunking rules for translating into {{languageName1}}
 * [`apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode1}}-{{languageCode2}}.t2x`](apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode1}}-{{languageCode2}}.t2x) - Interchunk rules for translating into {{languageName2}}
 * [`apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode2}}-{{languageCode1}}.t2x`](apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode2}}-{{languageCode1}}.t2x) - Interchunk rules for translating into {{languageName1}}
 * [`apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode1}}-{{languageCode2}}.t3x`](apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode1}}-{{languageCode2}}.t3x) - Postchunk rules for translating into {{languageName2}}
 * [`apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode2}}-{{languageCode1}}.t3x`](apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode2}}-{{languageCode1}}.t3x) - Postchunk rules for translating into {{languageName1}}
+if_chunk}}{{if_rtx
+* [`apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode1}}-{{languageCode2}}.rtx`](apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode1}}-{{languageCode2}}.rtx) - Structural transfer rules for translating into {{languageName2}}
+* [`apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode2}}-{{languageCode1}}.rtx`](apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode2}}-{{languageCode1}}.rtx) - Structural transfer rules for translating into {{languageName1}}
+if_rtx}}
 * [`apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode1}}-{{languageCode2}}.lrx`](apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode1}}-{{languageCode2}}.lrx) - Lexical selection rules for translating into {{languageName2}}
 * [`apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode2}}-{{languageCode1}}.lrx`](apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode2}}-{{languageCode1}}.lrx) - Lexical selection rules for translating into {{languageName1}}{{if_lsx
 * [`apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode1}}-{{languageCode2}}.lsx`](apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode1}}-{{languageCode2}}.lsx) - Discontiguous multiword rules for translating into {{languageName2}}
 * [`apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode2}}-{{languageCode1}}.lsx`](apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode2}}-{{languageCode1}}.lsx) - Discontiguous multiword rules for translating into {{languageName1}}
-if_lsx}}
+if_lsx}}{{if_anaphora
+* [`apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode1}}-{{languageCode2}}.arx`](apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode1}}-{{languageCode2}}.arx) - Anaphora resolution rules for translating into {{languageName2}}
+* [`apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode2}}-{{languageCode1}}.arx`](apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode2}}-{{languageCode1}}.arx) - Anaphora resolution rules for translating into {{languageName1}}
+if_anaphora}}
 * [`modes.xml`](modes.xml) - Translation modes
 
 For more information

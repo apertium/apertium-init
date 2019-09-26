@@ -23,10 +23,13 @@ if_rlx1}}
 if_pgen2}}{{if_lsx
 	$(PREFIX1).autoseq.bin	\
 	$(PREFIX1).revautoseq.bin	\
-if_lsx}}
+if_lsx}}{{if_chunk
 	$(PREFIX1).t1x.bin	\
 	$(PREFIX1).t2x.bin	\
 	$(PREFIX1).t3x.bin	\
+if_chunk}}{{if_rtx
+	$(PREFIX1).rtx.bin	\
+if_rtx}}
 	$(PREFIX2).automorf.bin	\{{if_prob2
 	$(PREFIX2).prob		\
 if_prob2}}{{if_rlx2
@@ -39,11 +42,13 @@ if_rlx2}}
 if_pgen1}}{{if_lsx
 	$(PREFIX2).autoseq.bin	\
 	$(PREFIX2).revautoseq.bin	\
-if_lsx}}
+if_lsx}}{{if_chunk
 	$(PREFIX2).t1x.bin	\
 	$(PREFIX2).t2x.bin	\
 	$(PREFIX2).t3x.bin
-
+if_chunk}}{{if_rtx
+	$(PREFIX2).rtx.bin
+if_rtx}}
 
 # This include defines goals for install-modes, .deps/.d, autobil.prefixes and .mode files:
 @ap_include@
@@ -195,6 +200,7 @@ if_lsx}}
 ## Structural transfer rules
 ###############################################################################
 
+{{if_chunk
 $(PREFIX1).t1x.bin: $(BASENAME).$(PREFIX1).t1x
 	apertium-validate-transfer $<
 	apertium-preprocess-transfer $< $@
@@ -219,6 +225,13 @@ $(PREFIX2).t2x.bin: $(BASENAME).$(PREFIX2).t2x
 $(PREFIX2).t3x.bin: $(BASENAME).$(PREFIX2).t3x
 	apertium-validate-postchunk $<
 	apertium-preprocess-transfer $< $@
+if_chunk}}{{if_rtx
+$(PREFIX1).rtx.bin: $(BASENAME).$(PREFIX1).rtx
+	rtx-comp $< $@
+
+$(PREFIX2).rtx.bin: $(BASENAME).$(PREFIX2).rtx
+	rtx-comp $< $@
+if_rtx}}
 
 ###############################################################################
 ## Postgeneration dictionaries
@@ -237,13 +250,23 @@ $(PREFIX2).autopgen.bin: $(AP_SRC1)/$(LANG1).autopgen.bin
 EXTRA_DIST=					\
 		$(BASENAME).$(PREFIX1).lrx	\
 		$(BASENAME).$(PREFIX1).dix	\
-		$(BASENAME).$(PREFIX2).lrx	\
+		$(BASENAME).$(PREFIX2).lrx	\{{if_chunk
 		$(BASENAME).$(PREFIX1).t1x	\
 		$(BASENAME).$(PREFIX1).t2x	\
 		$(BASENAME).$(PREFIX1).t3x	\
 		$(BASENAME).$(PREFIX2).t1x	\
 		$(BASENAME).$(PREFIX2).t2x	\
 		$(BASENAME).$(PREFIX2).t3x	\
+if_chunk}}{{if_rtx
+		$(BASENAME).$(PREFIX1).rtx	\
+		$(BASENAME).$(PREFIX2).rtx	\
+if_rtx}}{{if_anaphora
+		$(BASENAME).$(PREFIX1).arx	\
+		$(BASENAME).$(PREFIX2).arx	\
+if_anaphora}}{{if_lsx
+		$(BASENAME).$(PREFIX1).lsx	\
+		$(BASENAME).$(PREFIX2).lsx	\
+if_lsx}}
 		modes.xml
 
 ###############################################################################
@@ -253,7 +276,10 @@ EXTRA_DIST=					\
 apertium_{{languageCode1}}_{{languageCode2}}dir=$(prefix)/share/apertium/$(BASENAME)/
 
 # Files which should be installed to $(prefix)/share/apertium/$(BASENAME)/:
-apertium_{{languageCode1}}_{{languageCode2}}_DATA=	\
+apertium_{{languageCode1}}_{{languageCode2}}_DATA=	\{{if_anaphora
+	$(BASENAME).$(PREFIX1).arx			\
+	$(BASENAME).$(PREFIX2).arx			\
+if_anaphora}}{{if_chunk
 	$(TARGETS_COMMON)				\
 	$(BASENAME).$(PREFIX1).t1x			\
 	$(BASENAME).$(PREFIX1).t2x			\
@@ -261,6 +287,10 @@ apertium_{{languageCode1}}_{{languageCode2}}_DATA=	\
 	$(BASENAME).$(PREFIX2).t1x			\
 	$(BASENAME).$(PREFIX2).t2x			\
 	$(BASENAME).$(PREFIX2).t3x
+if_chunk}}{{ifnot_chunk
+	$(TARGETS_COMMON)
+ifnot_chunk}}
+
 
 # All modes are created by the same goal, listing several will just give problems with make -j2
 noinst_DATA=modes/$(PREFIX1).mode \

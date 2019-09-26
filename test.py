@@ -177,5 +177,17 @@ class TestPairWithSeparable(TestPair, unittest.TestCase):
     other_args = ['--with-lsx']
 
 
+class TestPairWithAnaphora(TestPair, unittest.TestCase):
+    other_args = ['--with-anaphora']
+
+
+class TestPairWithChunking(TestPair, unittest.TestCase):
+    other_args = ['--transfer=chunk']
+
+
+class TestPairWithRecursive(TestPair, unittest.TestCase):
+    other_args = ['--transfer=rtx']
+
+
 if __name__ == '__main__':
     unittest.main(buffer=True, verbosity=2)
