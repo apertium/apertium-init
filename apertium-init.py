@@ -149,10 +149,16 @@ def make_replacements(s, replacements, conditionals):  # type: (str, Dict[str, s
 
 def make_all_replacements(destination, files, replacements, conditionals):  # type: (str, Dict[str, bytes], Dict[str, str], List[str]) -> None
     for filename, encoded_file in files.items():
-        path = os.path.join(destination, make_replacements(filename, replacements, conditionals))
+        repl_fname = make_replacements(filename, replacements, conditionals)
+        path = os.path.join(destination, repl_fname)
         folder = os.path.dirname(path)
         if not os.path.isdir(folder):
             os.mkdir(folder)
+        if os.path.exists(path):
+            backup = os.path.join(folder, '.backup')
+            if not os.path.isdir(backup):
+                os.mkdir(backup)
+            os.rename(path, os.path.join(backup, repl_fname))
         with open(path, 'wb') as f:
             decomp = zlib.decompress(base64.b85decode(encoded_file))
             try:
@@ -218,6 +224,8 @@ def main(cli_args):  # type: (List[str]) -> None
     parser.add_argument('-pe', '--push-existing-to-github', help='push existing repository to incubator on the Apertium organisation on GitHub', default=None)
     parser.add_argument('-u', '--username', help='override GitHub username (for pushing repository to GitHub); otherwise git config is used', default=None)
     parser.add_argument('--prefix', help='directory prefix (default: {})'.format(default_prefix), default=default_prefix)
+    parser.add_argument('-r', '--rebuild', help='construct module or pair with different features using existing files',
+                        action='store_true', default=False)
 
     parser.add_argument('-a', '--analyser', help='analyser to use for all languages', choices=['lt', 'lttoolbox', 'hfst'], default='lt')
     parser.add_argument('-a1', '--analyser1', help='analyser to use for first language of pair', choices=['lt', 'lttoolbox', 'hfst'], default='lt')
@@ -275,7 +283,22 @@ def main(cli_args):  # type: (List[str]) -> None
     else:
         parser.error('Invalid language module name: %s' % args.name)
 
-    if os.path.exists(args.destination):
+    if args.rebuild:
+        if not os.path.exists(args.destination):
+            sys.stderr.write('Directory {} does not exist, cannot rebuild, quitting.\n'.format(args.destination))
+            sys.exit(-1)
+        rm = []
+        for filename in files:
+            if filename in ['README', 'modes.xml', 'autogen.sh', 'configure.ac', 'Makefile.am']:
+                continue
+            if filename.endswith('.pc.in'):
+                continue
+            fname = make_replacements(filename, replacements, conditionals)
+            if os.path.exists(os.path.join(args.destination, fname)):
+                rm.append(filename)
+        for r in rm:
+            del files[r]
+    elif os.path.exists(args.destination):
         sys.stderr.write('Directory {} already exists, quitting.\n'.format(args.destination))
         sys.exit(-1)
     else:
@@ -288,10 +311,14 @@ def main(cli_args):  # type: (List[str]) -> None
 
     try:
         readme_path = os.path.join(args.destination, 'README')
+        if args.rebuild:
+            readmd = os.path.join(args.destination, 'README.md')
+            if os.path.exists(readmd):
+                os.remove(readmd)
         if os.path.exists(readme_path):
             os.symlink('README', os.path.join(args.destination, 'README.md'))
     except OSError as err:  # e.g. on Windows without running as an admin
-        sys.stderr.write('Unable to create symlink from README.md -> README: {}'.format(err))
+        sys.stderr.write('Unable to create symlink from README.md -> README: {}\n'.format(err))
 
     print('Successfully created %s.' % args.destination)
 
@@ -304,7 +331,8 @@ def main(cli_args):  # type: (List[str]) -> None
 
     try:
         subprocess.check_output(shlex.split('git add .'), cwd=args.destination, universal_newlines=True, stderr=subprocess.STDOUT)
-        subprocess.check_output(shlex.split('git commit -m "Initial commit"'), cwd=args.destination, universal_newlines=True, stderr=subprocess.STDOUT)
+        msg = 'Rebuild with apertium-init' if args.rebuild else 'Initial commit'
+        subprocess.check_output(shlex.split('git commit -m "{}"'.format(msg)), cwd=args.destination, universal_newlines=True, stderr=subprocess.STDOUT)
         print('Successfully added and committed files to git repository {}.'.format(repository_name))
     except subprocess.CalledProcessError as e:
         sys.stderr.write('Unable to add/commit files to git repository {}: {}'.format(repository_name, e.output))

@@ -110,6 +110,13 @@ class TestUnknownCodeModule(TestModule, unittest.TestCase):
         apertium_init.main([cls.name])
 
 
+class TestRebuildModule(TestModule, unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        apertium_init.main([cls.name, '-a=hfst'])
+        apertium_init.main([cls.name, '-a=hfst', '-r', '--with-twoc'])
+
+
 class TestPair(TestModule, unittest.TestCase):
     name = 'eng-cat'
     path = make_path(name)
@@ -187,6 +194,13 @@ class TestPairWithChunking(TestPair, unittest.TestCase):
 
 class TestPairWithRecursive(TestPair, unittest.TestCase):
     other_args = ['--transfer=rtx']
+
+
+class TestRebuildPair(TestPair, unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        TestPair.setUpClass()
+        apertium_init.main([cls.name, '-r', '--with-anaphora'])
 
 
 if __name__ == '__main__':
