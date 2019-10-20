@@ -136,6 +136,16 @@ To bootstrap a bilingual module which uses apertium-separable,
 $ python3 apertium-init.py foo-bar --with-separable
 ```
 
+### Adding features to an existing module
+
+Apertium-init can reconfigure an existing module or pair. For example, to add apertium-separable to an existing pair:
+
+```bash
+$ python3 apertium-init.py foo-bar -r --with-separable
+```
+
+Note that all desired options must be specified. If the foo-bar pair used apertium-anaphora, the above command would remove it.
+
 ### Pushing to Github
 
 To bootstrap a module or pair and also add it to the [apertium incubator](https://github.com/apertium/apertium-incubator),
