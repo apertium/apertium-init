@@ -296,8 +296,8 @@ def main(cli_args):  # type: (List[str]) -> None
             fname = make_replacements(filename, replacements, conditionals)
             if os.path.exists(os.path.join(args.destination, fname)):
                 files_to_delete.append(filename)
-        for r in files_to_delete:
-            del files[r]
+        for filename in files_to_delete:
+            del files[filename]
     elif os.path.exists(args.destination):
         sys.stderr.write('Directory {} already exists, quitting.\n'.format(args.destination))
         sys.exit(-1)
