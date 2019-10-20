@@ -149,16 +149,16 @@ def make_replacements(s, replacements, conditionals):  # type: (str, Dict[str, s
 
 def make_all_replacements(destination, files, replacements, conditionals):  # type: (str, Dict[str, bytes], Dict[str, str], List[str]) -> None
     for filename, encoded_file in files.items():
-        repl_fname = make_replacements(filename, replacements, conditionals)
-        path = os.path.join(destination, repl_fname)
+        replacements_filename = make_replacements(filename, replacements, conditionals)
+        path = os.path.join(destination, replacements_filename)
         folder = os.path.dirname(path)
         if not os.path.isdir(folder):
             os.mkdir(folder)
         if os.path.exists(path):
-            backup = os.path.join(folder, '.backup')
+            backup = os.path.join(folder, '.bak')
             if not os.path.isdir(backup):
                 os.mkdir(backup)
-            os.rename(path, os.path.join(backup, repl_fname))
+            os.rename(path, os.path.join(backup, replacements_filename))
         with open(path, 'wb') as f:
             decomp = zlib.decompress(base64.b85decode(encoded_file))
             try:
@@ -287,7 +287,7 @@ def main(cli_args):  # type: (List[str]) -> None
         if not os.path.exists(args.destination):
             sys.stderr.write('Directory {} does not exist, cannot rebuild, quitting.\n'.format(args.destination))
             sys.exit(-1)
-        rm = []
+        files_to_delete = []
         for filename in files:
             if filename in ['README', 'modes.xml', 'autogen.sh', 'configure.ac', 'Makefile.am']:
                 continue
@@ -295,8 +295,8 @@ def main(cli_args):  # type: (List[str]) -> None
                 continue
             fname = make_replacements(filename, replacements, conditionals)
             if os.path.exists(os.path.join(args.destination, fname)):
-                rm.append(filename)
-        for r in rm:
+                files_to_delete.append(filename)
+        for r in files_to_delete:
             del files[r]
     elif os.path.exists(args.destination):
         sys.stderr.write('Directory {} already exists, quitting.\n'.format(args.destination))
@@ -312,9 +312,9 @@ def main(cli_args):  # type: (List[str]) -> None
     try:
         readme_path = os.path.join(args.destination, 'README')
         if args.rebuild:
-            readmd = os.path.join(args.destination, 'README.md')
-            if os.path.exists(readmd):
-                os.remove(readmd)
+            readme_md_path = os.path.join(args.destination, 'README.md')
+            if os.path.exists(readme_md_path):
+                os.remove(readme_md_path)
         if os.path.exists(readme_path):
             os.symlink('README', os.path.join(args.destination, 'README.md'))
     except OSError as err:  # e.g. on Windows without running as an admin
