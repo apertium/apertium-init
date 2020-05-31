@@ -2,8 +2,6 @@
 ## Makefile for apertium-{{languageCode}}
 ###############################################################################
 
-RELEASE=0.1
-VERSION=0.1.0
 LANG1={{languageCode}}
 BASENAME=apertium-$(LANG1)
 
