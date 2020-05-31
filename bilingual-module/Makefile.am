@@ -2,7 +2,6 @@
 ## Makefile for {{languageName1}}--{{languageName2}}
 ###############################################################################
 
-VERSION=0.1.0
 LANG1={{languageCode1}}
 LANG2={{languageCode2}}
 PREFIX1=$(LANG1)-$(LANG2)
@@ -319,4 +318,3 @@ test: all
 	@echo "house" > .test-ref
 	@diff .test-ref .test-mt
 	@rm .test-ref .test-mt
-
