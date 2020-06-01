@@ -1,53 +1,26 @@
 AC_PREREQ(2.52)
 
-AC_INIT([Apertium {{languageName1}}-{{languageName2}}], [0.2.0], [{{email}}], [apertium-{{languageCode1}}-{{languageCode2}}], [http://wiki.apertium.org/wiki/Apertium-{{languageCode1}}-{{languageCode2}}])
+AC_INIT([Apertium {{languageName1}}-{{languageName2}}], [0.1.0], [{{email}}], [apertium-{{languageCode1}}-{{languageCode2}}], [http://wiki.apertium.org/wiki/Apertium-{{languageCode1}}-{{languageCode2}}])
 AM_INIT_AUTOMAKE
-
-AC_PROG_LN_S
 AC_PROG_AWK
 
-m4_define([required_apertium_version], [3.4.0])
-PKG_CHECK_MODULES(APERTIUM, apertium >= required_apertium_version, [], [PKG_CHECK_MODULES(APERTIUM, apertium-3.2 >= required_apertium_version)])
+PKG_CHECK_MODULES(APERTIUM, apertium >= 3.6.1)
+PKG_CHECK_MODULES(LTTOOLBOX, lttoolbox >= 3.5.1)
 
 {{if_hfst
-AC_PATH_PROG([HFSTLEXC], [hfst-lexc], [false], [$PATH$PATH_SEPARATOR$with_hfst_lexc/bin])
-AS_IF([test x$HFSTLEXC = xfalse], [AC_MSG_ERROR([You don't have hfst-lexc installed])])
-
-AC_PATH_PROG([HFSTTWOLC], [hfst-twolc], [false], [$PATH$PATH_SEPARATOR$with_hfst_twolc/bin])
-AS_IF([test x$HFSTTWOLC = xfalse], [AC_MSG_ERROR([You don't have hfst-twolc installed])])
+PKG_CHECK_MODULES(HFST, hfst >= 3.15.1)
 if_hfst}}
 
-AC_PATH_PROG([CGCOMP], [cg-comp], [false], [$PATH$PATH_SEPARATOR$with_cg_comp/bin])
-AS_IF([test x$CGCOMP = xfalse], [AC_MSG_ERROR([You don't have cg-comp installed])])
-
-AC_PATH_PROG([CGPROC], [cg-proc], [false], [$PATH$PATH_SEPARATOR$with_cg_proc/bin])
-AS_IF([test x$CGPROC = xfalse], [AC_MSG_ERROR([You don't have cg-proc installed])])
-
-AC_PATH_PROG([LRXCOMP], [lrx-comp], [false], [$PATH$PATH_SEPARATOR$with_lrx_comp/bin])
-AS_IF([test x$LRXCOMP = xfalse], [AC_MSG_ERROR([You don't have lrx-comp installed])])
-
-AC_PATH_PROG([LRXPROC], [lrx-proc], [false], [$PATH$PATH_SEPARATOR$with_lrx_proc/bin])
-AS_IF([test x$LRXPROC = xfalse], [AC_MSG_ERROR([You don't have lrx-proc installed])])
-
+PKG_CHECK_MODULES(CG3, cg3 >= 1.3.1)
+PKG_CHECK_MODULES(APERTIUM_LEX_TOOLS, apertium-lex-tools >= 0.2.3)
 {{if_lsx
-AC_PATH_PROG([LSXCOMP], [lsx-comp], [false], [$PATH$PATH_SEPARATOR$with_lsx_comp/bin])
-AS_IF([test x$LSXCOMP = xfalse], [AC_MSG_ERROR([You don't have lsx-comp installed])])
-
-AC_PATH_PROG([LSXPROC], [lsx-proc], [false], [$PATH$PATH_SEPARATOR$with_lsx_proc/bin])
-AS_IF([test x$LSXPROC = xfalse], [AC_MSG_ERROR([You don't have lsx-proc installed])])
+PKG_CHECK_MODULES(APERTIUM_SEPARABLE, apertium-separable >= 0.3.3)
 if_lsx}}
-
 {{if_anaphora
-AC_PATH_PROG([ANAPHORA], [apertium-anaphora], [false], [$PATH$PATH_SEPARATOR$with_apertium_anaphora/bin])
-AS_IF([test x$ANAPHORA = xfalse], [AC_MSG_ERROR([You don't have apertium-anaphora installed])])
+PKG_CHECK_MODULES(APERTIUM_ANAPHORA, apertium-anaphora >= 0.0.4)
 if_anaphora}}
-
 {{if_rtx
-AC_PATH_PROG([RTXCOMP], [rtx-comp], [false], [$PATH$PATH_SEPARATOR$with_rtx_comp/bin])
-AS_IF([test x$RTXCOMP = xfalse], [AC_MSG_ERROR([You don't have rtx-comp installed])])
-
-AC_PATH_PROG([RTXPROC], [rtx-proc], [false], [$PATH$PATH_SEPARATOR$with_rtx_proc/bin])
-AS_IF([test x$RTXPROC = xfalse], [AC_MSG_ERROR([You don't have rtx-proc installed])])
+PKG_CHECK_MODULES(APERTIUM_RECURSIVE, apertium-recursive >= 0.0.1)
 if_rtx}}
 
 AC_PATH_PROGS(ZCAT, [gzcat zcat], [false])
@@ -61,4 +34,3 @@ AP_CHECK_LING([2], [apertium-{{languageCode2}}])
 AP_MKINCLUDE
 
 AC_OUTPUT([Makefile])
-

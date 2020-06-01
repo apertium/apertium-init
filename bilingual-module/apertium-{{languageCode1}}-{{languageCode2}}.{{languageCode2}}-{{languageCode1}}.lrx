@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rules>
-  <!-- 
-    This rule chooses "energía" as the translation of "power" when it is preceded by "wind". 
-    Add your own rules within <rule> here, using the resources below as a guide 
+  <!--
+    This rule chooses "energía" as the translation of "power" when it is preceded by "wind".
+    Add your own rules within <rule> here, using the resources below as a guide
   -->
 
   <rule>
@@ -13,8 +13,8 @@
   </rule>
 </rules>
 
-<!-- 
-Resources: 
+<!--
+Resources:
     http://wiki.apertium.org/wiki/How_to_get_started_with_lexical_selection_rules
     http://wiki.apertium.org/wiki/Constraint-based_lexical_selection
     http://wiki.apertium.org/wiki/Lexical_selection

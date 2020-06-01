@@ -111,8 +111,8 @@ debug: .deps/$(LANG1).LR-debug.hfst .deps/$(LANG1).lexc.hfst
 ## Disambiguation rules
 ###############################################################################
 
-$(LANG1).rlx.bin: $(BASENAME).$(LANG1).rlx $(CGCOMP)
-	$(CGCOMP) $< $@
+$(LANG1).rlx.bin: $(BASENAME).$(LANG1).rlx
+	cg-comp $< $@
 
 ###############################################################################
 ## Spell checker
@@ -186,7 +186,6 @@ pkgconfig_DATA = $(BASENAME).pc
 noinst_DATA=modes/$(LANG1)-morph.mode
 
 install-data-local: install-modes
-	test -d $(DESTDIR)$(apertium_{{languageCode}}_srcdir) || mkdir -p $(DESTDIR)$(apertium_{{languageCode}}_srcdir)
 	$(INSTALL_DATA) $(BASENAME).$(LANG1).lexc $(DESTDIR)$(apertium_{{languageCode}}_srcdir)
 	$(INSTALL_DATA) $(BASENAME).$(LANG1).twol $(DESTDIR)$(apertium_{{languageCode}}_srcdir)
 	$(INSTALL_DATA) $(BASENAME).$(LANG1).rlx $(DESTDIR)$(apertium_{{languageCode}}_srcdir)

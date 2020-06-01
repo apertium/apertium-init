@@ -5,10 +5,10 @@ Alphabet
 
 Sets
 
-Vowel = A E Ä I O Ö U Ü Y Ý 
+Vowel = A E Ä I O Ö U Ü Y Ý
         a e ä i o ö u ü y ý ;
 
-Rules 
+Rules
 
 "Remove suffix vowel with vowel-ending stem"
 i:0 <=> Vow %{VSUF%}:0 _ [ m | n ] ;

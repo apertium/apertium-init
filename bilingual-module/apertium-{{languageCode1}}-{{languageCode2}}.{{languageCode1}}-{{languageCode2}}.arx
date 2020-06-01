@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?> <!-- -*- nxml -*- -->
 <ref>
-	
+
 	<section-parameters>
 
 		<delimiter>
-				<parameter-item has-tags="sent"/>
+			<parameter-item has-tags="sent"/>
 		</delimiter>
 
 		<def-parameter n="detpos">
@@ -32,7 +32,7 @@
 	</section-parameters>
 
 	<section-def-cats>
-		
+
 		<def-cat n="det">
 			<cat-item has-tags="det"/>
 			<cat-item has-tags="det pos"/>
@@ -52,24 +52,24 @@
 		</def-cat>
 
 		<def-cat n="prep">
-      			<cat-item has-tags="pr"/>
- 	   	</def-cat>
+			<cat-item has-tags="pr"/>
+		</def-cat>
 
- 	   	<def-cat n="ind">
-    			<cat-item has-tags="ind"/>
-    	</def-cat>
+		<def-cat n="ind">
+				<cat-item has-tags="ind"/>
+		</def-cat>
 
-    	<def-cat n="com">
-    		<cat-item has-tags="cm"/>
-    	</def-cat>
+		<def-cat n="com">
+			<cat-item has-tags="cm"/>
+		</def-cat>
 
-    	<def-cat n="anaphor">
-    		<cat-item has-tags="anaphor"/>
-    	</def-cat>
+		<def-cat n="anaphor">
+			<cat-item has-tags="anaphor"/>
+		</def-cat>
 
-    	<def-cat n="cop">
-    		<cat-item has-tags="cop"/>
-    	</def-cat>
+		<def-cat n="cop">
+			<cat-item has-tags="cop"/>
+		</def-cat>
 
 	</section-def-cats>
 
@@ -190,8 +190,8 @@
 			<score n="-2"/>
 		</markable>
 
-		
-		<markable n="Cop"> 
+
+		<markable n="Cop">
 			<pattern>
 				<pattern-item n="nom"/>
 				<pattern-item n="cop"/>
@@ -200,14 +200,14 @@
 
 			<score n="-5" parameter="detpos"/>
 		</markable>
-		
+
 		<!-- Noun, CopulaVerb, Anaphor - in this order, would mean that the noun can't be its antecedent -->
 
 	</section-markables>
-	
+
 </ref>
 
 <!--
 Resources:
-		http://wiki.apertium.org/wiki/Anaphora_Resolution_Module		
+		http://wiki.apertium.org/wiki/Anaphora_Resolution_Module
 -->
