@@ -2,17 +2,33 @@
 <ref>
 	
 	<section-parameters>
-		<anaphor>
-			<parameter-item has-tags="det pos"/>
-			<parameter-item has-tags="prn"/>
-		</anaphor>
-		<antecedent>
-			<parameter-item has-tags="n"/>
-			<parameter-item has-tags="np"/>
-		</antecedent>
+
 		<delimiter>
-			<parameter-item has-tags="sent"/>
+				<parameter-item has-tags="sent"/>
 		</delimiter>
+
+		<def-parameter n="detpos">
+			<anaphor>
+				<parameter-item has-tags="det pos"/>
+			</anaphor>
+
+			<antecedent>
+				<parameter-item has-tags="n"/>
+				<parameter-item has-tags="np"/>
+			</antecedent>
+		</def-parameter>
+
+		<def-parameter n="verbal">
+			<anaphor>
+				<parameter-item has-tags="v"/>
+			</anaphor>
+
+			<antecedent>
+				<parameter-item has-tags="n"/>
+				<parameter-item has-tags="np"/>
+			</antecedent>
+		</def-parameter>
+
 	</section-parameters>
 
 	<section-def-cats>
@@ -22,8 +38,13 @@
 			<cat-item has-tags="det pos"/>
 		</def-cat>
 
+		<def-cat n="adj">
+			<cat-item has-tags="adj"/>
+		</def-cat>
+
 		<def-cat n="nom">
 			<cat-item has-tags="n"/>
+			<cat-item has-tags="np"/>
 		</def-cat>
 
 		<def-cat n="np">
@@ -31,8 +52,24 @@
 		</def-cat>
 
 		<def-cat n="prep">
-			<cat-item has-tags="pr"/>
-		</def-cat>
+      			<cat-item has-tags="pr"/>
+ 	   	</def-cat>
+
+ 	   	<def-cat n="ind">
+    			<cat-item has-tags="ind"/>
+    	</def-cat>
+
+    	<def-cat n="com">
+    		<cat-item has-tags="cm"/>
+    	</def-cat>
+
+    	<def-cat n="anaphor">
+    		<cat-item has-tags="anaphor"/>
+    	</def-cat>
+
+    	<def-cat n="cop">
+    		<cat-item has-tags="cop"/>
+    	</def-cat>
 
 	</section-def-cats>
 
@@ -48,6 +85,70 @@
 				<pattern-item n="prep"/>
 				<pattern-item n="nom" head="t"/>
 			</pattern>
+			<pattern>
+				<pattern-item n="prep"/>
+				<pattern-item n="det"/>
+				<pattern-item n="adj"/>
+				<pattern-item n="nom" head="t"/>
+			</pattern>
+			<pattern>
+				<pattern-item n="prep"/>
+				<pattern-item n="det"/>
+				<pattern-item n="adv"/>
+				<pattern-item n="adj"/>
+				<pattern-item n="nom" head="t"/>
+			</pattern>
+			<pattern>
+				<pattern-item n="prep"/>
+				<pattern-item n="det"/>
+				<pattern-item n="preadv"/>
+				<pattern-item n="adj"/>
+				<pattern-item n="nom" head="t"/>
+			</pattern>
+			<pattern>
+				<pattern-item n="prep"/>
+				<pattern-item n="predet"/>
+				<pattern-item n="det"/>
+				<pattern-item n="nom" head="t"/>
+			</pattern>
+			<pattern>
+				<pattern-item n="prep"/>
+				<pattern-item n="predet"/>
+				<pattern-item n="det"/>
+				<pattern-item n="adj"/>
+				<pattern-item n="nom" head="t"/>
+			</pattern>
+			<pattern>
+				<pattern-item n="prep"/>
+				<pattern-item n="predet"/>
+				<pattern-item n="det"/>
+				<pattern-item n="adv"/>
+				<pattern-item n="adj"/>
+				<pattern-item n="nom" head="t"/>
+			</pattern>
+			<pattern>
+				<pattern-item n="prep"/>
+				<pattern-item n="predet"/>
+				<pattern-item n="det"/>
+				<pattern-item n="preadv"/>
+				<pattern-item n="adj"/>
+				<pattern-item n="nom" head="t"/>
+			</pattern>
+			<pattern>
+				<pattern-item n="prep"/>
+				<pattern-item n="np" head="t"/>
+			</pattern>
+			<pattern>
+				<pattern-item n="prep"/>
+				<pattern-item n="det"/>
+				<pattern-item n="np" head="t"/>
+			</pattern>
+			<pattern>
+				<pattern-item n="prep"/>
+				<pattern-item n="predet"/>
+				<pattern-item n="det"/>
+				<pattern-item n="np" head="t"/>
+			</pattern>
 
 			<score n="-1"/> <!-- This gives a -1 score to any antecedent that is part of a PP -->
 		</markable>
@@ -55,6 +156,11 @@
 		<markable n="IP">
 			<pattern>
 				<pattern-item n="ind"/>
+				<pattern-item n="nom"/>
+			</pattern>
+			<pattern>
+				<pattern-item n="ind"/>
+				<pattern-item n="adj"/>
 				<pattern-item n="nom"/>
 			</pattern>
 
@@ -69,11 +175,39 @@
 			<score n="1"/> <!-- This gives a +1 score to any antecedent that is part of a Proper Noun -->
 		</markable>
 
+		<markable n="AdNP"> <!-- NP that is being addressed , for example, "Madam President, ..."-->
+			<pattern>
+				<pattern-item n="nom"/>
+				<pattern-item n="com"/>
+			</pattern>
+
+			<pattern>
+				<pattern-item n="nom"/>
+				<pattern-item n="nom"/>
+				<pattern-item n="com"/>
+			</pattern>
+
+			<score n="-2"/>
+		</markable>
+
+		
+		<markable n="Cop"> 
+			<pattern>
+				<pattern-item n="nom"/>
+				<pattern-item n="cop"/>
+				<pattern-item n="anaphor"/>
+			</pattern>
+
+			<score n="-5" parameter="detpos"/>
+		</markable>
+		
+		<!-- Noun, CopulaVerb, Anaphor - in this order, would mean that the noun can't be its antecedent -->
+
 	</section-markables>
 	
 </ref>
 
 <!--
 Resources:
-		http://wiki.apertium.org/wiki/Anaphora_Resolution_Module
+		http://wiki.apertium.org/wiki/Anaphora_Resolution_Module		
 -->
