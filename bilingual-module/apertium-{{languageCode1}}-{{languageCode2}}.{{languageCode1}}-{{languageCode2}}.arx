@@ -24,8 +24,8 @@
 			</anaphor>
 
 			<antecedent>
-				<parameter-item has-tags="n"/>
-				<parameter-item has-tags="np"/>
+				<parameter-item has-tags="n" exclude-tags="rel"/>
+				<parameter-item has-tags="np" exclude-tags="rel"/>
 			</antecedent>
 		</def-parameter>
 
@@ -69,6 +69,18 @@
 
 		<def-cat n="cop">
 			<cat-item has-tags="cop"/>
+		</def-cat>
+
+		<def-cat n="adv">
+			<cat-item has-tags="adv"/>
+		</def-cat>
+
+		<def-cat n="preadv">
+			<cat-item has-tags="preadv"/>
+		</def-cat>
+
+		<def-cat n="predet">
+			<cat-item has-tags="predet"/>
 		</def-cat>
 
 	</section-def-cats>
