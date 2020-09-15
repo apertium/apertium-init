@@ -108,7 +108,7 @@ if_lsx}}
         <file name="{{languageCode2}}-{{languageCode1}}.autolex.bin"/>
       </program>{{if_anaphora
       <program name="apertium-anaphora">
-        <file name="apertium-{{languageCode2}}-{{languageCode1}}.{{languageCode2}}-{{languageCode1}}.arx"/>
+        <file name="apertium-{{languageCode1}}-{{languageCode2}}.{{languageCode2}}-{{languageCode1}}.arx"/>
       </program>
 if_anaphora}}
 {{if_chunk
