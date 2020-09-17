@@ -3,6 +3,7 @@ TRAVIS_PYTHON_VERSION ?= $(shell python3 --version | cut -d ' ' -f 2)
 PREFIX ?= /usr/local
 
 all:
+	cp main.py apertium-init.py
 	./any-module/updateBootstraper.py
 	./bilingual-module/updateBootstraper.py
 	./hfst-language-module/updateBootstraper.py
@@ -22,7 +23,7 @@ test-release: all apertium_init.py
 	./setup.py sdist bdist_wheel
 	twine upload --sign --repository-url https://test.pypi.org/legacy/ dist/*
 
-test:
+test: all
 	flake8 *.py **/*.py
 	mypy --strict apertium-init.py
 	coverage run -m unittest --verbose --buffer
@@ -36,4 +37,4 @@ install:
 	install -m755 apertium-init.py $(DESTDIR)$(PREFIX)/bin/apertium-init
 
 clean:
-	rm -rf dist/ build/ *.egg-info/ .mypy_cache/ apertium_init.py
+	rm -rf dist/ build/ *.egg-info/ .mypy_cache/ apertium-init.py apertium_init.py
