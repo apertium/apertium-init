@@ -9,7 +9,7 @@ Bootstrap Apertium language modules and pairs using `apertium-init.py`.
 
 ## Usage
 
-First, <a href="https://raw.githubusercontent.com/apertium/bootstrap/master/apertium-init.py" download>download the script</a>
+First, <a href="https://apertium.projectjj.com/apt/nightly/apertium-init" download>download the script</a>
 or install from [PyPi](https://pypi.org/project/apertium-init/) with `pip install apertium-init`.
 
 Usage depends on the desired module and is described below. Remember to
