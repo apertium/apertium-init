@@ -3,7 +3,19 @@
 Multichar_Symbols
 
 ! Part of speech categories
-%<n%>   ! Noun
+%<n%>      ! Noun
+%<v%>      ! Verb
+%<adj%>    ! Adjective
+
+%<sent%>   ! Sentence-ending punctuation
+%<guio%>   ! Hyphen
+%<cm%>     ! Comma
+%<apos%>   ! Apostrophe
+%<quot%>   ! Quotation mark
+%<lquot%>  ! Left quotation mark
+%<rquot%>  ! Right quotation mark
+%<lpar%>   ! Left parenthesis
+%<rpar%>   ! Right parenthesis
 
 ! Number morphology
 %<pl%>  ! Plural
@@ -27,6 +39,7 @@ if_twoc}}
 LEXICON Root
 
 NounRoot ;
+Punctuation ;
 
 
 LEXICON RegNounInfl
@@ -43,6 +56,31 @@ LEXICON NounRoot
 
 house:house RegNounInfl ; ! A noun
 
+
+LEXICON Punctuation
+
+.%<sent%>:. # ;
+..%<sent%>:.. # ;
+...%<sent%>:... # ;
+%;%<sent%>:%; # ;
+%:%<sent%>:%: # ;
+%!%<sent%>:%! # ;
+%-%<guio%>:%- # ;
+%—%<guio%>:%— # ;
+,%<cm%>:, # ;
+%?%<sent%>:%? # ; 
+%'%<apos%>:%' # ;
+%"%<quot%>:%" # ;
+%«%<lquot%>:%« # ;
+%»%<rquot%>:%» # ;
+%”%<rquot%>:%” # ;
+%“%<lquot%>:%“ # ;
+%(%<lpar%>:%( # ;
+%]%<rpar%>:%] # ;
+%[%<lpar%>:%[ # ;
+%)%<rpar%>:%) # ;
+\%<sent%>:\ # ;
+/%<sent%>:/ # ;
 
 
 ! Resources:
