@@ -248,7 +248,8 @@ def main(cli_args):  # type: (List[str]) -> None
     parser.add_argument('--no-pgen1', help='no post-dix present in first language of pair (only used for bilingual pairs)', action='store_true', default=False)
     parser.add_argument('--no-pgen2', help='no post-dix present in second language of pair (only used for bilingual pairs)', action='store_true', default=False)
     parser.add_argument('--with-twoc', help='include .twoc file (only used for monolingual hfst modules)', action='store_true', default=False)
-    parser.add_argument('--with-lsx', help='include apertium-separable .lsx files (only used for bilingual pairs)', action='store_true', default=False)
+    parser.add_argument('--with-lsx', '--with-separable', help='include apertium-separable .lsx files (only used for bilingual pairs)',
+                        action='store_true', default=False)
     parser.add_argument('--with-spellrelax', help='include spellrelax file (only used for monolingual hfst modules)', action='store_true', default=False)
     parser.add_argument('--with-anaphora', help='include anaphora resolution file (only used for bilingual pairs)', action='store_true', default=False)
 
