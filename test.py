@@ -13,13 +13,15 @@ def make_path(name, prefix=apertium_init.default_prefix):
     return '{}-{}'.format(prefix, name)
 
 
-def build(path, autogen_args=[]):
+def autogen(path, autogen_args):
     try:
         subprocess.check_output(['./autogen.sh'] + autogen_args, cwd=path, stderr=subprocess.STDOUT, universal_newlines=True)
     except subprocess.CalledProcessError as error:
         print(error.output)
         raise
 
+
+def build(path):
     try:
         subprocess.check_output('make', cwd=path, stderr=subprocess.STDOUT, universal_newlines=True)
     except subprocess.CalledProcessError as error:
@@ -101,8 +103,14 @@ class TestTwocAndSpellrelaxModule(TestModule, unittest.TestCase):
         apertium_init.main([cls.name, '--analyser=hfst', '--with-twoc', '--with-spellrelax'])
 
 
+class TestLexdModule(TestModule, unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        apertium_init.main([cls.name, '--analyser=lexd'])
+
+
 class TestUnknownCodeModule(TestModule, unittest.TestCase):
-    name = 'bkl'
+    name = 'qaa'
     path = make_path(name)
 
     @classmethod
@@ -153,7 +161,8 @@ class TestPair(TestModule, unittest.TestCase):
 
     def test_builds(self):
         autogen_args = ['--with-lang1=../{}'.format(self.path1), '--with-lang2=../{}'.format(self.path2)]
-        build(self.path, autogen_args=autogen_args)
+        autogen(self.path, autogen_args)
+        build(self.path)
 
 
 class TestDefaultPair(TestPair, unittest.TestCase):

@@ -8,6 +8,7 @@ all:
 	./bilingual-module/updateBootstraper.py
 	./hfst-language-module/updateBootstraper.py
 	./lttoolbox-language-module/updateBootstraper.py
+	./updateBootstrapper.py
 
 apertium_init.py: apertium-init.py
 	cp $< $@

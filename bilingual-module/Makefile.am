@@ -9,15 +9,25 @@ PREFIX2=$(LANG2)-$(LANG1)
 
 BASENAME=apertium-$(PREFIX1)
 
-TARGETS_COMMON =		\
-	$(PREFIX1).automorf.bin	\{{if_prob1
+TARGETS_COMMON =		\{{ifnot_giella1
+	$(PREFIX1).automorf.bin	\
+ifnot_giella1}}{{if_giella1
+	$(PREFIX1).automorf.hfst \
+	$(PREFIX1).automorf-untrimmed.hfst \
+if_giella1}}{{if_prob1
 	$(PREFIX1).prob		\
 if_prob1}}{{if_rlx1
 	$(PREFIX1).rlx.bin	\
-if_rlx1}}
+if_rlx1}}{{if_giella1
+	$(PREFIX1).mor.rlx.bin  \
+	$(PREFIX1).syn.rlx.bin  \
+if_giella1}}
 	$(PREFIX1).autobil.bin	\
-	$(PREFIX1).autolex.bin	\
-	$(PREFIX1).autogen.bin	\{{if_pgen2
+	$(PREFIX1).autolex.bin	\{{ifnot_giella1
+	$(PREFIX1).autogen.bin	\
+ifnot_giella1}}{{if_giella1
+	$(PREFIX1).autogen.hfst \
+if_giella1}}{{if_pgen2
 	$(PREFIX1).autopgen.bin	\
 if_pgen2}}{{if_lsx
 	$(PREFIX1).autoseq.bin	\
@@ -28,15 +38,25 @@ if_lsx}}{{if_chunk
 	$(PREFIX1).t3x.bin	\
 if_chunk}}{{if_rtx
 	$(PREFIX1).rtx.bin	\
-if_rtx}}
-	$(PREFIX2).automorf.bin	\{{if_prob2
+if_rtx}}{{ifnot_giella2
+	$(PREFIX2).automorf.bin	\
+ifnot_giella2}}{{if_giella2
+	$(PREFIX2).automorf.hfst \
+	$(PREFIX2).automorf-untrimmed.hfst \
+if_giella2}}{{if_prob2
 	$(PREFIX2).prob		\
 if_prob2}}{{if_rlx2
 	$(PREFIX2).rlx.bin	\
-if_rlx2}}
+if_rlx2}}{{if_giella2
+	$(PREFIX2).mor.rlx.bin  \
+	$(PREFIX2).syn.rlx.bin  \
+if_giella2}}
 	$(PREFIX2).autobil.bin	\
-	$(PREFIX2).autolex.bin	\
-	$(PREFIX2).autogen.bin	\{{if_pgen1
+	$(PREFIX2).autolex.bin	\{{ifnot_giella2
+	$(PREFIX2).autogen.bin	\
+ifnot_giella2}}{{if_giella2
+	$(PREFIX2).autogen.hfst \
+if_giella2}}{{if_pgen1
 	$(PREFIX2).autopgen.bin	\
 if_pgen1}}{{if_lsx
 	$(PREFIX2).autoseq.bin	\
@@ -55,6 +75,19 @@ if_rtx}}
 ###############################################################################
 ## Monolingual transducers
 ###############################################################################
+
+{{if_giella
+.deps/%.autobil.prefixes: %.autobil.bin .deps/.d
+	lt-print -H $< .deps/$*.autobil.att
+	hfst-txt2fst .deps/$*.autobil.att -o .deps/$*.autobil.hfst
+	hfst-project -p upper .deps/$*.autobil.hfst -o .deps/$*.autobil.upper                                     # bidix
+	echo ' [ ? - %+ ]* ' | hfst-regexp2fst > .deps/$*.any-nonplus.hfst                                        # [^+]*
+	hfst-concatenate -1 .deps/$*.autobil.upper -2 .deps/$*.any-nonplus.hfst -o .deps/$*.autobil.nonplussed    # bidix [^+]*
+	echo ' %+ ' | hfst-regexp2fst > .deps/$*.single-plus.hfst                                                 # +
+	hfst-concatenate -1 .deps/$*.single-plus.hfst -2 .deps/$*.autobil.nonplussed -o .deps/$*.autobil.postplus # + bidix [^+]*
+	hfst-repeat -f0 -t1 -i .deps/$*.autobil.postplus -o .deps/$*.autobil.postplus.0,1                         # (+ bidix [^+]*){0,1} -- gives at most one +
+	hfst-concatenate -1 .deps/$*.autobil.nonplussed -2 .deps/$*.autobil.postplus.0,1 -o $@                    # bidix [^+]* (+ bidix [^+]*){0,1}
+if_giella}}
 
 # -------------------
 # {{languageName1}} analysis:
@@ -85,7 +118,19 @@ if_hfst1}}{{if_lttoolbox1
 
 $(PREFIX1).automorf.bin: .deps/$(LANG1).automorf.bin $(PREFIX1).autobil.bin
 	lt-trim $^ $@
-if_lttoolbox1}}
+if_lttoolbox1}}{{if_giella1
+.deps/$(LANG1).automorf.hfst: $(AP_SRC1)/apertium-und.$(LANG1)-und.LR.att.gz .deps/.d
+	$(ZCAT) $< | hfst-txt2fst > $@
+
+.deps/$(PREFIX1).automorf-trimmed.hfst: .deps/$(LANG1).automorf.hfst .deps/$(PREFIX1).autobil.prefixes
+	hfst-compose-intersect -1 $< -2 .deps/$(PREFIX1).autobil.prefixes -o $@
+
+$(PREFIX1).automorf.hfst: .deps/$(PREFIX1).automorf-trimmed.hfst
+	hfst-fst2fst -w -i $< -o $@
+
+$(PREFIX1).automorf-untrimmed.hfst: .deps/$(LANG1).automorf.hfst
+	hfst-fst2fst -w -i $< -o $@
+if_giella1}}
 
 # -------------------
 # {{languageName1}} generation:
@@ -95,8 +140,16 @@ $(PREFIX2).autogen.hfst: $(AP_SRC1)/$(LANG1).autogen.hfst
 	cp $< $@
 if_hfst1}}
 
+{{ifnot_giella1
 $(PREFIX2).autogen.bin: $(AP_SRC1)/$(LANG1).autogen.bin
 	cp $< $@
+ifnot_giella1}}{{if_giella1
+.deps/$(LANG1).autogen.hfst: $(AP_SRC1)/apertium-$(LANG1).$(LANG1).RL.att.gz .deps/.d
+	$(ZCAT) $< | hfst-txt2fst > $@
+
+$(PREFIX2).autogen.hfst: .deps/$(LANG1).autogen.hfst
+	hfst-fst2fst -O -i $< -o $@
+if_giella1}}
 
 # -------------------
 # {{languageName2}} analysis:
@@ -127,7 +180,19 @@ if_hfst2}}{{if_lttoolbox2
 
 $(PREFIX2).automorf.bin: .deps/$(LANG2).automorf.bin $(PREFIX2).autobil.bin
 	lt-trim $^ $@
-if_lttoolbox2}}
+if_lttoolbox2}}{{if_giella2
+.deps/$(LANG2).automorf.hfst: $(AP_SRC2)/apertium-und.$(LANG2)-und.LR.att.gz .deps/.d
+	$(ZCAT) $< | hfst-txt2fst > $@
+
+.deps/$(PREFIX2).automorf-trimmed.hfst: .deps/$(LANG2).automorf.hfst .deps/$(PREFIX2).autobil.prefixes
+	hfst-compose-intersect -1 $< -2 .deps/$(PREFIX2).autobil.prefixes -o $@
+
+$(PREFIX2).automorf.hfst: .deps/$(PREFIX2).automorf-trimmed.hfst
+	hfst-fst2fst -w -i $< -o $@
+
+$(PREFIX2).automorf-untrimmed.hfst: .deps/$(LANG2).automorf.hfst
+	hfst-fst2fst -w -i $< -o $@
+if_giella2}}
 
 # -------------------
 # {{languageName2}} generation:
@@ -137,8 +202,16 @@ $(PREFIX1).autogen.hfst: $(AP_SRC2)/$(LANG2).autogen.hfst
 	cp $< $@
 if_hfst2}}
 
+{{ifnot_giella2
 $(PREFIX1).autogen.bin: $(AP_SRC2)/$(LANG2).autogen.bin
 	cp $< $@
+ifnot_giella2}}{{if_giella2
+.deps/$(LANG2).autogen.hfst: $(AP_SRC2)/apertium-$(LANG2).$(LANG2).RL.att.gz .deps/.d
+	$(ZCAT) $< | hfst-txt2fst > $@
+
+$(PREFIX1).autogen.hfst: .deps/$(LANG2).autogen.hfst
+	hfst-fst2fst -O -i $< -o $@
+if_giella2}}
 
 ###############################################################################
 ## Tagger models
@@ -154,11 +227,27 @@ $(PREFIX2).prob: $(AP_SRC2)/$(LANG2).prob
 ## Disambiguation rules
 ###############################################################################
 
+{{ifnot_giella1
 $(PREFIX1).rlx.bin: $(AP_SRC1)/apertium-$(LANG1).$(LANG1).rlx
 	cg-comp $< $@
+ifnot_giella1}}{{if_giella1
+$(PREFIX1).mor.rlx.bin: $(AP_SRC1)/$(LANG1).mor.rlx.bin gt2apertium.cg3r
+	cg-relabel $^ $@
 
+$(PREFIX1).syn.rlx.bin: $(AP_SRC1)/$(LANG1).syn.rlx.bin gt2apertium.cg3r
+	cg-relabel $^ $@
+if_giella1}}
+
+{{ifnot_giella2
 $(PREFIX2).rlx.bin: $(AP_SRC2)/apertium-$(LANG2).$(LANG2).rlx
 	cg-comp $< $@
+ifnot_giella2}}{{if_giella2
+$(PREFIX2).mor.rlx.bin: $(AP_SRC2)/$(LANG2).mor.rlx.bin gt2apertium.cg3r
+	cg-relabel $^ $@
+
+$(PREFIX2).syn.rlx.bin: $(AP_SRC2)/$(LANG2).syn.rlx.bin gt2apertium.cg3r
+	cg-relabel $^ $@
+if_giella2}}
 
 ###############################################################################
 ## Bilingual dictionaries
@@ -311,10 +400,10 @@ clean-local:
 ###############################################################################
 
 test: all
-	echo "house" | apertium -d . {{languageCode1}}-{{languageCode2}} | tee .test-mt
+	echo "house" | apertium -d . -f line {{languageCode1}}-{{languageCode2}} | tee .test-mt
 	@echo "house" > .test-ref
 	@diff .test-ref .test-mt
-	echo "house" | apertium -d . {{languageCode2}}-{{languageCode1}} | tee .test-mt
+	echo "house" | apertium -d . -f line {{languageCode2}}-{{languageCode1}} | tee .test-mt
 	@echo "house" > .test-ref
 	@diff .test-ref .test-mt
 	@rm .test-ref .test-mt

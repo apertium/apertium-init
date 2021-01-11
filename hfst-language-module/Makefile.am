@@ -19,6 +19,8 @@ TARGETS_COMMON =			\
 # This include defines goals for install-modes, .deps/.d, autobil.prefixes and .mode files:
 @ap_include@
 
+LEXCFLAGS=-v --Werror
+
 ###############################################################################
 ## {{languageName}} transducer
 ###############################################################################
@@ -29,7 +31,19 @@ TARGETS_COMMON =			\
 .deps/$(LANG1).twoc.hfst: $(BASENAME).$(LANG1).twoc .deps/.d
 	hfst-twolc $< -o $@
 
-if_twoc}}
+if_twoc}}{{if_lexd
+.deps/$(LANG1).RL.lexd: $(BASENAME).$(LANG1).lexd .deps/.d
+	cat $< | grep -v 'Dir/LR' > $@
+
+.deps/$(LANG1).LR.lexd: $(BASENAME).$(LANG1).lexd .deps/.d
+	cat $< | grep -v 'Dir/RL' > $@
+
+.deps/$(LANG1).RL.lexd.hfst: .deps/$(LANG1).RL.lexd
+	lexd $< | hfst-txt2fst -o $@
+
+.deps/$(LANG1).LR.lexd.hfst: .deps/$(LANG1).LR.lexd
+	lexd $< | hfst-txt2fst -o $@
+if_lexd}}{{ifnot_lexd
 .deps/$(LANG1).RL.lexc: $(BASENAME).$(LANG1).lexc .deps/.d
 	cat $< | grep -v 'Dir/LR' > $@
 
@@ -37,16 +51,26 @@ if_twoc}}
 	cat $< | grep -v 'Dir/RL' > $@
 
 .deps/$(LANG1).RL.lexc.hfst: .deps/$(LANG1).RL.lexc
-	hfst-lexc $< -o $@ -v --Werror
+	hfst-lexc $< -o $@ $(LEXCFLAGS)
 
 .deps/$(LANG1).LR.lexc.hfst: .deps/$(LANG1).LR.lexc
-	hfst-lexc $< -o $@ -v --Werror{{ifnot_twoc
+	hfst-lexc $< -o $@ $(LEXCFLAGS)
+ifnot_lexd}}{{ifnot_twoc
+{{if_lexd
+
+.deps/$(LANG1).RL.hfst: .deps/$(LANG1).RL.lexd.hfst .deps/$(LANG1).twol.hfst
+	hfst-compose-intersect -1 .deps/$(LANG1).RL.lexd.hfst -2 .deps/$(LANG1).twol.hfst -o $@
+
+.deps/$(LANG1).LR.hfst: .deps/$(LANG1).LR.lexd.hfst .deps/$(LANG1).twol.hfst
+	hfst-compose-intersect -1 .deps/$(LANG1).LR.lexd.hfst -2 .deps/$(LANG1).twol.hfst -o $@
+if_lexd}}{{ifnot_lexd
 
 .deps/$(LANG1).RL.hfst: .deps/$(LANG1).RL.lexc.hfst .deps/$(LANG1).twol.hfst
 	hfst-compose-intersect -1 .deps/$(LANG1).RL.lexc.hfst -2 .deps/$(LANG1).twol.hfst -o $@
 
 .deps/$(LANG1).LR.hfst: .deps/$(LANG1).LR.lexc.hfst .deps/$(LANG1).twol.hfst
 	hfst-compose-intersect -1 .deps/$(LANG1).LR.lexc.hfst -2 .deps/$(LANG1).twol.hfst -o $@
+ifnot_lexd}}
 ifnot_twoc}}{{if_twoc
 
 .deps/$(LANG1).RL.lexc-twoc.hfst: .deps/$(LANG1).RL.lexc.hfst .deps/$(LANG1).twoc.hfst
@@ -97,16 +121,29 @@ $(LANG1).autopgen.bin: $(BASENAME).post-$(LANG1).dix
 ## Debugging transducers (for testvoc)
 ###############################################################################
 
+{{ifnot_lexd
 debug: .deps/$(LANG1).LR-debug.hfst .deps/$(LANG1).lexc.hfst
+ifnot_lexd}}{{if_lexd
+debug: .deps/$(LANG1).LR-debug.hfst .deps/$(LANG1).lexd.hfst
+if_lexd}}
 
+{{ifnot_lexd
 .deps/$(LANG1).LR-debug.hfst: $(BASENAME).$(LANG1).lexc .deps/.d
 	cat $< | grep -v 'Dir/RL' | grep -v 'Use/Circ' > .deps/$(LANG1).LR-debug.lexc
-	hfst-lexc .deps/$(LANG1).LR-debug.lexc -o .deps/$(LANG1).LR-debug.lexc.hfst -v
+	hfst-lexc .deps/$(LANG1).LR-debug.lexc -o .deps/$(LANG1).LR-debug.lexc.hfst $(LEXCFLAGS)
 	hfst-compose-intersect -1 .deps/$(LANG1).LR-debug.lexc.hfst -2 .deps/$(LANG1).twol.hfst -o $@
 
 .deps/$(LANG1).lexc.hfst: .deps/$(LANG1).RL.lexc.hfst
 	hfst-fst2fst -O -i $< -o $@
+ifnot_lexd}}{{if_lexd
+.deps/$(LANG1).LR-debug.hfst: $(BASENAME).$(LANG1).lexd .deps/.d
+	cat $< | grep -v 'Dir/RL' | grep -v 'Use/Circ' > .deps/$(LANG1).LR-debug.lexd
+	lexd .deps/$(LANG1).LR-debug.lexd | hfst-txt2fst -o .deps/$(LANG1).LR-debug.lexd.hfst
+	hfst-compose-intersect -1 .deps/$(LANG1).LR-debug.lexd.hfst -2 .deps/$(LANG1).twol.hfst -o $@
 
+.deps/$(LANG1).lexd.hfst: .deps/$(LANG1).RL.lexd.hfst
+	hfst-fst2fst -O -i $< -o $@
+if_lexd}}
 ###############################################################################
 ## Disambiguation rules
 ###############################################################################
@@ -155,7 +192,11 @@ $(LANG1).prob: corpus/$(LANG1).tagged
 ## Distribution
 ###############################################################################
 
-EXTRA_DIST=$(BASENAME).$(LANG1).lexc		\
+EXTRA_DIST= \{{ifnot_lexd
+		$(BASENAME).$(LANG1).lexc	\
+ifnot_lexd}}{{if_lexd
+		$(BASENAME).$(LANG1).lexd	\
+if_lexd}}
 		$(BASENAME).$(LANG1).twol	\
 		$(BASENAME).$(LANG1).rlx	\
 		$(BASENAME).post-$(LANG1).dix	\
@@ -204,7 +245,7 @@ clean-local:
 ###############################################################################
 
 test: all
-	echo "TODO test sentence" | apertium -d . {{languageCode}}-morph | tee .test-mt
+	echo "TODO test sentence" | apertium -d . -f line {{languageCode}}-morph | tee .test-mt
 	@echo "TODO test analysis results" > .test-ref
 	@diff .test-ref .test-mt
 	@rm .test-ref .test-mt

@@ -25,11 +25,12 @@ Compiling
 Given the requirements being installed, you should be able to just run:
 
 ```bash
+$ autoreconf -fvi
 $ ./configure
 $ make
 ```
 
-You can use `./autogen.sh` instead of `./configure` if you're compiling
+You can use `./autogen.sh` instead of `autoreconf` and `./configure` if you're compiling
 from source.
 
 If you're doing development, you don't have to install the data, you
@@ -45,6 +46,8 @@ Apertium translation pair, then do (typically as root / with sudo):
 You can use a `--prefix` with `./configure` to install as a non-root user,
 but make sure to use the same prefix when installing the translation
 pair and any other language packages.
+
+If any of this doesn't make sense or doesn't work, see https://wiki.apertium.org/wiki/Install_language_data_by_compiling
 
 Testing
 -------------------------------------------------------------------------------

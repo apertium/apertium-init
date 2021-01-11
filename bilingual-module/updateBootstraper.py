@@ -28,6 +28,8 @@ files = [
     'Makefile.am',
     'README',
     'configure.ac',
+    'gt2apertium.cg3r',
+    'MANIFEST'
 ]
 
 if __name__ == '__main__':
