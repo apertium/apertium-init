@@ -93,7 +93,7 @@ clean-local:
 ###############################################################################
 
 test: all
-	echo "TODO test sentence" | apertium -d . {{languageCode}}-morph | tee .test-mt
+	echo "TODO test sentence" | apertium -d . -f line {{languageCode}}-morph | tee .test-mt
 	@echo "TODO test analysis results" > .test-ref
 	@diff .test-ref .test-mt
 	@rm .test-ref .test-mt
