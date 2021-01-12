@@ -27,7 +27,7 @@ $ python3 apertium-init.py foo
 To bootstrap and compile it at the same time,
 
 ```bash
-$ python3 apertium-init.py foo && ( cd apertium-foo/ && ./autogen.sh && make )
+$ python3 apertium-init.py foo && ( cd apertium-foo/ && make )
 ```
 
 ### Monlingual HFST module
@@ -42,7 +42,7 @@ $ python3 apertium-init.py foo --analyser=hfst
 To bootstrap and compile it at the same time,
 
 ```bash
-$ python3 apertium-init.py foo --analyser=hfst && ( cd apertium-foo/ && ./autogen.sh && make )
+$ python3 apertium-init.py foo --analyser=hfst && ( cd apertium-foo/ && make )
 ```
 
 To include a twoc file for handling prefixes,
