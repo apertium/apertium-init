@@ -29,7 +29,7 @@ files = [
     'README',
     'configure.ac',
     'gt2apertium.cg3r',
-    'MANIFEST'
+    'MANIFEST.txt'
 ]
 
 if __name__ == '__main__':

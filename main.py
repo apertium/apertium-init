@@ -48,7 +48,7 @@ def get_lang_name(code):  # type: (str) -> str
 
 
 def read_manifest(files, conditionals):  # type: (Dict[str, bytes], List[str]) -> None
-    manifest_byt = zlib.decompress(base64.b85decode(files['MANIFEST']))
+    manifest_byt = zlib.decompress(base64.b85decode(files['MANIFEST.txt']))
     manifest_txt = manifest_byt.decode('utf-8')
     manifest_ls = make_replacements(manifest_txt, {}, conditionals).splitlines()
     for f in list(files.keys()):
@@ -66,14 +66,21 @@ def init_pair(args, email):  # type: (argparse.Namespace, str) -> Tuple[Dict[str
         'email': email,
     }
 
-    if args.analyser in ['hfst', 'lexd'] or (args.analyser1 in ['hfst', 'lexd'] and args.analyser2 in ['hfst', 'lexd']):
-        conditionals = ['hfst', 'hfst1', 'hfst2']
-    elif args.analyser1 in ['hfst', 'lexd'] and args.analyser2 in ['lt', 'lttoolbox']:
-        conditionals = ['hfst', 'hfst1', 'lttoolbox2']
-    elif args.analyser1 in ['lt', 'lttoolbox'] and args.analyser2 in ['hfst', 'lexd']:
-        conditionals = ['hfst', 'lttoolbox1', 'hfst2']
+    conditionals = []
+    if args.analyser == 'giella' or args.analyser1 == 'giella':
+        conditionals.append('giella1')
+    elif args.analyser in ['hfst', 'lexd'] or args.analyser1 in ['hfst', 'lexd']:
+        conditionals.append('hfst1')
     else:
-        conditionals = ['lttoolbox1', 'lttoolbox2']
+        conditionals.append('lttoolbox1')
+    if args.analyser == 'giella' or args.analyser2 == 'giella':
+        conditionals.append('giella2')
+    elif args.analyser in ['hfst', 'lexd'] or args.analyser2 in ['hfst', 'lexd']:
+        conditionals.append('hfst2')
+    else:
+        conditionals.append('lttoolbox2')
+    if conditionals != ['lttoolbox1', 'lttoolbox2']:
+        conditionals.append('hfst')
 
     conditionals += args.pair_conds or []
     conditionals.append(args.transfer)
@@ -210,9 +217,11 @@ def main(cli_args):  # type: (List[str]) -> None
     parser.add_argument('-r', '--rebuild', help='construct module or pair with different features using existing files',
                         action='store_true', default=False)
 
-    parser.add_argument('-a', '--analyser', help='analyser to use for all languages', choices=['lt', 'lttoolbox', 'hfst', 'lexd'], default='lt')
-    parser.add_argument('--analyser1', '--a1', help='analyser to use for first language of pair', choices=['lt', 'lttoolbox', 'hfst', 'lexd'], default='lt')
-    parser.add_argument('--analyser2', '--a2', help='analyser to use for second language of pair', choices=['lt', 'lttoolbox', 'hfst', 'lexd'], default='lt')
+    parser.add_argument('-a', '--analyser', help='analyser to use for all languages', choices=['lt', 'lttoolbox', 'hfst', 'lexd', 'giella'], default='lt')
+    parser.add_argument('--analyser1', '--a1', help='analyser to use for first language of pair', choices=['lt', 'lttoolbox', 'hfst', 'lexd', 'giella'],
+                        default='lt')
+    parser.add_argument('--analyser2', '--a2', help='analyser to use for second language of pair', choices=['lt', 'lttoolbox', 'hfst', 'lexd', 'giella'],
+                        default='lt')
 
     parser.add_argument('-t', '--transfer', help='structural transfer module to use', choices=['chunk', 'rtx'], default='chunk')
 
@@ -261,6 +270,10 @@ def main(cli_args):  # type: (List[str]) -> None
     if '-' in args.name and args.name.count('-') == 1:
         if args.lang_conds:
             parser.error('--with-%s can only be used with monolingual modules' % args.lang_conds[0])
+        if (args.analyser == 'giella' or args.analyser1 == 'giella') and (args.no_rlx1 or args.no_prob1):
+            parser.error('--analyser=giella specifies the tagger')
+        if (args.analyser == 'giella' or args.analyser2 == 'giella') and (args.no_rlx2 or args.no_prob2):
+            parser.error('--analyser=giella specifies the tagger')
         files, replacements, conditionals = init_pair(args, email)
     elif '-' not in args.name:
         if args.pair_conds:
@@ -271,6 +284,8 @@ def main(cli_args):  # type: (List[str]) -> None
                 # this will have to be changed if we have options for lttoolbox modules
             elif args.analyser == 'lexd' and 'twoc' in args.lang_conds:
                 parser.error('--analyser=lexd is not compatible with --with-twoc')
+        if args.analyser == 'giella':
+            parser.error('cannot generate Giella language modules')
         files, replacements, conditionals = init_lang_module(args, email)
     else:
         parser.error('Invalid language module name: %s' % args.name)
