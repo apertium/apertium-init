@@ -10,7 +10,7 @@ all:
 	./lttoolbox-language-module/updateBootstraper.py
 	./updateBootstrapper.py
 
-apertium_init.py: all
+apertium_init.py: apertium-init.py all
 	cp $< $@
 
 dist: all apertium_init.py
