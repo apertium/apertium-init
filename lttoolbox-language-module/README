@@ -70,6 +70,7 @@ Files and data
 * [`{{languageCode}}.prob`]({{languageCode}}.prob) - Tagger model
 * [`apertium-{{languageCode}}.{{languageCode}}.rlx`](apertium-{{languageCode}}.{{languageCode}}.rlx) - Constraint Grammar disambiguation rules
 * [`apertium-{{languageCode}}.post-{{languageCode}}.dix`](apertium-{{languageCode}}.post-{{languageCode}}.dix) - Post-generator
+* [`apertium-{{languageCode}}.{{languageCode}}.udx`](apertium-{{languageCode}}.{{languageCode}}.udx) - Mappings from Apertium tags to Universal Dependencies features
 * [`modes.xml`](modes.xml) - Translation modes
 
 For more information

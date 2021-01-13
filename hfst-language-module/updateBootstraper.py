@@ -23,6 +23,7 @@ files = [
     'modes.xml',
     'corpus/{{languageCode}}.tagged',
     'README',
+    'apertium-{{languageCode}}.{{languageCode}}.udx',
     'MANIFEST.txt',
 ]
 

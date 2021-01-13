@@ -84,6 +84,7 @@ if_twoc}}
 * [`{{languageCode}}.prob`]({{languageCode}}.prob) - Tagger model{{if_spellrelax
 * [`apertium-{{languageCode}}.{{languageCode}}.spellrelax`](apertium-{{languageCode}}.{{languageCode}}.spellrelax) - Typographical variance rules
 if_spellrelax}}
+* [`apertium-{{languageCode}}.{{languageCode}}.udx`](apertium-{{languageCode}}.{{languageCode}}.udx) - Mappings from Apertium tags to Universal Dependencies features
 * [`modes.xml`](modes.xml) - Translation modes
 
 For more information
