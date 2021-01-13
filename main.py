@@ -361,7 +361,7 @@ def main(cli_args):  # type: (List[str]) -> None
 
     push_hook = os.path.join(args.destination, '.git/hooks/pre-push')
     with open(push_hook, 'w') as f:
-        f.write('''#!/bin/bash
+        f.write("""#!/bin/bash
 todos=`grep "TODO" README | grep -v "TODO("`
 if [ ! -z "$todos" ]; then
         echo ""
@@ -370,7 +370,7 @@ if [ ! -z "$todos" ]; then
         echo "sentences or by assigning them like TODO(Albert)"
         echo ""
 fi
-''')
+""")
         os.chmod(push_hook, os.stat(push_hook).st_mode | stat.S_IEXEC)
 
 

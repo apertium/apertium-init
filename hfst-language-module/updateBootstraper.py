@@ -23,7 +23,7 @@ files = [
     'modes.xml',
     'corpus/{{languageCode}}.tagged',
     'README',
-    'MANIFEST.txt'
+    'MANIFEST.txt',
 ]
 
 if __name__ == '__main__':
