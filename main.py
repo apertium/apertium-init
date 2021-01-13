@@ -22,7 +22,7 @@ import zlib
 
 if False:  # for mypy
     import http.client  # noqa: F401
-    from typing import Dict, List, Tuple  # noqa: F401
+    from typing import Dict, List, Optional, Tuple  # noqa: F401
 
 # DO NOT MODIFY, USE `make` which calls `./updateBoostraper.py`
 any_module_files = {}  # noqa: E501
@@ -205,7 +205,7 @@ def push_to_github(args, folder, username):  # type: (argparse.Namespace, str, s
         sys.stderr.write('Pushing to remote {} failed: {}'.format(remote_name, e.output))
 
 
-def main(cli_args):  # type: (List[str]) -> None
+def main(cli_args=None):  # type: (Optional[List[str]]) -> None
     parser = argparse.ArgumentParser(description='Bootstrap an Apertium language module/pair', allow_abbrev=True)
     parser.add_argument('name', help='name of new Apertium language module/pair using ISO-639-3 language code(s)')
     parser.add_argument('-d', '--destination', help='destination directory for new language module/pair (default: cwd)', default=os.getcwd())
