@@ -2,7 +2,9 @@ SHELL := /bin/bash
 TRAVIS_PYTHON_VERSION ?= $(shell python3 --version | cut -d ' ' -f 2)
 PREFIX ?= /usr/local
 
-all:
+all: apertium-init.py
+
+apertium-init.py:
 	cp main.py apertium-init.py
 	./any-module/updateBootstraper.py
 	./bilingual-module/updateBootstraper.py
@@ -33,7 +35,7 @@ test: all
 		git diff --exit-code apertium-init.py; \
 	fi
 
-install:
+install: apertium-init.py
 	@install -d $(DESTDIR)$(PREFIX)/bin
 	install -m755 apertium-init.py $(DESTDIR)$(PREFIX)/bin/apertium-init
 

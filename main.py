@@ -357,7 +357,7 @@ def main(cli_args):  # type: (List[str]) -> None
         push_to_github(args, args.destination, username)
     else:
         print('To push your new local repository to incubator in the {} organisation on GitHub:'.format(organization_name))
-        print('\tapertium-init.py -pe {} {}'.format(args.destination, repository_name))
+        print('\tapertium-init.py --pe {} {}'.format(args.destination, repository_name))
 
     push_hook = os.path.join(args.destination, '.git/hooks/pre-push')
     with open(push_hook, 'w') as f:
