@@ -206,7 +206,7 @@ def push_to_github(args, folder, username):  # type: (argparse.Namespace, str, s
 
 
 def main(cli_args):  # type: (List[str]) -> None
-    parser = argparse.ArgumentParser(description='Bootstrap an Apertium language module/pair', allow_abbrev=False)
+    parser = argparse.ArgumentParser(description='Bootstrap an Apertium language module/pair', allow_abbrev=True)
     parser.add_argument('name', help='name of new Apertium language module/pair using ISO-639-3 language code(s)')
     parser.add_argument('-d', '--destination', help='destination directory for new language module/pair (default: cwd)', default=os.getcwd())
     parser.add_argument('-p', '--push-new-to-github', help='push newly created repository to incubator on the Apertium organisation on GitHub (use with -u)',
