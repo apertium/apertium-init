@@ -59,11 +59,31 @@ class TestInvalidModule(unittest.TestCase):
 
     def test_no_rlx_and_no_prob(self):
         with self.assertRaises(SystemExit):
-            apertium_init.main(['eng', '--no-rlx1', '--no-prob1'])
+            apertium_init.main(['eng-cat', '--no-rlx1', '--no-prob1'])
 
     def test_invalid_analyser(self):
         with self.assertRaises(SystemExit):
             apertium_init.main(['eng', '--analyser=bloop'])
+
+    def test_lexd_twoc(self):
+        with self.assertRaises(SystemExit):
+            apertium_init.main(['eng', '--analyser=lexd', '--with-twoc'])
+
+    def test_lang_with_pair_options(self):
+        with self.assertRaises(SystemExit):
+            apertium_init.main(['eng', '--with-anaphora'])
+
+    def test_pair_with_lang_options(self):
+        with self.assertRaises(SystemExit):
+            apertium_init.main(['eng-cat', '--with-spellrelax'])
+
+    def test_no_mono_giella(self):
+        with self.assertRaises(SystemExit):
+            apertium_init.main(['eng', '--analyser=giella'])
+
+    def test_rebuild_nonexistent(self):
+        with self.assertRaises(SystemExit):
+            apertium_init.main(['eng', '--rebuild'])
 
     def test_dir_already_exists(self):
         path = make_path('eng')
