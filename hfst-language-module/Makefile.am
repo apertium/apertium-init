@@ -89,11 +89,11 @@ if_twoc}}
 $(LANG1).autogen.hfst: .deps/$(LANG1).RL.hfst
 	hfst-fst2fst -O $< -o $@{{if_spellrelax
 
-.deps/spellrelax.hfst: $(BASENAME).$(LANG1).spellrelax .deps/.d
-	hfst-twolc $< -o $@
+.deps/$(LANG1).spellrelax.hfst: $(BASENAME).$(LANG1).spellrelax .deps/.d
+	hfst-regexp2fst -S -o $@ $<
 
-$(LANG1).automorf.hfst: .deps/$(LANG1).LR.hfst .deps/spellrelax.hfst
-	hfst-compose-intersect -1 $< -2 .deps/spellrelax.hfst | hfst-invert | hfst-fst2fst -O -o $@
+$(LANG1).automorf.hfst: .deps/$(LANG1).LR.hfst .deps/$(LANG1).spellrelax.hfst
+	hfst-compose -1 $< -2 .deps/$(LANG1).spellrelax.hfst | hfst-invert | hfst-fst2fst -O -o $@
 if_spellrelax}}{{ifnot_spellrelax
 
 $(LANG1).automorf.hfst: .deps/$(LANG1).LR.hfst

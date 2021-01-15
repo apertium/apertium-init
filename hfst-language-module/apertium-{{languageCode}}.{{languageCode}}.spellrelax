@@ -1,13 +1,7 @@
-Alphabet
+[
+	! Unify apostrophe styles
+	[ ?* [ ' (->) [ %` | ʻ | ’ | ‘ | ʼ ] ] ?* ] .o.
 
-%':%'
-%`:%` %ʻ:%`
-%ʻ:%ʻ %ʻ:%ʻ
-%’:%’ %ʻ:%’
-%‘:%‘ %ʻ:%‘
-%ʼ:%ʼ %ʻ:%ʼ ;
-
-Rules
-
-"Unify apostrophe styles"
-a => _ ;
+	! Accept input without diacritics
+	[ ?* [ á (->) a ] ?* ]
+]
