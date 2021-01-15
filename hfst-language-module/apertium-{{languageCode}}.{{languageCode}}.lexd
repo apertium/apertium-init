@@ -1,0 +1,84 @@
+# Morphological Transducer for {{languageName}}
+
+# Part of speech categories
+# <n>      # Noun
+# <v>      # Verb
+# <adj>    # Adjective
+
+# <sent>   # Sentence-ending punctuation
+# <guio>   # Hyphen
+# <cm>     # Comma
+# <apos>   # Apostrophe
+# <quot>   # Quotation mark
+# <lquot>  # Left quotation mark
+# <rquot>  # Right quotation mark
+# <lpar>   # Left parenthesis
+# <rpar>   # Right parenthesis
+
+# Number morphology
+# <pl>  # Plural
+# <sg>  # Singular
+
+# Other symbols
+# >      # Morpheme boundary
+
+###############################################################################
+###                       M O R P H O T A C T I C S                         ###
+###############################################################################
+
+PATTERNS
+NounRoot RegNounInfl
+Punctuation
+
+
+LEXICON RegNounInfl
+
+<n><sg>:
+<n><pl>:>s
+
+
+###############################################################################
+###                          L E X I C O N                                  ###
+###############################################################################
+
+LEXICON NounRoot
+
+house:house   # A noun
+
+
+LEXICON Punctuation
+
+.<sent>:.
+..<sent>:..
+...<sent>:...
+;<sent>:;
+\:<sent>:\:
+!<sent>:!
+-<guio>:-
+—<guio>:—
+,<cm>:,
+?<sent>:? 
+'<apos>:'
+"<quot>:"
+«<lquot>:«
+»<rquot>:»
+”<rquot>:”
+“<lquot>:“
+(<lpar>:(
+\]<rpar>:\]
+\[<lpar>:\[
+)<rpar>:)
+\\<sent>:\\
+/<sent>:/
+
+
+# Resources:
+# https://github.com/apertium/lexd/blob/master/Usage.md
+# https://wiki.apertium.org/wiki/List_of_symbols
+# http://wiki.apertium.org/wiki/Starting_a_new_language_with_HFST#Lexicon
+# http://wiki.apertium.org/wiki/Lttoolbox_and_lexc
+# http://wiki.apertium.org/wiki/Apertium-specific_conventions_for_lexc
+# https://kitwiki.csc.fi/twiki/bin/view/KitWiki/HfstHome
+# https://github.com/hfst/
+# http://wiki.apertium.org/wiki/Hfst
+

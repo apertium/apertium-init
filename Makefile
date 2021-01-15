@@ -8,8 +8,9 @@ all:
 	./bilingual-module/updateBootstraper.py
 	./hfst-language-module/updateBootstraper.py
 	./lttoolbox-language-module/updateBootstraper.py
+	./updateBootstrapper.py
 
-apertium_init.py: apertium-init.py
+apertium_init.py: apertium-init.py all
 	cp $< $@
 
 dist: all apertium_init.py
@@ -32,7 +33,7 @@ test: all
 		git diff --exit-code apertium-init.py; \
 	fi
 
-install:
+install: all
 	@install -d $(DESTDIR)$(PREFIX)/bin
 	install -m755 apertium-init.py $(DESTDIR)$(PREFIX)/bin/apertium-init
 

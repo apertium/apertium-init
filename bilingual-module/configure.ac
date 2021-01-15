@@ -28,8 +28,16 @@ AS_IF([test x$ZCAT = xfalse], [AC_MSG_ERROR([You don't have zcat nor gzcat insta
 
 m4_ifdef([AP_CHECK_LING],[],[AC_MSG_ERROR([AP_CHECK_LING not defined, is apertium.m4 in ACLOCAL_PATH? See: http://wiki.apertium.org/wiki/Installation_troubleshooting])])
 
+{{if_giella1
+AP_CHECK_LING([1], [giella-{{languageCode1}}])
+if_giella1}}{{ifnot_giella1
 AP_CHECK_LING([1], [apertium-{{languageCode1}}])
+ifnot_giella1}}
+{{if_giella2
+AP_CHECK_LING([2], [giella-{{languageCode2}}])
+if_giella2}}{{ifnot_giella2
 AP_CHECK_LING([2], [apertium-{{languageCode2}}])
+ifnot_giella2}}
 
 AP_MKINCLUDE
 

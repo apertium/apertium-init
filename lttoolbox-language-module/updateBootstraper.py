@@ -19,6 +19,7 @@ files = [
     'Makefile.am',
     'modes.xml',
     'corpus/{{languageCode}}.tagged',
+    'apertium-{{languageCode}}.{{languageCode}}.udx',
     'README',
 ]
 

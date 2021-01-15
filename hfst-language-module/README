@@ -13,10 +13,15 @@ Requirements
 
 You will need the following software installed:
 
+* autoconf
+* automake
+* pkg-config
 * lttoolbox (>= 3.5.1)
 * apertium (>= 3.6.1)
 * vislcg3 (>= 1.3.1)
-* hfst (>= 3.15.1)
+* hfst (>= 3.15.1){{if_lexd
+* lexd (>= 0.0.1)
+if_lexd}}
 
 If this does not make any sense, we recommend you look at: www.apertium.org.
 
@@ -26,11 +31,12 @@ Compiling
 Given the requirements being installed, you should be able to just run:
 
 ```bash
+$ autoreconf -fvi
 $ ./configure
 $ make
 ```
 
-You can use `./autogen.sh` instead of `./configure` if you're compiling
+You can use `./autogen.sh` instead of `autoreconf` and `./configure` if you're compiling
 from source.
 
 If you're doing development, you don't have to install the data, you
@@ -46,6 +52,8 @@ $ make install
 You can use a `--prefix` with `./configure` to install as a non-root user,
 but make sure to use the same prefix when installing the translation
 pair and any other language packages.
+
+If any of this doesn't make sense or doesn't work, see https://wiki.apertium.org/wiki/Install_language_data_by_compiling
 
 Testing
 -------------------------------------------------------------------------------
@@ -64,8 +72,11 @@ TODO: test tagger result
 Files and data
 -------------------------------------------------------------------------------
 
+{{ifnot_lexd
 * [`apertium-{{languageCode}}.{{languageCode}}.lexc`](apertium-{{languageCode}}.{{languageCode}}.lexc) - Morphotactic dictionary
-* [`apertium-{{languageCode}}.{{languageCode}}.twol`](apertium-{{languageCode}}.{{languageCode}}.twol) - Morphophonological rules{{if_twoc
+ifnot_lexd}}{{if_lexd
+* [`apertium-{{languageCode}}.{{languageCode}}.lexd`](apertium-{{languageCode}}.{{languageCode}}.lexd) - Morphotactic dictionary
+if_lexd}}* [`apertium-{{languageCode}}.{{languageCode}}.twol`](apertium-{{languageCode}}.{{languageCode}}.twol) - Morphophonological rules{{if_twoc
 * [`apertium-{{languageCode}}.{{languageCode}}.twoc`](apertium-{{languageCode}}.{{languageCode}}.twoc) - Path-restriction rules for prefixes
 if_twoc}}
 * [`apertium-{{languageCode}}.{{languageCode}}.rlx`](apertium-{{languageCode}}.{{languageCode}}.rlx) - Constraint Grammar disambiguation rules
@@ -73,6 +84,7 @@ if_twoc}}
 * [`{{languageCode}}.prob`]({{languageCode}}.prob) - Tagger model{{if_spellrelax
 * [`apertium-{{languageCode}}.{{languageCode}}.spellrelax`](apertium-{{languageCode}}.{{languageCode}}.spellrelax) - Typographical variance rules
 if_spellrelax}}
+* [`apertium-{{languageCode}}.{{languageCode}}.udx`](apertium-{{languageCode}}.{{languageCode}}.udx) - Mappings from Apertium tags to Universal Dependencies features
 * [`modes.xml`](modes.xml) - Translation modes
 
 For more information

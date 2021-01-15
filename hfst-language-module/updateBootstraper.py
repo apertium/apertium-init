@@ -11,6 +11,7 @@ import zlib
 files = [
     '{{languageCode}}.prob',
     'apertium-{{languageCode}}.{{languageCode}}.lexc',
+    'apertium-{{languageCode}}.{{languageCode}}.lexd',
     'apertium-{{languageCode}}.{{languageCode}}.twol',
     'apertium-{{languageCode}}.{{languageCode}}.twoc',
     'apertium-{{languageCode}}.{{languageCode}}.rlx',
@@ -22,6 +23,8 @@ files = [
     'modes.xml',
     'corpus/{{languageCode}}.tagged',
     'README',
+    'apertium-{{languageCode}}.{{languageCode}}.udx',
+    'MANIFEST.txt',
 ]
 
 if __name__ == '__main__':

@@ -13,13 +13,15 @@ def make_path(name, prefix=apertium_init.default_prefix):
     return '{}-{}'.format(prefix, name)
 
 
-def build(path, autogen_args=[]):
+def autogen(path, autogen_args):
     try:
         subprocess.check_output(['./autogen.sh'] + autogen_args, cwd=path, stderr=subprocess.STDOUT, universal_newlines=True)
     except subprocess.CalledProcessError as error:
         print(error.output)
         raise
 
+
+def build(path):
     try:
         subprocess.check_output('make', cwd=path, stderr=subprocess.STDOUT, universal_newlines=True)
     except subprocess.CalledProcessError as error:
@@ -57,11 +59,31 @@ class TestInvalidModule(unittest.TestCase):
 
     def test_no_rlx_and_no_prob(self):
         with self.assertRaises(SystemExit):
-            apertium_init.main(['eng', '--no-rlx1', '--no-prob1'])
+            apertium_init.main(['eng-cat', '--no-rlx1', '--no-prob1'])
 
     def test_invalid_analyser(self):
         with self.assertRaises(SystemExit):
             apertium_init.main(['eng', '--analyser=bloop'])
+
+    def test_lexd_twoc(self):
+        with self.assertRaises(SystemExit):
+            apertium_init.main(['eng', '--analyser=lexd', '--with-twoc'])
+
+    def test_lang_with_pair_options(self):
+        with self.assertRaises(SystemExit):
+            apertium_init.main(['eng', '--with-anaphora'])
+
+    def test_pair_with_lang_options(self):
+        with self.assertRaises(SystemExit):
+            apertium_init.main(['eng-cat', '--with-spellrelax'])
+
+    def test_no_mono_giella(self):
+        with self.assertRaises(SystemExit):
+            apertium_init.main(['eng', '--analyser=giella'])
+
+    def test_rebuild_nonexistent(self):
+        with self.assertRaises(SystemExit):
+            apertium_init.main(['eng', '--rebuild'])
 
     def test_dir_already_exists(self):
         path = make_path('eng')
@@ -101,8 +123,14 @@ class TestTwocAndSpellrelaxModule(TestModule, unittest.TestCase):
         apertium_init.main([cls.name, '--analyser=hfst', '--with-twoc', '--with-spellrelax'])
 
 
+class TestLexdModule(TestModule, unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        apertium_init.main([cls.name, '--analyser=lexd'])
+
+
 class TestUnknownCodeModule(TestModule, unittest.TestCase):
-    name = 'bkl'
+    name = 'qaa'
     path = make_path(name)
 
     @classmethod
@@ -153,7 +181,8 @@ class TestPair(TestModule, unittest.TestCase):
 
     def test_builds(self):
         autogen_args = ['--with-lang1=../{}'.format(self.path1), '--with-lang2=../{}'.format(self.path2)]
-        build(self.path, autogen_args=autogen_args)
+        autogen(self.path, autogen_args)
+        build(self.path)
 
 
 class TestDefaultPair(TestPair, unittest.TestCase):

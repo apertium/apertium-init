@@ -16,13 +16,22 @@ Requirements
 
 You will need the following software installed:
 
+* autoconf
+* automake
+* pkg-config
 * lttoolbox (>= 3.5.1)
 * apertium (>= 3.6.1)
 * vislcg3 (>= 1.3.1){{if_hfst
 * hfst (>= 3.15.1)
-if_hfst}}
+if_hfst}}{{ifnot_giella1
 * apertium-{{languageCode1}}
+ifnot_giella1}}{{if_giella1
+* giella-{{languageCode1}}
+if_giella1}}{{ifnot_giella2
 * apertium-{{languageCode2}}
+ifnot_giella2}}{{if_giella2
+* giella-{{languageCode2}}
+if_giella2}}
 
 If this does not make any sense, we recommend you look at: www.apertium.org.
 
@@ -32,15 +41,18 @@ Compiling
 Given the requirements being installed, you should be able to just run:
 
 ```console
+$ autoreconf -fvi
 $ ./configure
 $ make
 # make install
 ```
 
-You can use `./autogen.sh` instead of `./configure` in case you're compiling
+You can use `./autogen.sh` instead of `autoreconf` and `./configure` in case you're compiling
 from source. If you installed any prerequisite language packages using a
 `--prefix` with `./configure`, make sure to use the same `--prefix` when running
 `./configure` here.
+
+If any of this doesn't make sense or doesn't work, see https://wiki.apertium.org/wiki/Install_language_data_by_compiling
 
 Testing
 -------------------------------------------------------------------------------

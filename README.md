@@ -7,10 +7,16 @@
 
 Bootstrap Apertium language modules and pairs using `apertium-init.py`.
 
-## Usage
+## Installation
 
-First, <a href="https://apertium.org/apertium-init" download>download the script</a>
-or install from [PyPi](https://pypi.org/project/apertium-init/) with `pip install apertium-init`.
+There are 3 ways to obtain Apertium-Init:
+* Download the script from https://apertium.org/apertium-init to your local directory
+* Clone this repository and run `make install`
+* Install from [PyPi](https://pypi.org/project/apertium-init/) with `pip install apertium-init`
+
+If the script was downloaded directly, it can be run with `python3 apertium-init.py`. Otherwise it will be installed as `apertium-init`.
+
+## Usage
 
 Usage depends on the desired module and is described below. Remember to
 search for `TODO` in the generated module to add example sentences, etc.
@@ -27,7 +33,7 @@ $ python3 apertium-init.py foo
 To bootstrap and compile it at the same time,
 
 ```bash
-$ python3 apertium-init.py foo && ( cd apertium-foo/ && ./autogen.sh && make )
+$ python3 apertium-init.py foo && ( cd apertium-foo/ && make )
 ```
 
 ### Monlingual HFST module
@@ -42,7 +48,7 @@ $ python3 apertium-init.py foo --analyser=hfst
 To bootstrap and compile it at the same time,
 
 ```bash
-$ python3 apertium-init.py foo --analyser=hfst && ( cd apertium-foo/ && ./autogen.sh && make )
+$ python3 apertium-init.py foo --analyser=hfst && ( cd apertium-foo/ && make )
 ```
 
 To include a twoc file for handling prefixes,
