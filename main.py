@@ -337,15 +337,20 @@ def main(cli_args=None):  # type: (Optional[List[str]]) -> None
         sys.exit(-1)
 
     try:
-        subprocess.check_output(shlex.split('git add .'), cwd=args.destination, universal_newlines=True, stderr=subprocess.STDOUT)
-        msg = 'Rebuild with apertium-init' if args.rebuild else 'Initial commit'
-        subprocess.check_output(shlex.split('git commit -m "{}"'.format(msg)), cwd=args.destination, universal_newlines=True, stderr=subprocess.STDOUT)
-        print('Successfully added and committed files to git repository {}.'.format(repository_name))
+        add_cmd = ['git', 'add', 'README.md']
+        for filename in files:
+            add_cmd.append(make_replacements(filename, replacements, conditionals))
+        subprocess.check_output(add_cmd, cwd=args.destination, universal_newlines=True, stderr=subprocess.STDOUT)
+        if not args.rebuild:
+            subprocess.check_output(shlex.split('git commit -m "Initial commit"'), cwd=args.destination, universal_newlines=True, stderr=subprocess.STDOUT)
+            print('Successfully added and committed files to git repository {}.'.format(repository_name))
+        else:
+            print('Successfully added updated files to git repository {}.'.format(repository_name))
     except subprocess.CalledProcessError as e:
         sys.stderr.write('Unable to add/commit files to git repository {}: {}'.format(repository_name, e.output))
         sys.exit(-1)
 
-    if '-' not in args.name:
+    if '-' not in args.name and not args.rebuild:
         try:
             subprocess.check_output('./autogen.sh', cwd=args.destination, universal_newlines=True, stderr=subprocess.STDOUT, shell=True)
             print('Successfully configure Makefile.')
@@ -360,8 +365,9 @@ def main(cli_args=None):  # type: (Optional[List[str]]) -> None
         print('\tapertium-init.py --pe {} {}'.format(args.destination, repository_name))
 
     push_hook = os.path.join(args.destination, '.git/hooks/pre-push')
-    with open(push_hook, 'w') as f:
-        f.write("""#!/bin/bash
+    if not os.path.exists(push_hook):
+        with open(push_hook, 'w') as f:
+            f.write("""#!/bin/bash
 todos=`grep "TODO" README | grep -v "TODO("`
 if [ ! -z "$todos" ]; then
         echo ""
@@ -371,7 +377,7 @@ if [ ! -z "$todos" ]; then
         echo ""
 fi
 """)
-        os.chmod(push_hook, os.stat(push_hook).st_mode | stat.S_IEXEC)
+            os.chmod(push_hook, os.stat(push_hook).st_mode | stat.S_IEXEC)
 
 
 if __name__ == '__main__':
