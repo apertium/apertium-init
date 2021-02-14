@@ -39,10 +39,12 @@ if_twoc}}{{if_lexd
 	cat $< | grep -v 'Dir/RL' > $@
 
 .deps/$(LANG1).RL.lexd.hfst: .deps/$(LANG1).RL.lexd
-	lexd $< | hfst-txt2fst -o $@
+	lexd $< .deps/$(LANG1).RL.lexd.att
+	hfst-txt2fst .deps/$(LANG1).RL.lexd.att -o $@
 
 .deps/$(LANG1).LR.lexd.hfst: .deps/$(LANG1).LR.lexd
-	lexd $< | hfst-txt2fst -o $@
+	lexd $< .deps/$(LANG1).LR.lexd.att
+	hfst-txt2fst .deps/$(LANG1).LR.lexd.att -o $@
 if_lexd}}{{ifnot_lexd
 .deps/$(LANG1).RL.lexc: $(BASENAME).$(LANG1).lexc .deps/.d
 	cat $< | grep -v 'Dir/LR' > $@
@@ -138,7 +140,8 @@ if_lexd}}
 ifnot_lexd}}{{if_lexd
 .deps/$(LANG1).LR-debug.hfst: $(BASENAME).$(LANG1).lexd .deps/.d
 	cat $< | grep -v 'Dir/RL' | grep -v 'Use/Circ' > .deps/$(LANG1).LR-debug.lexd
-	lexd .deps/$(LANG1).LR-debug.lexd | hfst-txt2fst -o .deps/$(LANG1).LR-debug.lexd.hfst
+	lexd .deps/$(LANG1).LR-debug.lexd .deps/$(LANG1).LR-debug.lexd.att
+	hfst-txt2fst .deps/$(LANG1).LR-debug.lexd.att -o .deps/$(LANG1).LR-debug.lexd.hfst
 	hfst-compose-intersect -1 .deps/$(LANG1).LR-debug.lexd.hfst -2 .deps/$(LANG1).twol.hfst -o $@
 
 .deps/$(LANG1).lexd.hfst: .deps/$(LANG1).RL.lexd.hfst

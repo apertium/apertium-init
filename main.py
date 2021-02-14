@@ -364,6 +364,13 @@ def main(cli_args=None):  # type: (Optional[List[str]]) -> None
         print('To push your new local repository to incubator in the {} organisation on GitHub:'.format(organization_name))
         print('\tapertium-init.py --pe {} {}'.format(args.destination, repository_name))
 
+    if not args.rebuild:
+        print("""
+The directory you just created includes a GPLv3-or-later license.
+If you would like to license it differently, please adjust or replace the COPYING file accordingly.
+Please note that code included in the Apertium project should be GPLv2-or-later-compatible.
+""")
+
     push_hook = os.path.join(args.destination, '.git/hooks/pre-push')
     if not os.path.exists(push_hook):
         with open(push_hook, 'w') as f:
