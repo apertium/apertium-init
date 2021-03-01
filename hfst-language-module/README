@@ -76,7 +76,8 @@ Files and data
 * [`apertium-{{languageCode}}.{{languageCode}}.lexc`](apertium-{{languageCode}}.{{languageCode}}.lexc) - Morphotactic dictionary
 ifnot_lexd}}{{if_lexd
 * [`apertium-{{languageCode}}.{{languageCode}}.lexd`](apertium-{{languageCode}}.{{languageCode}}.lexd) - Morphotactic dictionary
-if_lexd}}* [`apertium-{{languageCode}}.{{languageCode}}.twol`](apertium-{{languageCode}}.{{languageCode}}.twol) - Morphophonological rules{{if_twoc
+if_lexd}}
+* [`apertium-{{languageCode}}.{{languageCode}}.twol`](apertium-{{languageCode}}.{{languageCode}}.twol) - Morphophonological rules{{if_twoc
 * [`apertium-{{languageCode}}.{{languageCode}}.twoc`](apertium-{{languageCode}}.{{languageCode}}.twoc) - Path-restriction rules for prefixes
 if_twoc}}
 * [`apertium-{{languageCode}}.{{languageCode}}.rlx`](apertium-{{languageCode}}.{{languageCode}}.rlx) - Constraint Grammar disambiguation rules
