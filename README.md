@@ -1,6 +1,6 @@
 # Apertium-Init (a.k.a. Apertium Bootstrap)
 
-[![Build Status](https://travis-ci.org/apertium/apertium-init.svg)](https://travis-ci.org/apertium/apertium-init)
+[![Build Status](https://travis-ci.org/apertium/apertium-init.svg?branch=master)](https://travis-ci.org/apertium/apertium-init)
 [![Coverage Status](https://coveralls.io/repos/github/apertium/apertium-init/badge.svg?branch=master)](https://coveralls.io/github/apertium/apertium-init?branch=master)
 [![PyPI](https://img.shields.io/pypi/v/apertium-init.svg)](https://pypi.org/project/apertium-init/)
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/apertium-init.svg)](https://pypi.org/project/apertium-init/)
@@ -10,9 +10,10 @@ Bootstrap Apertium language modules and pairs using `apertium-init.py`.
 ## Installation
 
 There are 3 ways to obtain Apertium-Init:
-* Download the script from https://apertium.org/apertium-init to your local directory
-* Clone this repository and run `make install`
-* Install from [PyPi](https://pypi.org/project/apertium-init/) with `pip install apertium-init`
+
+- Download the script from https://apertium.org/apertium-init to your local directory
+- Clone this repository and run `make install`
+- Install from [PyPi](https://pypi.org/project/apertium-init/) with `pip install apertium-init`
 
 If the script was downloaded directly, it can be run with `python3 apertium-init.py`. Otherwise it will be installed as `apertium-init`.
 
