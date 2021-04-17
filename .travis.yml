@@ -1,12 +1,14 @@
 language: python
 dist: bionic
 cache:
-    pip: true
+  pip: true
 python:
-  - '3.5'
-  - '3.6'
-  - '3.7'
-  - 'nightly'
+  - "3.5"
+  - "3.6"
+  - "3.7"
+  - "3.8"
+  - "3.9"
+  - "nightly"
 install:
   - pip install pipenv
   - travis_retry pipenv install --dev --system
@@ -17,7 +19,7 @@ before_script:
 script:
   - make test
 after_success:
-    - coveralls
+  - coveralls
 notifications:
   on_failure: change
   on_success: change
