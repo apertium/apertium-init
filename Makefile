@@ -1,5 +1,4 @@
 SHELL := /bin/bash
-TRAVIS_PYTHON_VERSION ?= $(shell python3 --version | cut -d ' ' -f 2)
 PREFIX ?= /usr/local
 
 all:
@@ -29,9 +28,6 @@ test: all
 	mypy --strict apertium-init.py
 	coverage run -m unittest --verbose --buffer
 	coverage report --show-missing --fail-under 70
-	if [[ "$(TRAVIS_PYTHON_VERSION)" != '3.4'* && $(TRAVIS_PYTHON_VERSION) != '3.5'*  ]]; then \
-		git diff --exit-code apertium-init.py; \
-	fi
 
 install: all
 	@install -d $(DESTDIR)$(PREFIX)/bin
