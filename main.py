@@ -180,7 +180,7 @@ def push_to_github(args, folder, username):  # type: (argparse.Namespace, str, s
             response = urllib.request.urlopen(req)
             print('Successfully created GitHub repository {}/{}.'.format(organization_name, repository_name))
             return response  # type: ignore
-        except urllib.error.HTTPError as e:  # type: ignore
+        except urllib.error.HTTPError as e:
             if e.getcode() == 401:
                 print('Authentication failed. Retrying...')
                 return create_github_repository()
