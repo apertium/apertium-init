@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <modes>
 
-  <mode name="{{languageCode}}-twol" install="yes">
+  <mode name="{{languageCode}}-twol" install="no">
     <pipeline>
       <program name="hfst-strings2fst -S"/>
       <program name="hfst-compose-intersect">
@@ -19,13 +19,23 @@
     </pipeline>
   </mode>
 
-  <mode name="{{languageCode}}-lexc" install="yes">
+{{ifnot_lexd
+  <mode name="{{languageCode}}-lexc" install="no">
     <pipeline>
       <program name="hfst-lookup">
         <file name=".deps/{{languageCode}}.LR.lexc.hfst"/>
       </program>
     </pipeline>
   </mode>
+ifnot_lexd}}{{if_lexd
+  <mode name="{{languageCode}}-lexd" install="no">
+    <pipeline>
+      <program name="hfst-lookup">
+        <file name=".deps/{{languageCode}}.LR.lexd.hfst"/>
+      </program>
+    </pipeline>
+  </mode>
+if_lexd}}
 
   <mode name="{{languageCode}}-gener" install="yes">
     <pipeline>
