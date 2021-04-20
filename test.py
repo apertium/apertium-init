@@ -93,6 +93,16 @@ class TestInvalidModule(unittest.TestCase):
         shutil.rmtree(path)
 
 
+class TestInvalidPair(unittest.TestCase):
+    def test_no_giella_with_tagger_args_left(self):
+        with self.assertRaises(SystemExit):
+            apertium_init.main(['eng-spa', '--analyser1=giella', '--no-prob1'])
+
+    def test_no_giella_with_tagger_args_right(self):
+        with self.assertRaises(SystemExit):
+            apertium_init.main(['eng-spa', '--analyser2=giella', '--no-rlx2'])
+
+
 class TestLttoolboxModule(TestModule, unittest.TestCase):
     @classmethod
     def setUpClass(cls):

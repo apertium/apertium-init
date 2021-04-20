@@ -5,7 +5,7 @@ __copyright__ = 'Copyright 2014--2021, Sushain K. Cherivirala, Kevin Brubeck Unh
 __credits__ = ['Sushain K. Cherivirala', 'Kevin Brubeck Unhammer', 'Jonathan North Washington', 'Shardul Chiplunkar', 'Daniel Swanson']
 __license__ = 'GPLv3+'
 __status__ = 'Production'
-__version__ = '3.0.0'
+__version__ = '3.0.1'
 
 import argparse
 import base64
@@ -17,6 +17,7 @@ import shlex
 import stat
 import subprocess
 import sys
+import urllib.error
 import urllib.request
 import zlib
 
@@ -217,7 +218,8 @@ def main(cli_args=None):  # type: (Optional[List[str]]) -> None
     parser.add_argument('-r', '--rebuild', help='construct module or pair with different features using existing files',
                         action='store_true', default=False)
 
-    parser.add_argument('-a', '--analyser', help='analyser to use for all languages', choices=['lt', 'lttoolbox', 'hfst', 'lexd', 'giella'], default='lt')
+    parser.add_argument('-a', '--analyser', '--analysers', help='analyser to use for all languages', choices=['lt', 'lttoolbox', 'hfst', 'lexd', 'giella'],
+                        default='lt')
     parser.add_argument('--analyser1', '--a1', help='analyser to use for first language of pair', choices=['lt', 'lttoolbox', 'hfst', 'lexd', 'giella'],
                         default='lt')
     parser.add_argument('--analyser2', '--a2', help='analyser to use for second language of pair', choices=['lt', 'lttoolbox', 'hfst', 'lexd', 'giella'],
