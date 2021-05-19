@@ -277,10 +277,10 @@ $(PREFIX1).autoseq.bin: $(BASENAME).$(PREFIX1).lsx
 $(PREFIX2).autoseq.bin: $(BASENAME).$(PREFIX2).lsx
 	lsx-comp lr $< $@
 
-$(PREFIX1).revautoseq.bin: $(BASENAME).$(PREFIX1).lsx
+$(PREFIX1).revautoseq.bin: $(BASENAME).$(PREFIX2).lsx
 	lsx-comp rl $< $@
 
-$(PREFIX2).revautoseq.bin: $(BASENAME).$(PREFIX2).lsx
+$(PREFIX2).revautoseq.bin: $(BASENAME).$(PREFIX1).lsx
 	lsx-comp rl $< $@
 if_lsx}}
 

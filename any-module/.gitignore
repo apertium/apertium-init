@@ -3,6 +3,7 @@
 /*.gz
 /*.m4
 /*.pc
+/*.zhfst
 /.DS_Store
 /INSTALL
 /Makefile

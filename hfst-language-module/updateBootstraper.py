@@ -22,6 +22,7 @@ files = [
     'Makefile.am',
     'modes.xml',
     'corpus/{{languageCode}}.tagged',
+    'dev/editdist.py',
     'README',
     'apertium-{{languageCode}}.{{languageCode}}.udx',
     'MANIFEST.txt',
