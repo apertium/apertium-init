@@ -165,7 +165,7 @@ $(LANG1).zhfst: .deps/acceptor.default.hfst .deps/errmodel.default.hfst speller/
 	zip -j $@ $^
 
 .deps/editdist.default.att: speller/editdist.default.txt .deps/acceptor.default.hfst
-	python dev/editdist.py -v -s -d 1 -e '@0@' -i $(srcdir)/speller/editdist.default.txt -a .deps/acceptor.default.hfst > $@
+	apertium-editdist -v -s -d 1 -e '@0@' -i $(srcdir)/speller/editdist.default.txt -a .deps/acceptor.default.hfst > $@
 
 .deps/editdist.default.hfst: .deps/editdist.default.att
 	hfst-txt2fst -e '@0@' $< -o $@
