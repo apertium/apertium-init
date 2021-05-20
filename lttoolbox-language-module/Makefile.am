@@ -11,7 +11,6 @@ TARGETS_COMMON =			\
 	$(LANG1).autogen.bin		\
 	$(LANG1).autogen.att.gz		\
 	$(LANG1).autopgen.bin		\
-	$(LANG1).prob                   \
 	$(LANG1).rlx.bin
 
 # This include defines goals for install-modes, .deps/.d, autobil.prefixes and .mode files:
@@ -23,11 +22,11 @@ TARGETS_COMMON =			\
 
 $(LANG1).autogen.bin: $(BASENAME).$(LANG1).dix .deps/.d
 	apertium-validate-dictionary $<
-	lt-comp rl $< $@ $(BASENAME).$(LANG1).acx
+	lt-comp rl $< $@
 
 $(LANG1).automorf.bin: $(BASENAME).$(LANG1).dix
 	apertium-validate-dictionary $<
-	lt-comp lr $< $@ $(BASENAME).$(LANG1).acx
+	lt-comp lr $< $@ $(srcdir)/$(BASENAME).$(LANG1).acx
 
 $(LANG1).autogen.att.gz: $(LANG1).autogen.bin
 	lt-print $< | gzip -9 -c -n > $@
@@ -49,8 +48,8 @@ $(LANG1).rlx.bin: $(BASENAME).$(LANG1).rlx
 ## Unigram tagger
 ###############################################################################
 
-$(LANG1).prob: corpus/$(LANG1).tagged
-	apertium-tagger -s 0 -u 2 $@ $<
+#$(LANG1).prob: corpus/$(LANG1).tagged
+#	apertium-tagger -s 0 -u 2 $@ $<
 
 ###############################################################################
 ## Distribution
@@ -72,7 +71,11 @@ EXTRA_DIST=$(BASENAME).$(LANG1).dix		\
 apertium_{{languageCode}}dir=$(prefix)/share/apertium/$(BASENAME)/
 apertium_{{languageCode}}_srcdir=$(prefix)/share/apertium/$(BASENAME)/
 
-apertium_{{languageCode}}_DATA=$(TARGETS_COMMON)
+apertium_{{languageCode}}_DATA=$(TARGETS_COMMON) \
+	$(LANG1).prob \
+	$(BASENAME).$(LANG1).dix \
+	$(BASENAME).$(LANG1).rlx \
+	$(BASENAME).post-$(LANG1).dix
 
 pkgconfigdir = $(prefix)/share/pkgconfig
 pkgconfig_DATA = $(BASENAME).pc
@@ -80,9 +83,7 @@ pkgconfig_DATA = $(BASENAME).pc
 noinst_DATA=modes/$(LANG1)-morph.mode
 
 install-data-local: install-modes
-	$(INSTALL_DATA) $(BASENAME).$(LANG1).dix $(DESTDIR)$(apertium_{{languageCode}}_srcdir)
-	$(INSTALL_DATA) $(BASENAME).$(LANG1).rlx $(DESTDIR)$(apertium_{{languageCode}}_srcdir)
-	$(INSTALL_DATA) $(BASENAME).post-$(LANG1).dix $(DESTDIR)$(apertium_{{languageCode}}_srcdir)
+uninstall-local: uninstall-modes
 
 CLEANFILES = $(TARGETS_COMMON)
 clean-local:

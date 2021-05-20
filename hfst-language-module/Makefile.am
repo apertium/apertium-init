@@ -19,7 +19,9 @@ TARGETS_COMMON =			\
 # This include defines goals for install-modes, .deps/.d, autobil.prefixes and .mode files:
 @ap_include@
 
+{{ifnot_lexd
 LEXCFLAGS=-v --Werror
+ifnot_lexd}}
 
 ###############################################################################
 ## {{languageName}} transducer
@@ -158,17 +160,21 @@ $(LANG1).rlx.bin: $(BASENAME).$(LANG1).rlx
 ## Spell checker
 ###############################################################################
 
-$(LANG1).zhfst: .deps/acceptor.default.hfst .deps/errmodel.default.hfst
+$(LANG1).zhfst: .deps/acceptor.default.hfst .deps/errmodel.default.hfst speller/index.xml
 	rm -f $@
-	zip -j $@ .deps/acceptor.default.hfst .deps/errmodel.default.hfst speller/index.xml
+	zip -j $@ $^
 
-.deps/errmodel.default.hfst: .deps/words.default.hfst .deps/strings.default.hfst
-	python dev/editdist.py -v -s -d 1 -e '@0@' -i speller/editdist.default.txt -a .deps/acceptor.default.hfst \
-	| hfst-txt2fst  -e '@0@' -o .deps/editdist.default.hfst
-	hfst-disjunct .deps/strings.default.hfst .deps/editdist.default.hfst \
-	| hfst-minimise | hfst-repeat -f 1 -t 2 -o .deps/editstrings.default.hfst
-	hfst-disjunct .deps/words.default.hfst .deps/editstrings.default.hfst \
-	| hfst-fst2fst  -f olw -o $@
+.deps/editdist.default.att: speller/editdist.default.txt .deps/acceptor.default.hfst
+	apertium-editdist -v -s -d 1 -e '@0@' -i $(srcdir)/speller/editdist.default.txt -a .deps/acceptor.default.hfst > $@
+
+.deps/editdist.default.hfst: .deps/editdist.default.att
+	hfst-txt2fst -e '@0@' $< -o $@
+
+.deps/editstrings.default.hfst: .deps/strings.default.hfst .deps/editdist.default.hfst
+	hfst-disjunct $^ | hfst-minimise | hfst-repeat -f 1 -t 2 -o $@
+
+.deps/errmodel.default.hfst: .deps/words.default.hfst .deps/editstrings.default.hfst
+	hfst-disjunct $^ | hfst-fst2fst -f olw -o $@
 
 .deps/words.default.hfst: speller/words.default.txt
 	grep -v -e "^#" -e "^$$" $< | hfst-strings2fst  -j -o $@
@@ -181,22 +187,24 @@ $(LANG1).zhfst: .deps/acceptor.default.hfst .deps/errmodel.default.hfst
 	echo "?*;" | hfst-regexp2fst -S -o $@
 
 .deps/acceptor.default.hfst: $(LANG1).autogen.hfst
-	cat $< | hfst-fst2fst -t | hfst-project  --project=lower | hfst-minimise |hfst-fst2fst  -f olw -o $@
+	cat $< | hfst-fst2fst -t | hfst-project --project=lower | hfst-minimise | hfst-fst2fst  -f olw -o $@
 
 
 ###############################################################################
 ## Unigram tagger
 ###############################################################################
 
-$(LANG1).prob: corpus/$(LANG1).tagged
-	apertium-tagger -s 0 -u 2 $@ $<
+#$(LANG1).prob: corpus/$(LANG1).tagged
+#	apertium-tagger -s 0 -u 2 $@ $<
 
 ###############################################################################
 ## Distribution
 ###############################################################################
 
 EXTRA_DIST= \{{ifnot_lexd
-		$(BASENAME).$(LANG1).lexc	\
+		$(BASENAME).$(LANG1).lexc	\{{if_twoc
+		$(BASENAME).$(LANG1).twoc	\
+if_twoc}}
 ifnot_lexd}}{{if_lexd
 		$(BASENAME).$(LANG1).lexd	\
 if_lexd}}
@@ -222,7 +230,17 @@ if HAVE_HFSTOSPELL
 EXTRA_TARGETS += $(LANG1).zhfst
 endif # HAVE_HFSTOSPELL
 
-apertium_{{languageCode}}_DATA=$(TARGETS_COMMON) $(EXTRA_TARGETS)
+apertium_{{languageCode}}_DATA=$(TARGETS_COMMON) $(EXTRA_TARGETS) \{{ifnot_lexd
+	$(BASENAME).$(LANG1).lexc	\{{if_twoc
+	$(BASENAME).$(LANG1).twoc	\
+if_twoc}}
+ifnot_lexd}}{{if_lexd
+	$(BASENAME).$(LANG1).lexd	\
+if_lexd}}
+	$(BASENAME).$(LANG1).twol	\
+	$(BASENAME).$(LANG1).rlx	\
+	$(BASENAME).post-$(LANG1).dix	\
+	$(LANG1).prob
 
 pkgconfigdir = $(prefix)/share/pkgconfig
 pkgconfig_DATA = $(BASENAME).pc
@@ -230,16 +248,12 @@ pkgconfig_DATA = $(BASENAME).pc
 noinst_DATA=modes/$(LANG1)-morph.mode
 
 install-data-local: install-modes
-	$(INSTALL_DATA) $(BASENAME).$(LANG1).lexc $(DESTDIR)$(apertium_{{languageCode}}_srcdir)
-	$(INSTALL_DATA) $(BASENAME).$(LANG1).twol $(DESTDIR)$(apertium_{{languageCode}}_srcdir)
-	$(INSTALL_DATA) $(BASENAME).$(LANG1).rlx $(DESTDIR)$(apertium_{{languageCode}}_srcdir)
-	$(INSTALL_DATA) $(BASENAME).post-$(LANG1).dix $(DESTDIR)$(apertium_{{languageCode}}_srcdir)
 
 ###############################################################################
 ## Cleanup
 ###############################################################################
 
-CLEANFILES = $(TARGETS_COMMON)
+CLEANFILES = $(TARGETS_COMMON) $(EXTRA_TARGETS)
 clean-local:
 	-rm -rf .deps modes
 
