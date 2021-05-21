@@ -21,3 +21,7 @@ modes.xml
 corpus/{{languageCode}}.tagged
 apertium-{{languageCode}}.{{languageCode}}.udx
 README
+speller/index.xml
+speller/editdist.default.txt
+speller/strings.default.txt
+speller/words.default.txt

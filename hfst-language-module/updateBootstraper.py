@@ -24,6 +24,10 @@ files = [
     'corpus/{{languageCode}}.tagged',
     'README',
     'apertium-{{languageCode}}.{{languageCode}}.udx',
+    'speller/index.xml',
+    'speller/editdist.default.txt',
+    'speller/strings.default.txt',
+    'speller/words.default.txt',
     'MANIFEST.txt',
 ]
 

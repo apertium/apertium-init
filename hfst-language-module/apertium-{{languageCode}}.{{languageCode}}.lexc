@@ -6,6 +6,7 @@ Multichar_Symbols
 %<n%>      ! Noun
 %<v%>      ! Verb
 %<adj%>    ! Adjective
+%<num%>    ! Numeral
 
 %<sent%>   ! Sentence-ending punctuation
 %<guio%>   ! Hyphen
@@ -18,11 +19,11 @@ Multichar_Symbols
 %<rpar%>   ! Right parenthesis
 
 ! Number morphology
-%<pl%>  ! Plural
-%<sg%>  ! Singular
+%<pl%>     ! Plural
+%<sg%>     ! Singular
 
 ! Other symbols
-%>      ! Morpheme boundary
+%>         ! Morpheme boundary
 {{if_twoc
 ! Path features
 %[%-sg%]
@@ -39,6 +40,7 @@ if_twoc}}
 LEXICON Root
 
 NounRoot ;
+Numeral ;
 Punctuation ;
 
 
@@ -55,6 +57,13 @@ LEXICON RegNounInfl
 LEXICON NounRoot
 
 house:house RegNounInfl ; ! A noun
+
+
+LEXICON Numeral
+<[ %0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 ]+> NumInfl ;
+
+LEXICON NumInfl
+%<num%>: # ;
 
 
 LEXICON Punctuation
