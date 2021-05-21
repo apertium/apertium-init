@@ -155,16 +155,6 @@ class TestRebuildModule(TestModule, unittest.TestCase):
         apertium_init.main([cls.name, '-a=hfst', '-r', '--with-twoc'])
 
 
-class TestSpeller(TestModule, unittest.TestCase):
-    @classmethod
-    def setUpClass(cls):
-        apertium_init.main([cls.name, '--analyser=hfst'])
-
-    def test_builds(self):
-        autogen(self.path, ['--enable-ospell'])
-        build(self.path)
-
-
 class TestPair(TestModule, unittest.TestCase):
     name = 'eng-cat'
     path = make_path(name)
