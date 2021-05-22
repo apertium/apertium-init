@@ -11,7 +11,7 @@ PKG_CHECK_MODULES(LEXD, lexd >= 0.0.1)
 if_lexd}}
 
 PKG_CHECK_MODULES(HFSTOSPELL, hfstospell >= 0.2, [], [
-      AC_MESSAGE_NOTICE([You will need hfst-ospell installed to used the compiled speller])
+      AC_MSG_NOTICE([You will need hfst-ospell installed to used the compiled speller])
 ])
 
 AP_MKINCLUDE
