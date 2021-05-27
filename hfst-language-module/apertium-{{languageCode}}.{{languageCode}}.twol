@@ -14,9 +14,9 @@ Rules
 i:0 <=> Vow %{VSUF%}:0 _ [ m | n ] ;
 
 ! Resources:
-! http://wiki.apertium.org/wiki/Starting_a_new_language_with_HFST#Enter_twol
+! https://wiki.apertium.org/wiki/Starting_a_new_language_with_HFST#Enter_twol
 ! https://kitwiki.csc.fi/twiki/bin/view/KitWiki/HfstHome
 ! https://github.com/hfst/
-! http://wiki.apertium.org/wiki/Twol
-! http://wiki.apertium.org/wiki/Hfst
+! https://wiki.apertium.org/wiki/Twol
+! https://wiki.apertium.org/wiki/Hfst
 

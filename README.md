@@ -25,7 +25,7 @@ search for `TODO` in the generated module to add example sentences, etc.
 ### Monolingual Lttoolbox module
 
 To bootstrap a monolingual language module `apertium-foo` using the
-[lttoolbox](http://wiki.apertium.org/wiki/Lttoolbox) formalism,
+[lttoolbox](https://wiki.apertium.org/wiki/Lttoolbox) formalism,
 
 ```bash
 $ python3 apertium-init.py foo
@@ -40,7 +40,7 @@ $ python3 apertium-init.py foo && ( cd apertium-foo/ && make )
 ### Monlingual HFST module
 
 To bootstrap a monolingual language module `apertium-foo` using the
-[HFST](http://wiki.apertium.org/wiki/HFST) formalism,
+[HFST](https://wiki.apertium.org/wiki/HFST) formalism,
 
 ```bash
 $ python3 apertium-init.py foo --analyser=hfst
@@ -68,7 +68,7 @@ $ python3 apertium-init.py foo --analyser=hfst --with-spellrelax
 
 To bootstrap a bilingual language module `apertium-foo-bar` where the
 monolingual packages `apertium-foo` and `apertium-bar` both use the
-[lttoolbox](http://wiki.apertium.org/wiki/Lttoolbox) formalism,
+[lttoolbox](https://wiki.apertium.org/wiki/Lttoolbox) formalism,
 
 ```bash
 $ python3 apertium-init.py foo-bar
@@ -84,8 +84,8 @@ $ python3 apertium-init.py foo-bar && ( cd apertium-foo-bar/ && ./autogen.sh && 
 
 To bootstrap a bilingual language module `apertium-foo-bar` where the
 monolingual packages `apertium-foo` and `apertium-bar` use the
-[HFST](http://wiki.apertium.org/wiki/Lttoolbox) formalism and/or the
-[lttoolbox](http://wiki.apertium.org/wiki/Lttoolbox) formalism,
+[HFST](https://wiki.apertium.org/wiki/Lttoolbox) formalism and/or the
+[lttoolbox](https://wiki.apertium.org/wiki/Lttoolbox) formalism,
 
 ```bash
 $ python3 apertium-init.py foo-bar --analysers=hfst # Both foo and bar use HFST
@@ -113,7 +113,7 @@ $ python3 apertium-init.py foo-bar --no-prob1 --no-prob2 # Neither foo nor bar h
 ```
 
 To bootstrap a bilingual module when one or both of the monolingual modules
-don't use [CG](http://wiki.apertium.org/wiki/Constraint_Grammar),
+don't use [CG](https://wiki.apertium.org/wiki/Constraint_Grammar),
 
 ```bash
 $ python3 apertium-init.py foo-bar --no-rlx1           # Only foo doesn't have .rlx
