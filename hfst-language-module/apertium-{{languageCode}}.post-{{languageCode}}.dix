@@ -27,7 +27,7 @@
   </pardefs>
 
   <section id="main" type="standard">
-    <!-- Define entries within <e> here. See http://wiki.apertium.org/wiki/Post-generator for more information.-->
+    <!-- Define entries within <e> here. See https://wiki.apertium.org/wiki/Post-generator for more information.-->
     <e>
       <p>
         <l><a/>a<b/></l>
