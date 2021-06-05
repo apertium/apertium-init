@@ -98,6 +98,13 @@
 
   <pardefs>
     <!-- Define paradigms within <pardef> here. -->
+    <pardef n="numeral">
+      <e><re>[0123456789]+</re></e>
+    </pardef>
+    <pardef n="number">
+      <e><par n="numeral"/><p><l></l><r><s n="num"/></r></p></e>
+    </pardef>
+
     <pardef n="house__n">
       <e><p><l></l><r><s n="n"/><s n="attr"/></r></p></e>
       <e><p><l></l><r><s n="n"/><s n="sg"/></r></p></e>
@@ -111,6 +118,7 @@
   </section>
 
   <section id="final" type="inconditional">
+    <e><par n="number"/></e>
     <e><re>[.\?;:!…¿¶]</re><p><l></l><r><s n="sent"/></r></p></e>
     <e><re>,</re>          <p><l></l><r><s n="cm"/></r></p></e>
   </section>

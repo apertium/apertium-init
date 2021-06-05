@@ -4,6 +4,7 @@
 # <n>      # Noun
 # <v>      # Verb
 # <adj>    # Adjective
+# <num>    # Numeral
 
 # <sent>   # Sentence-ending punctuation
 # <guio>   # Hyphen
@@ -16,11 +17,11 @@
 # <rpar>   # Right parenthesis
 
 # Number morphology
-# <pl>  # Plural
-# <sg>  # Singular
+# <pl>     # Plural
+# <sg>     # Singular
 
 # Other symbols
-# >      # Morpheme boundary
+# >        # Morpheme boundary
 
 ###############################################################################
 ###                       M O R P H O T A C T I C S                         ###
@@ -28,6 +29,7 @@
 
 PATTERNS
 NounRoot RegNounInfl
+Number
 Punctuation
 
 
@@ -44,6 +46,22 @@ LEXICON RegNounInfl
 LEXICON NounRoot
 
 house:house   # A noun
+
+
+PATTERN Number
+Numeral+ [<num>:]
+
+LEXICON Numeral
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
 
 
 LEXICON Punctuation

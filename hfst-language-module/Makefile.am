@@ -13,8 +13,9 @@ TARGETS_COMMON =			\
 	$(LANG1).autogen.bin		\
 	$(LANG1).autogen.att.gz		\
 	$(LANG1).autopgen.bin		\
-	$(LANG1).prob                   \
-	$(LANG1).rlx.bin
+	$(LANG1).prob               \
+	$(LANG1).rlx.bin            \
+	$(LANG1).zhfst
 
 # This include defines goals for install-modes, .deps/.d, autobil.prefixes and .mode files:
 @ap_include@
@@ -224,13 +225,7 @@ if_lexd}}
 apertium_{{languageCode}}dir=$(prefix)/share/apertium/$(BASENAME)/
 apertium_{{languageCode}}_srcdir=$(prefix)/share/apertium/$(BASENAME)/
 
-EXTRA_TARGETS=
-
-if HAVE_HFSTOSPELL
-EXTRA_TARGETS += $(LANG1).zhfst
-endif # HAVE_HFSTOSPELL
-
-apertium_{{languageCode}}_DATA=$(TARGETS_COMMON) $(EXTRA_TARGETS) \{{ifnot_lexd
+apertium_{{languageCode}}_DATA=$(TARGETS_COMMON) \{{ifnot_lexd
 	$(BASENAME).$(LANG1).lexc	\{{if_twoc
 	$(BASENAME).$(LANG1).twoc	\
 if_twoc}}
@@ -253,7 +248,7 @@ install-data-local: install-modes
 ## Cleanup
 ###############################################################################
 
-CLEANFILES = $(TARGETS_COMMON) $(EXTRA_TARGETS)
+CLEANFILES = $(TARGETS_COMMON)
 clean-local:
 	-rm -rf .deps modes
 

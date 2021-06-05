@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hfstspeller dtdversion="1.0" hfstversion="3">
+  <info>
+    <locale>{{languageCode}}</locale>
+    <!-- TODO: locale may need to be changed to 2-letter ISO 639-1 code -->
+    <title>Apertium morphological analyser-based speller ({{languageName}})</title>
+    <description>
+      A spellchecker for {{languageName}}.
+    </description>
+    <version vcsrev="GT_REVISION">@APERTIUM_AUTO_VERSION@</version>
+    <date>DATE</date>
+    <producer>Apertium contributors</producer>
+    <contact email="{{email}}"
+        website="http://apertium.org"/>
+  </info>
+  <acceptor type="general" id="acceptor.default.hfst">
+    <title>Apertium dictionary ({{languageName}})</title>
+    <description>
+        Apertium dictionary for {{languageName}} compiled for HFST.
+    </description>
+  </acceptor>
+  <errmodel id="errmodel.default.hfst">
+    <title>Levenshtein edit distance transducer</title>
+    <description>
+        Correction model for keyboard misstrokes, at most 2 per word.
+    </description>
+        <type type="default"/>
+        <model>errmodel.default.hfst</model>
+    </errmodel>
+</hfstspeller>
