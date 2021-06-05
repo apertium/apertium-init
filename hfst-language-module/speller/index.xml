@@ -7,11 +7,11 @@
     <description>
       A spellchecker for {{languageName}}.
     </description>
-    <version vcsrev="GT_REVISION">GT_VERSION</version>
+    <version vcsrev="GT_REVISION">@APERTIUM_AUTO_VERSION@</version>
     <date>DATE</date>
     <producer>Apertium contributors</producer>
-    <contact email="feedback@divvun.no"
-        website="http://divvun.no"/>
+    <contact email="{{email}}"
+        website="http://apertium.org"/>
   </info>
   <acceptor type="general" id="acceptor.default.hfst">
     <title>Apertium dictionary ({{languageName}})</title>
