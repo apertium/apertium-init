@@ -1,0 +1,10 @@
+{
+    "analysis": {
+        "input": "analysis-input.txt",
+        "mode": "{{languageCode}}-disam"
+    },
+    "generation": {
+        "input": "generation-input.txt",
+        "mode": "{{languageCode}}-gener"
+    }
+}

@@ -14,7 +14,7 @@ install:
   - make
 before_script:
   - wget http://apertium.projectjj.com/apt/install-nightly.sh -O - | sudo bash
-  - sudo apt-get -f --allow-unauthenticated install apertium-all-dev
+  - sudo apt-get -f --allow-unauthenticated install apertium-all-dev apertium-regtest
 script:
   - make test
 after_success:

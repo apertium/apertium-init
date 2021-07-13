@@ -29,6 +29,15 @@ def build(path):
         raise
 
 
+def test(path):
+    try:
+        # use -i so it doesn't immediately fail due to lack of expected values
+        subprocess.check_output(['apertium-regtest', 'test', '-i'], cwd=path, stderr=subprocess.STDOUT, universal_newlines=True)
+    except subprocess.CalledProcessError as error:
+        print(error.output)
+        raise
+
+
 class TestModule:
     name = 'eng'
     path = make_path(name)
@@ -108,11 +117,17 @@ class TestLttoolboxModule(TestModule, unittest.TestCase):
     def setUpClass(cls):
         apertium_init.main([cls.name])
 
+    def test_test(self):
+        test(self.path)
+
 
 class TestHfstModule(TestModule, unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         apertium_init.main([cls.name, '--analyser=hfst'])
+
+    def test_test(self):
+        test(self.path)
 
 
 class TestTwocModule(TestModule, unittest.TestCase):
@@ -196,7 +211,8 @@ class TestPair(TestModule, unittest.TestCase):
 
 
 class TestDefaultPair(TestPair, unittest.TestCase):
-    pass
+    def test_test(self):
+        test(self.path)
 
 
 class TestLttoolboxPair(TestPair, unittest.TestCase):

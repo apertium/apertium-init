@@ -28,6 +28,9 @@ files = [
     'speller/editdist.default.txt',
     'speller/strings.default.txt',
     'speller/words.default.txt',
+    'test/tests.json',
+    'test/analysis-input.txt',
+    'test/generation-input.txt',
     'MANIFEST.txt',
 ]
 
