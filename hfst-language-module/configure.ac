@@ -14,6 +14,9 @@ PKG_CHECK_MODULES(HFSTOSPELL, hfstospell >= 0.2, [], [
       AC_MSG_NOTICE([You will need hfst-ospell installed to use the compiled speller])
 ])
 
+PKG_CHECK_MODULES(REGTEST, apertium-regtest >= 0.0.1, [],
+                  [AC_MSG_WARN([Running tests requires apertium-regtest])])
+
 AP_MKINCLUDE
 
 AC_OUTPUT([Makefile apertium-{{languageCode}}.pc])
