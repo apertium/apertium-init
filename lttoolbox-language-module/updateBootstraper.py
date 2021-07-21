@@ -21,6 +21,9 @@ files = [
     'corpus/{{languageCode}}.tagged',
     'apertium-{{languageCode}}.{{languageCode}}.udx',
     'README',
+    'test/tests.json',
+    'test/analysis-input.txt',
+    'test/generation-input.txt',
 ]
 
 if __name__ == '__main__':

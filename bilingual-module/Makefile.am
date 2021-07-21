@@ -386,6 +386,7 @@ noinst_DATA=modes/$(PREFIX1).mode \
 	.deps/$(LANG2).automorf.bin
 
 install-data-local: install-modes
+uninstall-local: uninstall-modes
 
 ###############################################################################
 ## Cleanup
@@ -400,10 +401,4 @@ clean-local:
 ###############################################################################
 
 test: all
-	echo "house" | apertium -d . -f line {{languageCode1}}-{{languageCode2}} | tee .test-mt
-	@echo "house" > .test-ref
-	@diff .test-ref .test-mt
-	echo "house" | apertium -d . -f line {{languageCode2}}-{{languageCode1}} | tee .test-mt
-	@echo "house" > .test-ref
-	@diff .test-ref .test-mt
-	@rm .test-ref .test-mt
+	apertium-regtest test

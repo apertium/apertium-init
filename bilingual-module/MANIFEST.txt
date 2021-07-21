@@ -28,3 +28,6 @@ configure.ac
 {{if_giella
 gt2apertium.cg3r
 if_giella}}
+test/tests.json
+test/{{languageCode1}}-{{languageCode2}}-input.txt
+test/{{languageCode2}}-{{languageCode1}}-input.txt

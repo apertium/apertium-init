@@ -1,0 +1,10 @@
+{
+    "{{languageCode1}}-{{languageCode2}}": {
+        "input": "{{languageCode1}}-{{languageCode2}}-input.txt",
+        "mode": "{{languageCode1}}-{{languageCode2}}"
+    },
+    "{{languageCode2}}-{{languageCode1}}": {
+        "input": "{{languageCode2}}-{{languageCode1}}-input.txt",
+        "mode": "{{languageCode2}}-{{languageCode1}}"
+    }
+}

@@ -39,6 +39,9 @@ if_giella2}}{{ifnot_giella2
 AP_CHECK_LING([2], [apertium-{{languageCode2}}])
 ifnot_giella2}}
 
+PKG_CHECK_MODULES(REGTEST, apertium-regtest >= 0.0.1, [],
+                  [AC_MSG_WARN([Running tests requires apertium-regtest])])
+
 AP_MKINCLUDE
 
 AC_OUTPUT([Makefile])

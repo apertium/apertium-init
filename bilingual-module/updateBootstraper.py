@@ -29,6 +29,9 @@ files = [
     'README',
     'configure.ac',
     'gt2apertium.cg3r',
+    'test/tests.json',
+    'test/{{languageCode1}}-{{languageCode2}}-input.txt',
+    'test/{{languageCode2}}-{{languageCode1}}-input.txt',
     'MANIFEST.txt',
 ]
 
