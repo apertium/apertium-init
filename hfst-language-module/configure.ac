@@ -1,6 +1,6 @@
 AC_PREREQ(2.52)
 
-AC_INIT([Apertium {{languageName}}], [0.1.0], [{{email}}], [apertium-{{languageCode}}], [https://wiki.apertium.org/wiki/Apertium-{{languageCode}}])
+AC_INIT([Apertium {{languageName}}], [0.1.0], [https://github.com/apertium/apertium-{{languageCode}}/issues], [apertium-{{languageCode}}], [https://wiki.apertium.org/wiki/Apertium-{{languageCode}}])
 AM_INIT_AUTOMAKE
 AC_PROG_AWK
 
@@ -19,4 +19,5 @@ PKG_CHECK_MODULES(REGTEST, apertium-regtest >= 0.0.1, [],
 
 AP_MKINCLUDE
 
-AC_OUTPUT([Makefile apertium-{{languageCode}}.pc])
+AC_CONFIG_FILES([Makefile apertium-{{languageCode}}.pc])
+AC_OUTPUT
