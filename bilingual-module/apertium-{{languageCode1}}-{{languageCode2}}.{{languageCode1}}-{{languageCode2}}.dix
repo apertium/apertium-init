@@ -97,7 +97,9 @@
 
    <section id="main" type="standard">
       <!-- Define entries within <e> here. -->
-      <e><p><l>house<s n="n"/></l><r>casa<s n="n"/><s n="f"/></r></p></e>
+      <!-- example:
+           <e><p><l>house<s n="n"/></l><r>casa<s n="n"/><s n="f"/></r></p></e>
+      -->
 
       <e><re>[.\?;:!…¿¶]</re><p><l><s n="sent"/></l><r><s n="sent"/></r></p></e>
       <e><re>,</re>          <p><l><s n="cm"/></l>  <r><s n="cm"/></r></p></e>

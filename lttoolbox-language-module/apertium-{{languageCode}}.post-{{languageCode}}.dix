@@ -28,6 +28,7 @@
 
   <section id="main" type="standard">
     <!-- Define entries within <e> here. See https://wiki.apertium.org/wiki/Post-generator for more information.-->
+    <!-- Example rule: change "a" to "an" before vowels
     <e>
       <p>
         <l><a/>a<b/></l>
@@ -35,6 +36,7 @@
       </p>
       <par n="vocals"/>
     </e>
+    -->
   </section>
 </dictionary>
 

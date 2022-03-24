@@ -37,7 +37,10 @@ det: (if (1.det_type = def or 1.det_type = ind)
 !! REDUCTION RULES
 !!!!!!!!!!!!!!!
 
-NP -> n.$number adj { 2[gender=1.gender, number=1.number] _ 1 } ;
+! Example rule:
+! Input:  ^ראש<n><m><sg>/head<n><f><sg>$ ^גדול<adj><m><sg>/big<adj><m><sg>$
+! Output: ^big<adj><f><sg>$ ^head<n><f><sg>$
+! NP -> n.$number adj { 2[gender=1.gender, number=1.number] _ 1 } ;
 
 ! Resources:
 ! https://wiki.apertium.org/wiki/Apertium-recursive

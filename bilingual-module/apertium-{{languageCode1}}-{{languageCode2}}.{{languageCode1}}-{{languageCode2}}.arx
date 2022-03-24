@@ -87,6 +87,7 @@
 
 	<section-markables>
 
+      <!-- example rule, gives a -1 score to any antecedent that is part of a PP
 		<markable n="PP">
 			<pattern>
 				<pattern-item n="prep"/>
@@ -162,58 +163,8 @@
 				<pattern-item n="np" head="t"/>
 			</pattern>
 
-			<score n="-1"/> <!-- This gives a -1 score to any antecedent that is part of a PP -->
-		</markable>
-
-		<markable n="IP">
-			<pattern>
-				<pattern-item n="ind"/>
-				<pattern-item n="nom"/>
-			</pattern>
-			<pattern>
-				<pattern-item n="ind"/>
-				<pattern-item n="adj"/>
-				<pattern-item n="nom"/>
-			</pattern>
-
-			<score n="-1"/> <!-- This gives a -1 score to any antecedent that is part of a Indefinite Noun Phrase -->
-		</markable>
-
-		<markable n="PNP">
-			<pattern>
-				<pattern-item n="np"/>
-			</pattern>
-
-			<score n="1"/> <!-- This gives a +1 score to any antecedent that is part of a Proper Noun -->
-		</markable>
-
-		<markable n="AdNP"> <!-- NP that is being addressed , for example, "Madam President, ..."-->
-			<pattern>
-				<pattern-item n="nom"/>
-				<pattern-item n="com"/>
-			</pattern>
-
-			<pattern>
-				<pattern-item n="nom"/>
-				<pattern-item n="nom"/>
-				<pattern-item n="com"/>
-			</pattern>
-
-			<score n="-2"/>
-		</markable>
-
-
-		<markable n="Cop">
-			<pattern>
-				<pattern-item n="nom"/>
-				<pattern-item n="cop"/>
-				<pattern-item n="anaphor"/>
-			</pattern>
-
-			<score n="-5" parameter="detpos"/>
-		</markable>
-
-		<!-- Noun, CopulaVerb, Anaphor - in this order, would mean that the noun can't be its antecedent -->
+			<score n="-1"/>
+		</markable> -->
 
 	</section-markables>
 
