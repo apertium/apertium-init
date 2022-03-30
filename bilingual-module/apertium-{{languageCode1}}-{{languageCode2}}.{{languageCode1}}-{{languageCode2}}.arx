@@ -87,6 +87,21 @@
 
 	<section-markables>
 
+		<markable n="AdNP"> <!-- NP that is being addressed , for example, "Senyora presidenta, ..."-->
+			<pattern>
+				<pattern-item n="nom"/>
+				<pattern-item n="com"/>
+			</pattern>
+
+			<pattern>
+				<pattern-item n="nom"/>
+				<pattern-item n="nom"/>
+				<pattern-item n="com"/>
+			</pattern>
+
+			<score n="-2"/>
+		</markable>
+
       <!-- example rule, gives a -1 score to any antecedent that is part of a PP
 		<markable n="PP">
 			<pattern>

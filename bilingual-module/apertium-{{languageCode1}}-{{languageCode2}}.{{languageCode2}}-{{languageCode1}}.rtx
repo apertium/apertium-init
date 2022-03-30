@@ -38,8 +38,8 @@ det: (if (1.det_type = def or 1.det_type = ind)
 !!!!!!!!!!!!!!!
 
 ! Example rule:
-! Input:  ^ראש<n><m><sg>/head<n><f><sg>$ ^גדול<adj><m><sg>/big<adj><m><sg>$
-! Output: ^big<adj><f><sg>$ ^head<n><f><sg>$
+! Input:  ^ראש<n><m><sg>/hovud<n><nt><sg>$ ^גדול<adj><m><sg>/stor<adj><nt><sg>$
+! Output: ^stor<adj><nt><sg>$ ^hovud<n><nt><sg>$
 ! NP -> n.$number adj { 2[gender=1.gender, number=1.number] _ 1 } ;
 
 ! Resources:
