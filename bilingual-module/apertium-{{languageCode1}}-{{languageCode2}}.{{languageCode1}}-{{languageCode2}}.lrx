@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<rules>
+<rules glob="star">
   <!-- example:
     This rule chooses "energía" as the translation of "power" when it is preceded by "wind".
     Add your own rules within <rule> here, using the resources below as a guide
@@ -19,4 +19,3 @@ Resources:
     https://wiki.apertium.org/wiki/Lexical_selection
     https://wiki.apertium.org/wiki/Learning_rules_from_parallel_and_non-parallel_corpora
 -->
-
