@@ -39,24 +39,26 @@ if_twoc}}
 
 LEXICON Root
 
-NounRoot ;
+!! List lexicons here
+!! Example:
+! NounRoot ;
+
 Numeral ;
 Punctuation ;
 
-
-LEXICON RegNounInfl
-
-%<n%>%<sg%>: # ;
-%<n%>%<pl%>:%>s # ;
+! Example noun inflection
+! LEXICON RegNounInfl
+! %<n%>%<sg%>: # ;
+! %<n%>%<pl%>:%>s # ;
 
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 !!!                          L E X I C O N                                  !!!
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-LEXICON NounRoot
-
-house:house RegNounInfl ; ! A noun
+! Example lexical entries
+! LEXICON NounRoot
+! house:house RegNounInfl ; ! A noun
 
 
 LEXICON Numeral

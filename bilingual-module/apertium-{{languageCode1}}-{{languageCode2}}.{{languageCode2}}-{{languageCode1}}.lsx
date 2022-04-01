@@ -44,8 +44,6 @@
       ^take<vblex>...$ [noun phrase] ^out<adv>$
       with
       ^take# out<vblex>...$ [noun phrase]
-  -->
-
 		<e lm="take out" c="sacar">
 			<p>
 				<l>take<s n="vblex"/></l>
@@ -58,6 +56,8 @@
 				<r></r>
 			</p>
 		</e>
+  -->
+
 	</section>
 </dictionary>
 
