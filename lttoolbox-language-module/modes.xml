@@ -40,5 +40,13 @@
     </pipeline>
   </mode>
 
+  <mode name="{{languageCode}}-paradigm" install="yes">
+    <pipeline>
+      <program name="lt-paradigm -s">
+        <file name="{{languageCode}}.autogen.bin"/>
+      </program>
+    </pipeline>
+  </mode>
+
 </modes>
 
