@@ -12,7 +12,7 @@ PKG_CHECK_MODULES(HFST, hfst >= 3.16.0)
 if_hfst}}
 
 PKG_CHECK_MODULES(CG3, cg3 >= 1.3.6)
-PKG_CHECK_MODULES(APERTIUM_LEX_TOOLS, apertium-lex-tools >= 0.3.1)
+PKG_CHECK_MODULES(APERTIUM_LEX_TOOLS, apertium-lex-tools >= 0.4.0)
 {{if_lsx
 PKG_CHECK_MODULES(APERTIUM_SEPARABLE, apertium-separable >= 0.5.0)
 if_lsx}}
