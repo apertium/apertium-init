@@ -111,7 +111,7 @@ if_lsx}}
 
 {{languageCode1}}-{{languageCode2}}: $(TARGETS_DIR1) $(TRIMMED_TARGETS_DIR1)
 {{languageCode2}}-{{languageCode1}}: $(TARGETS_DIR2) $(TRIMMED_TARGETS_DIR2)
-untrimmed: $(TARGETS_DIR1) $(UNTRIMMED_TARGETS_DIR2) $(TARGETS_DIR2) $(UNTRIMMED_TARGETS_DIR2)
+untrimmed: $(TARGETS_DIR1) $(UNTRIMMED_TARGETS_DIR1) $(TARGETS_DIR2) $(UNTRIMMED_TARGETS_DIR2)
 
 # This include defines goals for install-modes, .deps/.d, autobil.prefixes and .mode files:
 @ap_include@
