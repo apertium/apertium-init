@@ -13,7 +13,7 @@ TARGETS_COMMON =			\
 	$(LANG1).autopgen.bin		\
 	$(LANG1).rlx.bin
 
-if HAVE_HFST
+if ENABLE_SPELLER
 TARGETS_COMMON += $(LANG1).zhfst
 endif
 

@@ -13,8 +13,11 @@ TARGETS_COMMON =			\
 	$(LANG1).autogen.bin		\
 	$(LANG1).autogen.att.gz		\
 	$(LANG1).autopgen.bin		\
-	$(LANG1).rlx.bin            \
-	$(LANG1).zhfst
+	$(LANG1).rlx.bin
+
+if ENABLE_SPELLER
+TARGETS_COMMON += $(LANG1).zhfst
+endif
 
 # This include defines goals for install-modes, .deps/.d, autobil.prefixes and .mode files:
 @ap_include@
