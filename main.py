@@ -70,13 +70,13 @@ def init_pair(args, email):  # type: (argparse.Namespace, str) -> Tuple[Dict[str
     conditionals = []
     if args.analyser == 'giella' or args.analyser1 == 'giella':
         conditionals.append('giella1')
-    elif args.analyser in ['hfst', 'lexd'] or args.analyser1 in ['hfst', 'lexd']:
+    elif args.analyser in ['hfst', 'lexd', 'lexc'] or args.analyser1 in ['hfst', 'lexd', 'lexc']:
         conditionals.append('hfst1')
     else:
         conditionals.append('lttoolbox1')
     if args.analyser == 'giella' or args.analyser2 == 'giella':
         conditionals.append('giella2')
-    elif args.analyser in ['hfst', 'lexd'] or args.analyser2 in ['hfst', 'lexd']:
+    elif args.analyser in ['hfst', 'lexd', 'lexc'] or args.analyser2 in ['hfst', 'lexd', 'lexc']:
         conditionals.append('hfst2')
     else:
         conditionals.append('lttoolbox2')
@@ -118,7 +118,7 @@ def init_lang_module(args, email):  # type: (argparse.Namespace, str) -> Tuple[D
 
     if args.analyser in ['lt', 'lttoolbox']:
         files = dict(lttoolbox_language_module_files, **any_module_files)
-    elif args.analyser in ['hfst', 'lexd']:
+    elif args.analyser in ['hfst', 'lexd', 'lexc']:
         if args.analyser == 'lexd':
             conditionals.append('lexd')
         files = dict(hfst_language_module_files, **any_module_files)
@@ -218,11 +218,11 @@ def main(cli_args=None):  # type: (Optional[List[str]]) -> None
     parser.add_argument('-r', '--rebuild', help='construct module or pair with different features using existing files',
                         action='store_true', default=False)
 
-    parser.add_argument('-a', '--analyser', '--analysers', help='analyser to use for all languages', choices=['lt', 'lttoolbox', 'hfst', 'lexd', 'giella'],
+    parser.add_argument('-a', '--analyser', '--analysers', help='analyser to use for all languages', choices=['lt', 'lttoolbox', 'hfst', 'lexd', 'giella', 'lexc'],
                         default='lt')
-    parser.add_argument('--analyser1', '--a1', help='analyser to use for first language of pair', choices=['lt', 'lttoolbox', 'hfst', 'lexd', 'giella'],
+    parser.add_argument('--analyser1', '--a1', help='analyser to use for first language of pair', choices=['lt', 'lttoolbox', 'hfst', 'lexd', 'giella', 'lexc'],
                         default='lt')
-    parser.add_argument('--analyser2', '--a2', help='analyser to use for second language of pair', choices=['lt', 'lttoolbox', 'hfst', 'lexd', 'giella'],
+    parser.add_argument('--analyser2', '--a2', help='analyser to use for second language of pair', choices=['lt', 'lttoolbox', 'hfst', 'lexd', 'giella', 'lexc'],
                         default='lt')
 
     parser.add_argument('-t', '--transfer', help='structural transfer module to use', choices=['chunk', 'rtx'], default='chunk')

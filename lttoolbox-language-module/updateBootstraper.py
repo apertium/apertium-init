@@ -24,6 +24,10 @@ files = [
     'test/tests.json',
     'test/analysis-input.txt',
     'test/generation-input.txt',
+    'speller/index.xml',
+    'speller/editdist.default.txt',
+    'speller/strings.default.txt',
+    'speller/words.default.txt',
 ]
 
 if __name__ == '__main__':
