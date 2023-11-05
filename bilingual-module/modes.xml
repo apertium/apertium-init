@@ -6,7 +6,7 @@
   <mode name="{{languageCode1}}-{{languageCode2}}" install="yes" gendebug="yes">
     <pipeline>
 {{if_giella1
-      <program name="hfst-proc --weight-classes 1 -w -e">
+      <program name="hfst-proc -w -e">
 	<file name="{{languageCode1}}-{{languageCode2}}.automorf.hfst"/>
       </program>
       <program name="cg-proc -w">
@@ -98,7 +98,7 @@ if_pgen2}}
   <mode name="{{languageCode2}}-{{languageCode1}}" install="yes" gendebug="yes">
     <pipeline>
 {{if_giella2
-      <program name="hfst-proc --weight-classes 1 -w -e">
+      <program name="hfst-proc -w -e">
 	<file name="{{languageCode2}}-{{languageCode1}}.automorf.hfst"/>
       </program>
       <program name="cg-proc -w">
