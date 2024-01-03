@@ -20,6 +20,15 @@ endif
 # This include defines goals for install-modes, .deps/.d, autobil.prefixes and .mode files:
 @ap_include@
 
+if ENABLE_LINTER
+TARGETS_COMMON += lint
+endif
+
+.PHONY: lint
+
+lint:
+	apertium-lint
+
 ###############################################################################
 ## {{languageName}} transducer
 ###############################################################################

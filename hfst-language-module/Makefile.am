@@ -26,6 +26,15 @@ endif
 LEXCFLAGS=-v --Werror
 ifnot_lexd}}
 
+if ENABLE_LINTER
+TARGETS_COMMON += lint
+endif
+
+.PHONY: lint
+
+lint:
+	apertium-lint
+
 ###############################################################################
 ## {{languageName}} transducer
 ###############################################################################

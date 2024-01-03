@@ -218,11 +218,13 @@ def main(cli_args=None):  # type: (Optional[List[str]]) -> None
     parser.add_argument('-r', '--rebuild', help='construct module or pair with different features using existing files',
                         action='store_true', default=False)
 
-    parser.add_argument('-a', '--analyser', '--analysers', help='analyser to use for all languages', choices=['lt', 'lttoolbox', 'hfst', 'lexd', 'giella', 'lexc'],
+    parser.add_argument('-a', '--analyser', '--analysers', help='analyser to use for all languages',
+                        choices=['lt', 'lttoolbox', 'hfst', 'lexd', 'giella', 'lexc'],
                         default='lt')
     parser.add_argument('--analyser1', '--a1', help='analyser to use for first language of pair', choices=['lt', 'lttoolbox', 'hfst', 'lexd', 'giella', 'lexc'],
                         default='lt')
-    parser.add_argument('--analyser2', '--a2', help='analyser to use for second language of pair', choices=['lt', 'lttoolbox', 'hfst', 'lexd', 'giella', 'lexc'],
+    parser.add_argument('--analyser2', '--a2', help='analyser to use for second language of pair',
+                        choices=['lt', 'lttoolbox', 'hfst', 'lexd', 'giella', 'lexc'],
                         default='lt')
 
     parser.add_argument('-t', '--transfer', help='structural transfer module to use', choices=['chunk', 'rtx'], default='chunk')

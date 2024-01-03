@@ -19,6 +19,9 @@ AM_COND_IF([ENABLE_SPELLER], [
      [AC_MSG_NOTICE([You will need hfst-ospell installed to use the compiled speller])])
 ])
 
+AC_ARG_ENABLE([linter], AC_HELP_STRING([--enable-linter], [Lint files when compiling]))
+AM_CONDITIONAL([ENABLE_LINTER], [test "x$enable_linter" = "xyes"])
+
 PKG_CHECK_MODULES(REGTEST, apertium-regtest >= 0.9.1, [],
    [AC_MSG_WARN([Running tests requires apertium-regtest])])
 

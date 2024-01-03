@@ -116,6 +116,15 @@ untrimmed: $(TARGETS_DIR1) $(UNTRIMMED_TARGETS_DIR1) $(TARGETS_DIR2) $(UNTRIMMED
 # This include defines goals for install-modes, .deps/.d, autobil.prefixes and .mode files:
 @ap_include@
 
+if ENABLE_LINTER
+TARGETS_COMMON += lint
+endif
+
+.PHONY: lint
+
+lint:
+	apertium-lint
+
 ###############################################################################
 ## Monolingual transducers
 ###############################################################################

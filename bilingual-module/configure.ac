@@ -23,6 +23,9 @@ if_anaphora}}
 PKG_CHECK_MODULES(APERTIUM_RECURSIVE, apertium-recursive >= 1.1.0)
 if_rtx}}
 
+AC_ARG_ENABLE([linter], AC_HELP_STRING([--enable-linter], [Lint files when compiling]))
+AM_CONDITIONAL([ENABLE_LINTER], [test "x$enable_linter" = "xyes"])
+
 AC_PATH_PROGS(ZCAT, [gzcat zcat], [false])
 AS_IF([test x$ZCAT = xfalse], [AC_MSG_ERROR([You don't have zcat nor gzcat installed])])
 
